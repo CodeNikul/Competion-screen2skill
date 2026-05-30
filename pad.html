@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>ArtSpark Pro</title>
+
+<style>
+body{
+  margin:0;
+  background:#0f172a;
+  color:white;
+  font-family:sans-serif;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+}
+
+.toolbar{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  padding:10px;
+  background:#1e293b;
+  width:100%;
+  justify-content:center;
+}
+
+button,input,label{
+  padding:8px;
+  border:none;
+  border-radius:6px;
+  cursor:pointer;
+}
+
+button.active{
+  background:#38bdf8;
+  color:black;
+}
+
+canvas{
+  background:white;
+  margin-top:10px;
+  border-radius:10px;
+}
+</style>
+</head>
+
+<body>
+
+<nav>
+    <div>
+        <a href="Home Index.html">Home</a>
+        <a href="mailto:screen2skills@gmail.com">Contact</a>
+    </div>
+</nav>
+
+<div class="toolbar">
+<input type="color" id="color" value="#000000">
+<input type="range" id="size" min="1" max="30" value="4">
+
+<label>
+  <input type="checkbox" id="fillToggle"> Fill
+</label>
+
+<button data-tool="brush" class="active">Brush</button>
+<button data-tool="eraser">Eraser</button>
+<button data-tool="rect">Rect</button>
+<button data-tool="circle">Circle</button>
+<button data-tool="line">Line</button>
+
+<button id="undo">Undo</button>
+<button id="redo">Redo</button>
+<button id="clear">Clear</button>
+
+<button id="openBtn">Open</button>
+<input type="file" id="fileInput" accept="image/*" hidden>
+
+<button id="save">Save</button>
+</div>
+
+<canvas id="canvas" width="1000" height="550"></canvas>
+
+<script>
+const canvas = document.getElementById("canvas");
+const ctx = canvas.getContext("2d");
+
+let tool = "brush";
+let drawing = false;
+let startX, startY;
+let snapshot = null;
+
+const color = document.getElementById("color");
+const size = document.getElementById("size");
+const fillToggle = document.getElementById("fillToggle");
+
+/* TOOL SWITCH */
+document.querySelectorAll("[data-tool]").forEach(btn=>{
+  btn.onclick = ()=>{
+    tool = btn.dataset.tool;
+    document.querySelectorAll("[data-tool]").forEach(b=>b.classList.remove("active"));
+    btn.classList.add("active");
+  };
+});
+
+/* HISTORY */
+let history = [];
+let redoStack = [];
+
+function saveState(){
+  history.push(canvas.toDataURL());
+  if(history.length > 50) history.shift();
+  redoStack = [];
+}
+
+function loadState(src){
+  const img = new Image();
+  img.src = src;
+  img.onload = ()=>{
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    ctx.drawImage(img,0,0);
+  };
+}
+
+/* DRAW EVENTS */
+canvas.addEventListener("mousedown", e=>{
+  const {x,y} = getPos(e);
+  drawing = true;
+  startX = x;
+  startY = y;
+
+  if(tool !== "brush" && tool !== "eraser"){
+    snapshot = ctx.getImageData(0,0,canvas.width,canvas.height);
+  }
+
+  if(tool === "brush" || tool === "eraser"){
+    ctx.beginPath();
+    ctx.moveTo(x,y);
+  }
+});
+
+canvas.addEventListener("mousemove", e=>{
+  if(!drawing) return;
+  const {x,y} = getPos(e);
+
+  ctx.lineWidth = size.value;
+  ctx.lineCap = "round";
+
+  // Brush
+  if(tool === "brush"){
+    ctx.globalCompositeOperation="source-over";
+    ctx.strokeStyle = color.value;
+    ctx.lineTo(x,y);
+    ctx.stroke();
+  }
+
+  // Eraser
+  else if(tool === "eraser"){
+    ctx.globalCompositeOperation="destination-out";
+    ctx.lineTo(x,y);
+    ctx.stroke();
+  }
+
+  // Shapes preview
+  else{
+    ctx.putImageData(snapshot,0,0);
+
+    ctx.lineWidth = size.value;
+    ctx.strokeStyle = color.value;
+    ctx.fillStyle = color.value;
+
+    if(tool === "rect"){
+      fillToggle.checked
+        ? ctx.fillRect(startX,startY,x-startX,y-startY)
+        : ctx.strokeRect(startX,startY,x-startX,y-startY);
+    }
+
+    if(tool === "circle"){
+      let r = Math.hypot(x-startX,y-startY);
+      ctx.beginPath();
+      ctx.arc(startX,startY,r,0,Math.PI*2);
+      fillToggle.checked ? ctx.fill() : ctx.stroke();
+    }
+
+    if(tool === "line"){
+      ctx.beginPath();
+      ctx.moveTo(startX,startY);
+      ctx.lineTo(x,y);
+      ctx.stroke();
+    }
+  }
+});
+
+canvas.addEventListener("mouseup", e=>{
+  if(!drawing) return;
+  drawing = false;
+
+  const {x,y} = getPos(e);
+
+  if(tool !== "brush" && tool !== "eraser"){
+    ctx.putImageData(snapshot,0,0);
+
+    ctx.strokeStyle = color.value;
+    ctx.fillStyle = color.value;
+
+    if(tool === "rect"){
+      fillToggle.checked
+        ? ctx.fillRect(startX,startY,x-startX,y-startY)
+        : ctx.strokeRect(startX,startY,x-startX,y-startY);
+    }
+
+    if(tool === "circle"){
+      let r = Math.hypot(x-startX,y-startY);
+      ctx.beginPath();
+      ctx.arc(startX,startY,r,0,Math.PI*2);
+      fillToggle.checked ? ctx.fill() : ctx.stroke();
+    }
+
+    if(tool === "line"){
+      ctx.beginPath();
+      ctx.moveTo(startX,startY);
+      ctx.lineTo(x,y);
+      ctx.stroke();
+    }
+  }
+
+  saveState();
+});
+
+/* HELPERS */
+function getPos(e){
+  return {x:e.offsetX, y:e.offsetY};
+}
+
+/* BUTTONS */
+document.getElementById("undo").onclick = ()=>{
+  if(history.length < 2) return;
+  redoStack.push(history.pop());
+  loadState(history[history.length-1]);
+};
+
+document.getElementById("redo").onclick = ()=>{
+  if(!redoStack.length) return;
+  const state = redoStack.pop();
+  history.push(state);
+  loadState(state);
+};
+
+document.getElementById("clear").onclick = ()=>{
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  saveState();
+};
+
+/* SAVE */
+document.getElementById("save").onclick = ()=>{
+  canvas.toBlob(blob=>{
+    const link = document.createElement("a");
+    link.download = "drawing.png";
+    link.href = URL.createObjectURL(blob);
+    link.click();
+  });
+};
+
+/* OPEN */
+document.getElementById("openBtn").onclick = ()=>{
+  document.getElementById("fileInput").click();
+};
+
+document.getElementById("fileInput").onchange = e=>{
+  const file = e.target.files[0];
+  if(!file) return;
+
+  const reader = new FileReader();
+  reader.onload = evt=>{
+    const img = new Image();
+    img.onload = ()=>{
+      ctx.clearRect(0,0,canvas.width,canvas.height);
+      ctx.drawImage(img,0,0,canvas.width,canvas.height);
+      saveState();
+    };
+    img.src = evt.target.result;
+  };
+  reader.readAsDataURL(file);
+};
+
+/* INIT */
+saveState();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Explore Projects</title>
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Quicksand:wght@500;700&display=swap"
+rel="stylesheet">
+
+<style>
+
+/* ---------------- GLOBAL ---------------- */
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+:root{
+  --orange:#ff7a00;
+  --blue:#0094ff;
+  --green:#39d353;
+  --dark:#08294d;
+}
+
+body{
+
+  font-family:'Quicksand',sans-serif;
+
+  min-height:100vh;
+
+  background:
+  radial-gradient(circle at top left,#d7efff 0%,transparent 30%),
+  radial-gradient(circle at top right,#ffe8d1 0%,transparent 30%),
+  linear-gradient(180deg,#eef8ff,#ffffff);
+
+  padding:40px 20px;
+}
+
+h1,h2,h3{
+  font-family:'Fredoka',sans-serif;
+}
+
+/* ---------------- HEADER ---------------- */
+
+.header{
+
+  text-align:center;
+
+  margin-bottom:60px;
+}
+
+.badge{
+
+  display:inline-block;
+
+  background:#ffe6e3;
+
+  color:#ff4747;
+
+  padding:8px 18px;
+
+  border-radius:20px;
+
+  font-size:13px;
+
+  font-weight:700;
+
+  margin-bottom:22px;
+}
+
+.header h1{
+
+  font-size:68px;
+
+  color:var(--dark);
+
+  margin-bottom:20px;
+}
+
+.header p{
+
+  font-size:21px;
+
+  color:#555;
+
+  max-width:800px;
+
+  margin:auto;
+
+  line-height:1.7;
+}
+
+/* ---------------- PROJECT GRID ---------------- */
+
+.project-grid{
+
+  max-width:1300px;
+
+  margin:auto;
+
+  display:grid;
+
+  grid-template-columns:
+  repeat(auto-fit,minmax(320px,1fr));
+
+  gap:35px;
+}
+
+/* ---------------- CARDS ---------------- */
+
+.project-card{
+
+  background:white;
+
+  border-radius:34px;
+
+  padding:35px;
+
+  box-shadow:0 15px 35px rgba(0,0,0,0.08);
+
+  transition:0.35s;
+
+  position:relative;
+
+  overflow:hidden;
+}
+
+.project-card:hover{
+
+  transform:translateY(-12px) scale(1.02);
+}
+
+.icon{
+
+  width:95px;
+  height:95px;
+
+  border-radius:28px;
+
+  display:flex;
+  justify-content:center;
+  align-items:center;
+
+  font-size:42px;
+
+  margin-bottom:25px;
+}
+
+/* CARD COLORS */
+
+.robotics .icon{
+
+  background:#e8fff0;
+
+  color:var(--green);
+}
+
+.research .icon{
+
+  background:#e7f4ff;
+
+  color:var(--blue);
+}
+
+.creative .icon{
+
+  background:#fff0da;
+
+  color:var(--orange);
+}
+
+/* ---------------- CARD TEXT ---------------- */
+
+.project-card h2{
+
+  font-size:36px;
+
+  color:var(--dark);
+
+  margin-bottom:14px;
+}
+
+.project-card p{
+
+  color:#555;
+
+  line-height:1.8;
+
+  font-size:17px;
+
+  margin-bottom:25px;
+}
+
+/* ---------------- TAGS ---------------- */
+
+.tags{
+
+  display:flex;
+
+  flex-wrap:wrap;
+
+  gap:10px;
+
+  margin-bottom:25px;
+}
+
+.tag{
+
+  background:#f2f7ff;
+
+  color:#444;
+
+  padding:8px 14px;
+
+  border-radius:18px;
+
+  font-size:13px;
+
+  font-weight:700;
+}
+
+/* ---------------- BUTTON ---------------- */
+
+.project-btn{
+
+  display:inline-block;
+
+  background:linear-gradient(135deg,#ff7a00,#ffb347);
+
+  color:white;
+
+  padding:14px 24px;
+
+  border-radius:28px;
+
+  font-weight:700;
+
+  transition:0.3s;
+}
+
+.project-btn:hover{
+
+  transform:scale(1.05);
+}
+
+/* ---------------- FOOTER ---------------- */
+
+.footer{
+
+  margin-top:70px;
+
+  text-align:center;
+}
+
+.footer p{
+
+  color:#666;
+
+  font-size:16px;
+}
+
+/* ---------------- RESPONSIVE ---------------- */
+
+@media(max-width:768px){
+
+  .header h1{
+    font-size:46px;
+  }
+
+  .header p{
+    font-size:17px;
+  }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+
+<section class="header">
+
+  <div class="badge">
+    EXPLORE & CREATE
+  </div>
+
+  <h1>
+    Explore Projects 🚀
+  </h1>
+
+  <p>
+    Discover exciting hands-on projects that transform digital habits into creativity, innovation, and future-ready skills.
+  </p>
+
+</section>
+
+<!-- PROJECTS -->
+
+<section class="project-grid">
+
+  <!-- ROBOTICS -->
+
+  <div class="project-card robotics">
+
+    <div class="icon">
+
+      <i class="fa-solid fa-robot"></i>
+
+    </div>
+
+    <h2>
+      3D Model Makeing
+    </h2>
+
+    <p>
+      Learn 3D Designing, through interactive activities and challenges.
+    </p>
+
+    <div class="tags">
+
+      <div class="tag">
+        Technology
+      </div>
+
+      <div class="tag">
+        Models
+      </div>
+
+      <div class="tag">
+        3D
+      </div>
+
+    </div>
+
+    <a href="ws.html"
+    class="project-btn">
+
+      Open Project
+
+    </a>
+
+  </div>
+
+  <!-- RESEARCH -->
+
+  <div class="project-card research">
+
+    <div class="icon">
+
+      <i class="fa-solid fa-chart-column"></i>
+
+    </div>
+
+    <h2>
+      Pixel Art
+    </h2>
+
+    <p>
+      Learn About Pixels, Art, through interactive activities and challenges.
+.
+    </p>
+
+    <div class="tags">
+
+      <div class="tag">
+        Blocks
+      </div>
+
+      <div class="tag">
+        ART
+      </div>
+
+      <div class="tag">
+        Pixels
+      </div>
+
+    </div>
+
+    <a href="pixel.html"
+    class="project-btn">
+
+      Explore Research
+
+    </a>
+
+  </div>
+
+  <!-- CREATIVE -->
+
+  <div class="project-card creative">
+
+    <div class="icon">
+
+      <i class="fa-solid fa-palette"></i>
+
+    </div>
+
+    <h2>
+      Creative Painting
+    </h2>
+
+    <p>
+      Learn painting creation skills creatively.
+    </p>
+
+    <div class="tags">
+
+      <div class="tag">
+        Creativity
+      </div>
+
+      <div class="tag">
+        ART
+      </div>
+
+      <div class="tag">
+        Design
+      </div>
+
+    </div>
+
+    <a href="pad.html"
+    class="project-btn">
+
+      Start Creating
+
+    </a>
+
+  </div>
+
+</section>
+
+<!-- FOOTER -->
+
+<div class="footer">
+
+  <p>
+    SKILL-BUILDERS • Turning Digital Habits Into Real Skills 🌟
+  </p>
+
+</div>
+
+</body>
+</html>

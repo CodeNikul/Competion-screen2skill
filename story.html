@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>Screen2Skill | From Screens to Skills — Orange Edition</title>
+  <!-- Google Fonts + Icons + Libraries -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&family=Orbitron:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: radial-gradient(circle at 10% 20%, #1a0b02, #0a0501);
+      color: #fff5e6;
+      font-family: 'Inter', sans-serif;
+      overflow-x: hidden;
+      line-height: 1.5;
+      scroll-behavior: smooth;
+    }
+
+    /* futuristic scrollbar - orange */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #1e130c;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #f97316;
+      border-radius: 10px;
+    }
+
+    /* floating tech icons background - orange tones */
+    .floating-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+    .float-icon {
+      position: absolute;
+      font-size: 2rem;
+      color: rgba(255, 100, 30, 0.12);
+      animation: floatAnim 18s infinite alternate ease-in-out;
+      user-select: none;
+    }
+    @keyframes floatAnim {
+      0% { transform: translateY(0px) rotate(0deg); opacity: 0.1; }
+      100% { transform: translateY(-60px) rotate(8deg); opacity: 0.35; }
+    }
+
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      position: relative;
+      z-index: 2;
+    }
+
+    section {
+      padding: 5rem 0;
+      border-bottom: 1px solid rgba(255, 120, 30, 0.2);
+    }
+
+    /* glassmorphism + neon orange */
+    .glass-card {
+      background: rgba(30, 15, 5, 0.6);
+      backdrop-filter: blur(12px);
+      border-radius: 2rem;
+      border: 1px solid rgba(255, 100, 0, 0.45);
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.4), 0 0 12px rgba(255, 100, 0, 0.3);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .glass-card:hover {
+      transform: translateY(-6px);
+      border-color: #ff9f4a;
+      box-shadow: 0 20px 40px rgba(255, 80, 0, 0.4), 0 0 18px #ff7a2f;
+    }
+
+    h1, h2, h3, .futuristic-text {
+      font-family: 'Orbitron', monospace;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    h2 {
+      font-size: 2.8rem;
+      background: linear-gradient(135deg, #ffbc6e, #ff8c42, #ff5e00);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      margin-bottom: 2rem;
+      display: inline-block;
+    }
+
+    .glow-button {
+      background: linear-gradient(95deg, #4a2a10, #7a3a10);
+      border: 1px solid rgba(255, 140, 0, 0.8);
+      color: white;
+      padding: 0.8rem 2rem;
+      border-radius: 3rem;
+      font-weight: 600;
+      transition: all 0.25s;
+      cursor: pointer;
+      box-shadow: 0 0 8px #ff8800;
+    }
+    .glow-button:hover {
+      background: linear-gradient(95deg, #ff7a2f, #ff5500);
+      box-shadow: 0 0 20px #ff8c00;
+      transform: scale(1.02);
+      border-color: #ffc107;
+    }
+
+    /* Hero */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      text-align: center;
+      position: relative;
+    }
+    .hero h1 {
+      font-size: 5.5rem;
+      background: linear-gradient(125deg, #fff5e6, #ffb347, #ff7e05);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      letter-spacing: -0.02em;
+    }
+    @media (max-width: 768px) {
+      .hero h1 { font-size: 3rem; }
+      h2 { font-size: 2rem; }
+      .container { padding: 0 1.2rem; }
+    }
+
+    /* stats cards & dashboard */
+    .stats-grid, .insight-grid, .stories-grid, .habits-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.8rem;
+      margin-top: 2rem;
+    }
+
+    .stat-card {
+      padding: 1.8rem;
+      border-radius: 1.8rem;
+      background: rgba(25, 12, 5, 0.75);
+      backdrop-filter: blur(10px);
+      border-left: 4px solid #ff8c42;
+      transition: all 0.2s;
+    }
+
+    .dashboard-charts {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      justify-content: center;
+    }
+    .chart-box {
+      flex: 1;
+      min-width: 260px;
+      background: rgba(20, 8, 2, 0.65);
+      backdrop-filter: blur(8px);
+      border-radius: 1.5rem;
+      padding: 1rem;
+      border: 1px solid #ff9f4a66;
+    }
+    canvas { max-height: 260px; width: 100%; }
+
+    /* Chatbot - orange glow */
+    .chat-container {
+      background: rgba(0, 0, 0, 0.65);
+      backdrop-filter: blur(16px);
+      border-radius: 2rem;
+      border: 1px solid #ff8c42;
+      box-shadow: 0 0 24px #ff7b2c;
+      overflow: hidden;
+      transition: all 0.3s;
+    }
+    .chat-messages {
+      height: 280px;
+      overflow-y: auto;
+      padding: 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+    }
+    .message {
+      max-width: 85%;
+      padding: 0.7rem 1rem;
+      border-radius: 1.5rem;
+      font-size: 0.9rem;
+    }
+    .user-msg {
+      align-self: flex-end;
+      background: linear-gradient(135deg, #b45309, #ff7b2f);
+      border: 1px solid #ffb347;
+    }
+    .ai-msg {
+      align-self: flex-start;
+      background: rgba(45, 25, 10, 0.95);
+      border-left: 3px solid #ff9f4a;
+    }
+    .chat-input-area {
+      display: flex;
+      border-top: 1px solid #ff9f4a;
+    }
+    .chat-input-area input {
+      flex: 1;
+      background: transparent;
+      border: none;
+      padding: 1rem;
+      color: white;
+      outline: none;
+    }
+    .chat-input-area button {
+      background: #ff7b2f;
+      border: none;
+      padding: 0 1.5rem;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    .chat-input-area button:hover {
+      background: #ff5500;
+    }
+
+    .suggest-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      padding: 0.8rem;
+      background: rgba(30, 12, 2, 0.5);
+    }
+    .suggest-chip {
+      background: #3b1e0a;
+      border-radius: 2rem;
+      padding: 0.4rem 1rem;
+      font-size: 0.75rem;
+      cursor: pointer;
+      transition: 0.2s;
+      border: 0.5px solid #ffaa55;
+    }
+    .suggest-chip:hover {
+      background: #ff7b2f;
+      color: #1a0b02;
+    }
+
+    .footer {
+      background: #0f0702d9;
+      backdrop-filter: blur(12px);
+      padding: 2.5rem 0;
+      text-align: center;
+      border-top: 1px solid rgba(255, 120, 30, 0.5);
+    }
+
+    .social-icons a {
+      color: #e6ccb3;
+      margin: 0 0.6rem;
+      font-size: 1.6rem;
+      transition: 0.2s;
+    }
+    .social-icons a:hover { color: #ff9f4a; text-shadow: 0 0 5px #ff8800; }
+
+    .interactive-card-btn {
+      margin-top: 1rem;
+      background: none;
+      border: 1px solid #ffaa66;
+      padding: 0.3rem 1rem;
+      border-radius: 2rem;
+      color: #ffcc88;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    .interactive-card-btn:hover {
+      background: #ff7b2f;
+      color: black;
+      border-color: white;
+    }
+    .text-center { text-align: center; }
+    .mt-2 { margin-top: 0.6rem; }
+    .chat-messages::-webkit-scrollbar { width: 4px; }
+    i.fa, i.fas, i.far { margin-right: 6px; }
+  </style>
+</head>
+<body>
+  <div class="floating-bg" id="floatingBg"></div>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="container" style="text-align: center;">
+      <h1 data-aos="zoom-in-up" data-aos-duration="1000">Scroll. Learn. Grow.</h1>
+      <p style="font-size: 1.4rem; max-width: 700px; margin: 1.5rem auto; color: #ffd5b5;" data-aos="fade-up" data-aos-delay="200">
+        Transforming digital distractions into opportunities for learning, creativity, and skill development.
+      </p>
+      <div data-aos="fade-up" data-aos-delay="400">
+        <button class="glow-button" onclick="document.getElementById('problem').scrollIntoView({behavior:'smooth'})"><i class="fas fa-arrow-down"></i> Discover Journey</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 1: The Problem -->
+  <section id="problem">
+    <div class="container">
+      <h2 data-aos="fade-right">⚡ The Distraction Crisis</h2>
+      <div class="stats-grid" data-aos="fade-up">
+        <div class="stat-card"><i class="fas fa-mobile-alt fa-2x" style="color:#ff8c42;"></i><h3>7.2h</h3><p>Average daily screen time (students)</p><small>72% on entertainment & socials</small></div>
+        <div class="stat-card"><i class="fas fa-gamepad fa-2x" style="color:#ffaa33;"></i><h3>3.1h</h3><p>Wasted on gaming / short videos</p><small>Only 1 in 4 uses screen for learning</small></div>
+        <div class="stat-card"><i class="fas fa-brain fa-2x" style="color:#ffb347;"></i><h3>68%</h3><p>Feel overwhelmed & distracted</p><small>Mental fatigue, reduced focus</small></div>
+      </div>
+      <div class="glass-card" style="padding: 1.8rem; margin-top: 1.5rem;" data-aos="fade-up">
+        <p style="font-size: 1.1rem;"><i class="fas fa-chart-line" style="color:#ff9f4a;"></i> “Endless scrolling steals time, but worse — it steals potential. 87% of students confess their screen habits interfere with studies.”</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 2: The Turning Point -->
+  <section>
+    <div class="container">
+      <h2 data-aos="fade-left">🚀 The Turning Point</h2>
+      <p data-aos="fade-up">What if screens became launchpads for growth? Meet the productive shift →</p>
+      <div class="stats-grid" data-aos="zoom-in">
+        <div class="glass-card" style="padding:1.5rem; text-align:center;"><i class="fas fa-laptop-code fa-3x" style="color: #ffaa55;"></i><h3 style="margin-top: 0.8rem;">Online Learning</h3><small>Coursera, Khan Academy, YouTube EDU</small></div>
+        <div class="glass-card" style="padding:1.5rem; text-align:center;"><i class="fas fa-microchip fa-3x" style="color: #ff9f4a;"></i><h3>AI Tools</h3><small>ChatGPT, Copilot, Midjourney</small></div>
+        <div class="glass-card" style="padding:1.5rem; text-align:center;"><i class="fas fa-chalkboard-user fa-3x" style="color: #ffb347;"></i><h3>Skill Building</h3><small>Coding, Design, Communication</small></div>
+        <div class="glass-card" style="padding:1.5rem; text-align:center;"><i class="fas fa-graduation-cap fa-3x" style="color: #ffaa33;"></i><h3>Creative Tech</h3><small>Podcasting, 3D, No-code</small></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 3: Survey Insights Dashboard (Orange Palette charts) -->
+  <section>
+    <div class="container">
+      <h2 data-aos="fade-up">📊 Survey Insights Dashboard</h2>
+      <p data-aos="fade-up">Real data from 350+ students: screen habits transformation journey</p>
+      <div class="dashboard-charts" data-aos="fade-up">
+        <div class="chart-box"><canvas id="pieChartSurvey" width="400" height="300"></canvas><p class="text-center mt-2">Screen Usage Categories</p></div>
+        <div class="chart-box"><canvas id="barChartProductive" width="400" height="300"></canvas><p class="text-center mt-2">Top Productive Activities 🚀</p></div>
+      </div>
+      <div class="stats-grid" style="margin-top: 2rem;" data-aos="fade-up">
+        <div class="stat-card"><i class="fas fa-chart-simple"></i> <strong>+47%</strong><br>Boost in learning after screen-habit reset</div>
+        <div class="stat-card"><i class="fas fa-clock"></i> <strong>2.8h → 5.1h</strong><br>Productive screen time increase per day</div>
+        <div class="stat-card"><i class="fas fa-users"></i> <strong>83%</strong><br>Want to learn digital skills actively</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 4: AI Study Assistant (Chatbot - Orange theme) -->
+  <section>
+    <div class="container">
+      <h2 data-aos="flip-up">🤖 AI Study Assistant</h2>
+      <p>Get smart tips, skill roadmaps & healthy digital habits — powered by futuristic AI</p>
+      <div class="chat-container" data-aos="fade-up">
+        <div class="chat-messages" id="chatMessages">
+          <div class="message ai-msg">🔥 Hi! I'm Screen2Skill AI (Orange Edition). Ask me about study tips, productivity, skill recommendations, or healthy screen habits!</div>
+        </div>
+        <div class="suggest-buttons" id="suggestChips">
+          <div class="suggest-chip" data-question="Study tips">📘 Study tips</div>
+          <div class="suggest-chip" data-question="Productivity advice">⚡ Productivity advice</div>
+          <div class="suggest-chip" data-question="Skill recommendations">🎯 Skill recommendations</div>
+          <div class="suggest-chip" data-question="Healthy screen habits">🧘 Healthy habits</div>
+        </div>
+        <div class="chat-input-area">
+          <input type="text" id="chatInput" placeholder="Ask me anything... e.g., 'How to focus?'" autocomplete="off">
+          <button id="sendChatBtn"><i class="fas fa-paper-plane"></i></button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 5: Success Stories -->
+  <section>
+    <div class="container">
+      <h2 data-aos="fade-right">🌟 Success Stories</h2>
+      <div class="stories-grid" data-aos="fade-up">
+        <div class="glass-card" style="padding:1.5rem;"><i class="fas fa-code fa-2x" style="color:#ffaa55;"></i><h3>Riya S.</h3><p>"Started with freeCodeCamp & YouTube coding tutorials — now I’m a front-end intern at 17!"</p><small>📱 Screen-to-Skill: Web Development</small></div>
+        <div class="glass-card" style="padding:1.5rem;"><i class="fas fa-palette fa-2x" style="color:#ff9f4a;"></i><h3>Arjun M.</h3><p>"Used design tools like Figma & Canva daily, won national designathon. My hobby became career path."</p><small>🎨 Creative Design</small></div>
+        <div class="glass-card" style="padding:1.5rem;"><i class="fas fa-microphone-alt fa-2x" style="color:#ffb347;"></i><h3>Simran K.</h3><p>"Listened to podcasts & practiced communication on Zoom — now public speaking champion."</p><small>🗣️ Communication</small></div>
+        <div class="glass-card" style="padding:1.5rem;"><i class="fas fa-chart-line fa-2x" style="color:#ffaa33;"></i><h3>Kunal V.</h3><p>"Mastered AI prompting & data analytics courses — built a portfolio that impressed recruiters."</p><small>📊 AI & Data</small></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 6: Healthy Screen Habits (interactive orange cards) -->
+  <section>
+    <div class="container">
+      <h2 data-aos="fade-left">🧘 Healthy Screen Habits</h2>
+      <div class="habits-grid" data-aos="zoom-in">
+        <div class="glass-card" style="padding:1.6rem;"><i class="fas fa-hourglass-half fa-2x"></i><h3>Time Management</h3><p>Pomodoro 25/5, schedule app blocks</p><button class="interactive-card-btn" onclick="alert('⏲️ Tip: Use Forest / Flora app to limit distractions. 90-min deep work cycles boost retention.')">Get tip</button></div>
+        <div class="glass-card" style="padding:1.6rem;"><i class="fas fa-spa fa-2x"></i><h3>Digital Wellness</h3><p>20-20-20 rule, blue light filters</p><button class="interactive-card-btn" onclick="alert('🧘 Digital sunset: avoid screens 1h before bed. Use grayscale mode to reduce addiction.')">Get tip</button></div>
+        <div class="glass-card" style="padding:1.6rem;"><i class="fas fa-rocket fa-2x"></i><h3>Productive Apps</h3><p>Notion, Anki, Duolingo, Brilliant</p><button class="interactive-card-btn" onclick="alert('📱 Try \'Opal\' or \'Freedom\' to lock distracting apps. Replace scrolling with microlearning apps!')">Get tip</button></div>
+        <div class="glass-card" style="padding:1.6rem;"><i class="fas fa-bullseye fa-2x"></i><h3>Focus Techniques</h3><p>Deep work zones, distraction-free mode</p><button class="interactive-card-btn" onclick="alert('🧠 Use binaural beats, block notifications, start each session with a clear goal. #FlowState')">Get tip</button></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 7: Final Message -->
+  <section>
+    <div class="container" style="text-align: center;">
+      <div data-aos="flip-up" class="glass-card" style="padding: 3rem;">
+        <h2 style="font-size: 2rem;">“Screens are not the enemy.<br> How we use them defines our future.”</h2>
+        <p style="margin-top: 1rem; font-size: 1.2rem;">Choose wisely. Build skills. Create impact.</p>
+        <i class="fas fa-lightbulb" style="font-size: 3rem; margin-top: 1rem; color: #ffaa44;"></i>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="social-icons">
+        <a href="#"><i class="fab fa-twitter"></i></a>
+        <a href="#"><i class="fab fa-github"></i></a>
+        <a href="#"><i class="fab fa-instagram"></i></a>
+        <a href="#"><i class="fab fa-linkedin"></i></a>
+      </div>
+      <div style="margin: 1.5rem 0;">
+        <h3>✨ Team Screen2Skill ✨</h3>
+        <p>Project Lead: Nikul Tyagi | Research: Nikul Tyagi | Design & Dev: Nikul Tyagi, Alabhaya Mishra</p>
+        <p>🏆 School Competition Project - "From Screens to Skills" | Digital Wellness Initiative 2025</p>
+      </div>
+      <p style="opacity: 0.7;">© 2025 Screen2Skill – Reclaiming digital potential. All visions forward.</p>
+    </div>
+  </footer>
+
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    AOS.init({ duration: 800, once: false, mirror: true, offset: 50 });
+
+    // FLOATING ICONS (orange tint)
+    const iconsList = ["fa-laptop-code", "fa-mobile-alt", "fa-chalkboard-user", "fa-brain", "fa-robot", "fa-graduation-cap", "fa-chart-line", "fa-code", "fa-paintbrush", "fa-gamepad", "fa-clock", "fa-fire"];
+    const floatingContainer = document.getElementById('floatingBg');
+    for(let i=0; i<36; i++) {
+      let icon = document.createElement('i');
+      let randIcon = iconsList[Math.floor(Math.random() * iconsList.length)];
+      icon.className = `fas ${randIcon} float-icon`;
+      let size = Math.floor(Math.random() * 30 + 18);
+      icon.style.fontSize = size + 'px';
+      icon.style.left = Math.random() * 100 + '%';
+      icon.style.top = Math.random() * 100 + '%';
+      icon.style.animationDuration = Math.random() * 14 + 10 + 's';
+      icon.style.animationDelay = Math.random() * 6 + 's';
+      icon.style.opacity = Math.random() * 0.25 + 0.05;
+      floatingContainer.appendChild(icon);
+    }
+
+    // CHARTS (Orange Theme)
+    // Pie Chart: Screen time categories
+    const ctxPie = document.getElementById('pieChartSurvey').getContext('2d');
+    new Chart(ctxPie, {
+      type: 'pie',
+      data: {
+        labels: ['Social Media', 'Gaming', 'Learning/Study', 'Creative Tools', 'Other'],
+        datasets: [{
+          data: [38, 27, 22, 9, 4],
+          backgroundColor: ['#ff5e00', '#ff8c42', '#ffb347', '#ffd966', '#ffaa66'],
+          borderWidth: 0
+        }]
+      },
+      options: { responsive: true, maintainAspectRatio: true, plugins: { legend: { labels: { color: '#ffddbb' } } } }
+    });
+    // Bar Chart: Productive activities
+    const ctxBar = document.getElementById('barChartProductive').getContext('2d');
+    new Chart(ctxBar, {
+      type: 'bar',
+      data: {
+        labels: ['Coding', 'Graphic Design', 'AI Tools', 'Languages', 'Content Creation'],
+        datasets: [{
+          label: 'Students engaged (%)',
+          data: [44, 31, 28, 37, 24],
+          backgroundColor: ['#ff7b2f', '#ff9f4a', '#ffb347', '#ffaa55', '#ffcc88'],
+          borderRadius: 12
+        }]
+      },
+      options: { responsive: true, maintainAspectRatio: true, scales: { y: { grid: { color: '#7a4a2a' }, ticks: { color: '#ffd9bb' } }, x: { ticks: { color: '#ffd9bb' } } }, plugins: { legend: { labels: { color: '#ffccaa' } } } }
+    });
+
+    // ---------- AI CHATBOT LOGIC (orange-friendly responses) ----------
+    const chatMessages = document.getElementById('chatMessages');
+    const chatInput = document.getElementById('chatInput');
+    const sendBtn = document.getElementById('sendChatBtn');
+
+    function addMessage(text, sender) {
+      const msgDiv = document.createElement('div');
+      msgDiv.classList.add('message', sender === 'user' ? 'user-msg' : 'ai-msg');
+      msgDiv.innerHTML = sender === 'user' ? `<i class="fas fa-user-astronaut"></i> ${text}` : `<i class="fas fa-robot"></i> ${text}`;
+      chatMessages.appendChild(msgDiv);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+
+    function getAIResponse(userMsg) {
+      const lower = userMsg.toLowerCase();
+      if (lower.includes('study tip') || lower.includes('study technique') || lower.includes('how to study')) {
+        return "📚 Study Tips: Use active recall & spaced repetition. Try the Feynman technique: teach what you learn. Set a distraction-free zone with Pomodoro (25 min focus + 5 break).";
+      } else if (lower.includes('productivity') || lower.includes('focus') || lower.includes('time management')) {
+        return "⚡ Productivity advice: Block social apps, create a 'deep work' schedule, use 2-minute rule (do tasks under 2 min immediately). Track screen time with digital wellbeing tools.";
+      } else if (lower.includes('skill') || lower.includes('recommendation') || lower.includes('learn')) {
+        return "🎯 Skill Recommendations: Web Development (The Odin Project), UI/UX (Google Cert), Data Analysis (Python + Kaggle), AI Prompt Engineering, Digital marketing, or Podcasting. Start with 20min/day!";
+      } else if (lower.includes('healthy habit') || lower.includes('screen habit') || lower.includes('digital wellness')) {
+        return "🧘 Healthy Screen Habits: 20-20-20 rule (look away every 20 min), enable grayscale mode, screen-free mornings, use app timers, and practice device-free weekends.";
+      } else if (lower.includes('hello') || lower.includes('hi')) {
+        return "Hey there! 👋 I'm your Screen2Skill coach (Orange Edition). Ask about study tips, skill roadmaps, or digital wellness!";
+      } else {
+        return "💡 Great question! To transform screen time, focus on microlearning (5-15 min skill sessions), replace scrolling with Duolingo/Codecademy, and join accountability groups. Want specific tips? Ask about \"productivity\" or \"skill recommendations\"!";
+      }
+    }
+
+    function sendMessage() {
+      let text = chatInput.value.trim();
+      if (text === "") return;
+      addMessage(text, 'user');
+      chatInput.value = '';
+      setTimeout(() => {
+        const reply = getAIResponse(text);
+        addMessage(reply, 'ai');
+      }, 400);
+    }
+
+    sendBtn.addEventListener('click', sendMessage);
+    chatInput.addEventListener('keypress', (e) => { if(e.key === 'Enter') sendMessage(); });
+
+    // suggestion chips
+    const chips = document.querySelectorAll('.suggest-chip');
+    chips.forEach(chip => {
+      chip.addEventListener('click', () => {
+        const question = chip.getAttribute('data-question');
+        chatInput.value = question;
+        sendMessage();
+      });
+    });
+
+    // smooth anchor for internal nav
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        const href = this.getAttribute('href');
+        if(href && href !== "#") {
+          e.preventDefault();
+          document.querySelector(href)?.scrollIntoView({ behavior: 'smooth' });
+        }
+      });
+    });
+  </script>
+</body>
+</html>

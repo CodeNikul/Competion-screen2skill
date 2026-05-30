@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>⚡ Tech & AI Quiz Challenge ⚡</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: #f0f7ff; 
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .quiz-container {
+            display: flex;
+            background: white;
+            border-radius: 24px;
+            box-shadow: 0 15px 35px rgba(59, 130, 246, 0.15);
+            width: 100%;
+            max-width: 1050px;
+            overflow: hidden;
+            border: 3px solid #ffedd5; 
+        }
+
+        /* LEFT SIDE: Avatar Panel */
+        .avatar-panel {
+            flex: 1.1;
+            background: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 100%); 
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+            border-right: 3px solid #ffedd5;
+            min-width: 360px;
+        }
+
+        .avatar-bubble {
+            background: white;
+            padding: 15px 20px;
+            border-radius: 18px;
+            margin-bottom: 25px;
+            position: relative;
+            font-weight: bold;
+            color: #1e3a8a;
+            text-align: center;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.05);
+            max-width: 90%;
+            border: 2px solid #fdba74; 
+        }
+
+        .avatar-bubble::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-width: 10px 10px 0;
+            border-style: solid;
+            border-color: white transparent;
+            display: block;
+            width: 0;
+        }
+
+        /* Sleek & Cute Futuristic Cyber-Bot Vector Avatar */
+        .avatar-svg {
+            width: 260px;
+            height: 260px;
+            transition: transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            filter: drop-shadow(0 10px 20px rgba(30, 58, 138, 0.15));
+        }
+
+        /* RIGHT SIDE: Quiz Content Panel */
+        .quiz-panel {
+            flex: 1.4;
+            padding: 45px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            background-color: #ffffff;
+            position: relative;
+        }
+
+        /* Modern Navigation Tabs */
+        .nav-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 25px;
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 10px;
+        }
+
+        .tab-btn {
+            background: none;
+            border: none;
+            font-size: 1rem;
+            font-weight: 700;
+            color: #64748b;
+            cursor: pointer;
+            padding: 8px 16px;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+        }
+
+        .tab-btn.active-tab {
+            color: #f97316;
+            background-color: #fff7ed;
+        }
+
+        .test-selector-screen, .quiz-screen, .result-screen, .about-screen {
+            display: none;
+        }
+
+        .active {
+            display: block;
+        }
+
+        h2 {
+            color: #0f172a;
+            margin-bottom: 15px;
+            font-size: 1.7rem;
+        }
+
+        /* About Section Custom Styling */
+        .about-card {
+            background: #f8fafc;
+            border: 2px solid #e2e8f0;
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 15px;
+        }
+
+        .about-meta {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-top: 15px;
+        }
+
+        .meta-item {
+            background: white;
+            padding: 12px;
+            border-radius: 10px;
+            border: 1px solid #e2e8f0;
+            font-size: 0.95rem;
+            color: #334155;
+        }
+
+        .meta-item strong {
+            color: #0284c7;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 14px;
+            margin-top: 15px;
+        }
+
+        .btn {
+            background-color: #ffffff;
+            color: #334155;
+            border: 2.5px solid #cbd5e1;
+            padding: 16px 20px;
+            border-radius: 16px;
+            font-size: 1.05rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-align: left;
+        }
+
+        .btn:hover {
+            border-color: #f97316; 
+            color: #f97316;
+            background-color: #fff7ed;
+            transform: translateY(-2px);
+        }
+
+        .options-list {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            margin-top: 25px;
+        }
+
+        .option-btn {
+            text-align: left;
+            width: 100%;
+            border-color: #bae6fd; 
+        }
+
+        .option-btn:hover {
+            border-color: #0284c7; 
+            color: #0284c7;
+            background-color: #f0f9ff;
+        }
+
+        .progress-bar {
+            background: #e2e8f0;
+            height: 10px;
+            border-radius: 6px;
+            margin-bottom: 30px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            background: linear-gradient(90deg, #3b82f6, #f97316); 
+            height: 100%;
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        .score-text {
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: #0f172a;
+            margin-bottom: 25px;
+        }
+
+        .action-btn {
+            background-color: #f97316; 
+            color: white;
+            border: none;
+            text-align: center;
+            display: inline-block;
+            margin-top: 15px;
+            padding: 16px 32px;
+        }
+        
+        .action-btn:hover {
+            background-color: #ea580c;
+            color: white;
+        }
+
+        @media (max-width: 820px) {
+            .quiz-container {
+                flex-direction: column;
+            }
+            .avatar-panel {
+                border-right: none;
+                border-bottom: 3px solid #ffedd5;
+                min-width: 100%;
+                padding: 30px 20px;
+            }
+            .grid-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="quiz-container">
+    
+    <!-- LEFT SIDE: Cute Cyber Bot Panel -->
+    <div class="avatar-panel">
+        <div class="avatar-bubble" id="avatarTalk">Systems Online! Ready to check your digital knowledge metrics? Pick a level!</div>
+        
+        <svg class="avatar-svg" id="avatarGraphic" viewBox="0 0 100 100">
+            <circle cx="50" cy="50" r="45" fill="#f97316" opacity="0.08"/>
+            <circle cx="50" cy="50" r="38" fill="#3b82f6" opacity="0.05"/>
+            
+            <rect x="10" y="42" width="6" height="16" rx="3" fill="#cbd5e1" stroke="#94a3b8" stroke-width="1"/>
+            <rect x="84" y="42" width="6" height="16" rx="3" fill="#cbd5e1" stroke="#94a3b8" stroke-width="1"/>
+            <circle cx="13" cy="50" r="2" fill="#f97316" />
+            <circle cx="87" cy="50" r="2" fill="#f97316" />
+
+            <ellipse cx="50" cy="12" rx="14" ry="4" fill="none" stroke="#f97316" stroke-width="2.5" stroke-dasharray="4,2"/>
+            <path d="M50,12 L50,22" stroke="#f97316" stroke-width="2" stroke-linecap="round"/>
+
+            <circle cx="50" cy="52" r="32" fill="#e2e8f0" stroke="#cbd5e1" stroke-width="1.5" />
+            <path d="M26,72 C32,82 68,82 74,72 Z" fill="#ffffff" opacity="0.6"/>
+
+            <rect x="24" y="32" width="52" height="32" rx="12" fill="#1e293b" stroke="#475569" stroke-width="1.5" />
+            
+            <line x1="28" y1="42" x2="72" y2="42" stroke="#334155" stroke-width="0.5" stroke-dasharray="2,2" />
+            <line x1="28" y1="54" x2="72" y2="54" stroke="#334155" stroke-width="0.5" stroke-dasharray="2,2" />
+
+            <g id="botEyes">
+                <ellipse id="leftEye" cx="40" cy="46" rx="6" ry="6" fill="#38bdf8" />
+                <circle id="leftPupil" cx="40" cy="46" r="2" fill="#ffffff" />
+                
+                <ellipse id="rightEye" cx="60" cy="46" rx="6" ry="6" fill="#38bdf8" />
+                <circle id="rightPupil" cx="60" cy="46" r="2" fill="#ffffff" />
+            </g>
+
+            <path id="avatarMouth" d="M45,56 Q50,56 55,56" stroke="#38bdf8" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+
+            <circle cx="30" cy="54" r="2" fill="#f43f5e" opacity="0.4"/>
+            <circle cx="70" cy="54" r="2" fill="#f43f5e" opacity="0.4"/>
+        </svg>
+    </div>
+
+    <!-- RIGHT SIDE: Interaction Panel -->
+    <div class="quiz-panel">
+        
+        <!-- Navigation System -->
+        <div class="nav-tabs" id="navTabs">
+            <button class="tab-btn active-tab" id="quizTab" onclick="navigateTo('quiz')">🎯 Quiz Stages</button>
+            <button class="tab-btn" id="aboutTab" onclick="navigateTo('about')">🤖 About Cypher</button>
+        </div>
+        
+        <!-- SCREEN 1: Test Selection Menu -->
+        <div id="selectorScreen" class="test-selector-screen active">
+            <h2>Select Your Tech Level 🚀</h2>
+            <p style="color: #4b5563; margin-bottom: 15px; font-weight: 500;">Can you defeat all 10 stages without crashing your system?</p>
+            <div class="grid-container" id="testGrid"></div>
+        </div>
+
+        <!-- NEW SCREEN: About Section -->
+        <div id="aboutScreen" class="about-screen">
+            <h2>Meet Cypher-Bot v2.0 👋</h2>
+            <div class="about-card">
+                <p style="color: #334155; line-height: 1.6; margin-bottom: 15px;">
+                    Greetings human! I am <strong>Cypher</strong>, your fully automated, open-source AI quiz companion. I am engineered to evaluate systems processing, human tech literacy, and core computer science knowledge across 10 progressive difficulty loops.
+                </p>
+                <p style="color: #475569; font-size: 0.95rem; line-height: 1.6;">
+                    Whether you are a beginner looking up how web browsers operate, or a quantum enthusiast hacking into deep transformer networks, I process your inputs in real time to adapt the UI stream!
+                </p>
+                
+                <div class="about-meta">
+                    <div class="meta-item"><strong>Core Built:</strong> HTML5 / CSS3 / Vanilla JS</div>
+                    <div class="meta-item"><strong>Rendering:</strong> Inline Vector SVG</div>
+                    <div class="meta-item"><strong>Data Banks:</strong> 100 Tech Matrices</div>
+                    <div class="meta-item"><strong>Empathy Protocol:</strong> Dynamic Expressions</div>
+                </div>
+            </div>
+            <button class="btn action-btn" onclick="navigateTo('quiz')" style="margin-top: 5px;">⚡ Start Main Challenge</button>
+        </div>
+
+        <!-- SCREEN 2: Active Question Area -->
+        <div id="quizScreen" class="quiz-screen">
+            <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+            <h2 id="questionText">Booting up questions...</h2>
+            <div class="options-list" id="optionsContainer"></div>
+        </div>
+
+        <!-- SCREEN 3: Score / Results -->
+        <div id="resultScreen" class="result-screen">
+            <h2>Mission Complete!</h2>
+            <div class="score-text" id="scoreDisplay">You got 0 out of 10!</div>
+            <button class="btn action-btn" onclick="showHome()">⚡ Back to Stages</button>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    // Quiz Data & Configurations
+    const quizData = {
+        test1: [
+            { q: "What does 'AI' stand for?", a: ["Apple Intelligence", "Artificial Intelligence", "Alien Internet", "Automated Instruments"], correct: 1 },
+            { q: "Which tool do we use to surf and look up things on the internet?", a: ["Web Browser", "Calculator", "MS Paint", "File Explorer"], correct: 0 },
+            { q: "What do you call a computer that can be easily carried around?", a: ["Desktop", "Laptop", "Server", "Mainframe"], correct: 1 },
+            { q: "What is the primary brain of the computer called?", a: ["Monitor", "Mouse", "CPU", "Keyboard"], correct: 2 },
+            { q: "Which device allows you to point at and click things on a screen?", a: ["Keyboard", "Printer", "Mouse", "Headphones"], correct: 2 },
+            { q: "What type of system is Alexa or Siri?", a: ["A Voice Assistant AI", "A Video Game", "A Robot Vacuum", "A Drone Camera"], correct: 0 },
+            { q: "What does a printer do?", a: ["Plays music", "Puts digital words/pictures on paper", "Deletes data", "Charges your phone"], correct: 1 },
+            { q: "To keep your computer accounts safe, you should create a strong...", a: ["Username", "Email Address", "Password", "Profile Picture"], correct: 2 },
+            { q: "Which of these is NOT a touchscreen device?", a: ["Tablet", "Smartphone", "Standard Computer Mouse", "Nintendo Switch"], correct: 2 },
+            { q: "What are games, apps, and computer instructions called?", a: ["Hardware", "Software", "Cables", "Batteries"], correct: 1 }
+        ],
+        test2: [
+            { q: "What do we call a machine that can automatically carry out actions?", a: ["Toaster", "Robot", "Bicycle", "Book"], correct: 1 },
+            { q: "What do smart self-driving cars use to see the road?", a: ["Human Eyeglasses", "Cameras and Sensors", "Mirrors only", "Magnifying glasses"], correct: 1 },
+            { q: "Which of these is used to type text on a computer?", a: ["Monitor", "Speaker", "Keyboard", "Microphone"], correct: 2 },
+            { q: "Where do computers store files, games, and memories permanently?", a: ["Hard Drive", "Power Cord", "The Case Fan", "Keyboard keys"], correct: 0 },
+            { q: "What is a 'Bug' in computer technology?", a: ["An actual insect inside the screen", "An error or mistake in code", "A type of charger", "A super fast computer"], correct: 1 },
+            { q: "What is the global network connecting millions of computers?", a: ["Bluetooth", "The Internet", "An Ethernet Cord", "AirDrop"], correct: 1 },
+            { q: "Which of the following generates an immersive 3D world when wearing special goggles?", a: ["Virtual Reality (VR)", "Television", "Smart Watch", "Projector Screen"], correct: 0 },
+            { q: "What do you call the main screen layout of your computer?", a: ["Windowsill", "Desktop", "Backyard", "Floor"], correct: 1 },
+            { q: "What can AI use to generate brand-new pictures from text words?", a: ["An ink printer", "Generative AI Image Models", "A digital scanner", "Photoshop Crop tool"], correct: 1 },
+            { q: "What gives modern tech devices portable energy to run?", a: ["Wires", "Batteries", "Plugs", "Magnets"], correct: 1 }
+        ],
+        test3: [
+            { q: "What is writing special instructions for a computer called?", a: ["Designing", "Coding / Programming", "Typing", "Hacking"], correct: 1 },
+            { q: "What is the most popular video search platform?", a: ["Wikipedia", "YouTube", "Excel", "Word"], correct: 1 },
+            { q: "An AI can learn things without being explicitly programmed. This is called...", a: ["Machine Learning", "Robot Memory", "Human Braining", "Cyber Copying"], correct: 0 },
+            { q: "What does Wi-Fi use to send internet data through the air?", a: ["Wires", "Radio Waves", "Laser Lights", "Sound echoes"], correct: 1 },
+            { q: "Which technology allows you to tap your phone to pay at stores wirelessly?", a: ["NFC", "GPS", "HDMI", "VGA"], correct: 0 },
+            { q: "What does 'WWW' stand for in a website link?", a: ["World Wide Web", "Word Wide Windows", "Web World Wide", "Web Window Wave"], correct: 0 },
+            { q: "What device converts digital images onto large walls/screens via light?", a: ["Monitor", "Projector", "Scanner", "Webcam"], correct: 1 },
+            { q: "Which of these is a popular block-based coding game loved by millions?", a: ["Minecraft", "Tetris", "Pacman", "Chess"], correct: 0 },
+            { q: "When you back up your photos to iCloud or Google Drive, they are saved in the...", a: ["Sky", "Cloud (Remote Servers)", "Ground", "Flash Drive"], correct: 1 },
+            { q: "What makes smart light bulbs change color?", a: ["Magic", "Microchips and LEDs controlled by apps", "Special paint inside", "Heat"], correct: 1 }
+        ],
+        test4: [
+            { q: "What are AI text systems like ChatGPT called?", a: ["Large Language Models (LLMs)", "Search Engines", "Calculators", "Social Networks"], correct: 0 },
+            { q: "What kind of code uses only 1s and 0s?", a: ["Python", "Binary Code", "HTML", "Scratch"], correct: 1 },
+            { q: "Which component inside a computer acts as short-term quick memory?", a: ["RAM", "Hard Drive", "Power Supply", "CD Drive"], correct: 0 },
+            { q: "What do we call sneaky software meant to harm your computer?", a: ["Antivirus", "Malware or Virus", "Freeware", "Firmware"], correct: 1 },
+            { q: "What company created the Android operating system?", a: ["Apple", "Microsoft", "Google", "Samsung"], correct: 2 },
+            { q: "What technology uses satellites to help map out paths and directions?", a: ["GPS", "Bluetooth", "Wi-Fi", "5G"], correct: 0 },
+            { q: "What is the shortcut to copy text on most computers?", a: ["Ctrl + V", "Ctrl + C", "Ctrl + Z", "Ctrl + X"], correct: 1 },
+            { q: "Which device acts as a gateway to send Internet packages to your devices?", a: ["Monitor", "Router", "Hard Drive", "Mouse pad"], correct: 1 },
+            { q: "What language is primarily used to structure elements on a basic webpage?", a: ["Python", "C++", "HTML", "Java"], correct: 2 },
+            { q: "What cool device can fly around and record aerial videos wirelessly?", a: ["Helicopter", "Drone", "RC Car", "Boomerang"], correct: 1 }
+        ],
+        test5: [
+            { q: "What popular coding language is named after a snake?", a: ["Cobra", "Python", "Viper", "Anaconda"], correct: 1 },
+            { q: "What type of artificial intelligence mimics human face recognition?", a: ["Computer Vision", "Natural Language Processing", "Voice Syncing", "Deep Copying"], correct: 0 },
+            { q: "What is the shortcut to undo your last mistake?", a: ["Ctrl + C", "Ctrl + Y", "Ctrl + Z", "Ctrl + S"], correct: 2 },
+            { q: "Which of these is a language used to style webpages beautifully?", a: ["CSS", "HTML", "C++", "SQL"], correct: 0 },
+            { q: "What connects a computer to an external monitor to send crisp video?", a: ["HDMI Cable", "Power Cable", "Audio Cable", "USB Drive"], correct: 0 },
+            { q: "What do you call a massive facility packed with computers holding internet data?", a: ["Data Center", "Computer Classroom", "Tech Lab", "Cyber Library"], correct: 0 },
+            { q: "Which technology lets computers talk over very short distances without wires?", a: ["Wi-Fi", "Bluetooth", "Satellite", "Fiber Optics"], correct: 1 },
+            { q: "What is the core operating software of Apple computers called?", a: ["Windows", "Linux", "macOS", "ChromeOS"], correct: 2 },
+            { q: "What prints physical solid 3D toys and tools out of melted plastic layers?", a: ["Laser Printer", "Inkjet Printer", "3D Printer", "Scanner"], correct: 2 },
+            { q: "What do we call a person who uses code to solve problems or make games?", a: ["Hacker", "Programmer / Developer", "Mechanic", "Cyber Guard"], correct: 1 }
+        ],
+        test6: [
+            { q: "What is an algorithm?", a: ["A rhythmic dance step", "A step-by-step set of rules to solve a problem", "A type of modern computer screen", "An algebraic expression"], correct: 1 },
+            { q: "What do neural networks in AI attempt to mimic?", a: ["The human brain's network", "Bird flight paths", "Galaxy formations", "Ocean currents"], correct: 0 },
+            { q: "Which item keeps a high-end computer CPU cool?", a: ["A Heat Sink and Fan", "Cold water spray", "Ice cubes", "Leaving the window open"], correct: 0 },
+            { q: "What does 'URL' represent?", a: ["A website's direct address link", "A type of memory chip", "A user identification tag", "An image file format"], correct: 0 },
+            { q: "What is a cyberattack?", a: ["Dropping a computer", "An attempt to disable or steal data from a digital network", "Shouting at a robot", "A text message spam"], correct: 1 },
+            { q: "What kind of cable uses fast light pulses inside glass to provide super internet?", a: ["Coaxial Cable", "Copper Wire", "Fiber Optic Cable", "HDMI Cable"], correct: 2 },
+            { q: "Which operating system is represented by a cute green robot mascot?", a: ["iOS", "Windows", "Android", "Linux"], correct: 2 },
+            { q: "What is a database?", a: ["An organized storage space for collections of data", "A mathematical equation", "A computer monitor base", "A science room"], correct: 0 },
+            { q: "What tool checks if a website user is a human or a sneaky bot?", a: ["Password prompt", "CAPTCHA test", "Cookies pop-up", "Firewall warning"], correct: 1 },
+            { q: "What can smart wearable health rings or watches track?", a: ["Your dreams", "Heart rate and daily steps", "What your pets are thinking", "Your body weight"], correct: 1 }
+        ],
+        test7: [
+            { q: "What popular coding language is run natively inside web browsers?", a: ["Python", "Java", "JavaScript", "C#"], correct: 2 },
+            { q: "What does a computer firewall do?", a: ["Protects against unauthorized network access", "Puts out physical device fires", "Speeds up loading animations", "Cleans screen dust"], correct: 0 },
+            { q: "What category of AI copies and constructs realistic synthetic human voices?", a: ["Voice Cloning / Voice Synthesis", "Autotuning", "Audio Compression", "Speech to Text Translation"], correct: 0 },
+            { q: "Which component converts AC wall power into DC computer power?", a: ["Power Supply Unit (PSU)", "Graphics Card", "Motherboard", "Inverter Case"], correct: 0 },
+            { q: "What are small data files websites store on your computer to remember your preferences?", a: ["Chips", "Cookies", "Crackers", "Bugs"], correct: 1 },
+            { q: "What is an open-source operating system famous for its Penguin mascot?", a: ["Windows", "macOS", "Linux", "Ubuntu Pro"], correct: 2 },
+            { q: "What are deepfakes?", a: ["Highly realistic altered AI videos or images of people", "Deep underground storage centers", "Fake video game files", "Advanced computer monitors"], correct: 0 },
+            { q: "What device reads physical printed paper and turns it into digital images?", a: ["Printer", "Plotter", "Scanner", "Projector"], correct: 2 },
+            { q: "Which tech company developed the Windows Operating System?", a: ["Apple", "IBM", "Microsoft", "Meta"], correct: 2 },
+            { q: "What field deals with programming vehicles to navigate safely without drivers?", a: ["Autonomous Tech", "Manual Logistics", "Drone Mechanics", "Hydro-dynamics"], correct: 0 }
+        ],
+        test8: [
+            { q: "What does 'GUI' stand for in technology design?", a: ["Graphical User Interface", "Global User Internet", "General Utility Icon", "Gaming Unit Integration"], correct: 0 },
+            { q: "What processing unit is highly prized for running complex AI calculations?", a: ["GPU (Graphics Processing Unit)", "Sound Card", "Network Card", "Floppy Disk Controller"], correct: 0 },
+            { q: "What is cryptography?", a: ["The study of typing quickly", "Securing information via encrypted codes", "Designing computer motherboards", "Repairing digital cameras"], correct: 1 },
+            { q: "What do you call computer programs that perform automated repeatable tasks online?", a: ["Spiders", "Bots", "Snakes", "Ants"], correct: 1 },
+            { q: "What tech device is considered the predecessor to the modern smartphone?", a: ["PDA (Personal Digital Assistant)", "Walkman", "Pager", "Desktop Terminal"], correct: 0 },
+            { q: "What does 'IoT' stand for?", a: ["Internet of Things", "Interface of Technology", "Integration of Tools", "Internal Operating Tracker"], correct: 0 },
+            { q: "Which of these is considered a cloud data storage giant platform?", a: ["AWS (Amazon Web Services)", "Intel Core i7", "Nvidia RTX", "Windows Defender"], correct: 0 },
+            { q: "What kind of display panel uses organic light-emitting diodes for pure dark colors?", a: ["LCD", "OLED", "CRT", "Plasma Screen"], correct: 1 },
+            { q: "What does a compiler do in programming?", a: ["Transforms code readable by humans into machine code", "Deletes redundant files", "Speeds up internet routers", "Arranges document fonts"], correct: 0 },
+            { q: "Which computer storage format holds data on spinning magnetic plates?", a: ["SSD", "HDD (Hard Disk Drive)", "Flash Drive", "SD Card"], correct: 1 }
+        ],
+        test9: [
+            { q: "What does 'NLP' stand for in the context of Artificial Intelligence fields?", a: ["Natural Language Processing", "Network Link Protocol", "Neural Logic Path", "Node Layout Program"], correct: 0 },
+            { q: "What advanced memory technology is exponentially faster than standard HDDs?", a: ["SSD (Solid State Drive)", "Floppy Disk", "CD-ROM", "Magnetic Tape"], correct: 0 },
+            { q: "What protocol adds secure layer encryption to web browsing URLs?", a: ["HTTP", "HTTPS", "FTP", "SMTP"], correct: 1 },
+            { q: "What is an IP Address used for?", a: ["Identifying a specific device location on a network", "Naming your local file structure", "Calculating computer processing speed", "Charging smartphone batteries"], correct: 0 },
+            { q: "What core circuit board connects your CPU, RAM, and graphics cards together?", a: ["Power Box", "Motherboard", "Hard Drive Housing", "Sound Card Link"], correct: 1 },
+            { q: "What do we call computer software whose original code is freely shared for tweaking?", a: ["Closed Source", "Shareware", "Open Source", "Spyware"], correct: 2 },
+            { q: "What does 'AI Bias' mean?", a: ["When an AI system makes unfair decisions due to flawed training data", "When an AI becomes too smart", "When an AI computer crashes", "When an AI forgets code"], correct: 0 },
+            { q: "What port standard is universally used to connect chargers, mice, and keyboards?", a: ["VGA", "USB", "HDMI", "Serial Port"], correct: 1 },
+            { q: "What do you call the massive data sets used to feed and train massive AI models?", a: ["Big Data / Training Data", "Microchips", "System logs", "Metadata catalogs"], correct: 0 },
+            { q: "What technology is used to simulate human conversations using conversational AI setups?", a: ["Chatbots", "Photoshop layers", "Calculators", "Excel macros"], correct: 0 }
+        ],
+        test10: [
+            { q: "What revolutionary tech concept utilizes subatomic particles to compute calculations?", a: ["Quantum Computing", "Silicon Micro-transistors", "Mechanical Compute Bricks", "Thermal Core Fusion"], correct: 0 },
+            { q: "What specific type of deep learning architectural model underpins systems like ChatGPT?", a: ["Transformer Model", "Linear Regression Tree", "Binary Search Matrix", "Convolutional Layer System"], correct: 0 },
+            { q: "What does 'SaaS' mean in modern cloud software business tech circles?", a: ["Software as a Service", "System Architecture and Security", "Silicon Assemblies as Storage", "Smart Automated Analytical Systems"], correct: 0 },
+            { q: "What kind of computing uses remote server clusters to process massive workloads instead of local PCs?", a: ["Edge Computing", "Cloud Computing", "Analog Computing", "Offline Processing"], correct: 1 },
+            { q: "What is the name of the system designed to filter incoming internet traffic and prevent cyber attacks?", a: ["Intrusion Detection System / Firewall", "DNS Resolver", "Network Cable Hub", "Proxy Server Log"], correct: 0 },
+            { q: "What is computer 'Latency'?", a: ["The physical weight of a computer setup", "The delay time it takes for data to travel across a network", "The maximum amount of file storage capacity", "The screen illumination level"], correct: 1 },
+            { q: "What framework allows computers to learn from rewards and trial-and-error behaviors?", a: ["Reinforcement Learning", "Supervised Labeling", "Static Rule Arrays", "Database Sorting"], correct: 0 },
+            { q: "What type of attack floods websites with massive junk traffic to force them offline?", a: ["DDoS Attack", "Phishing Trap", "SQL Injection", "Trojan horse drop"], correct: 0 },
+            { q: "What distributed ledger system registers transaction records securely across computers?", a: ["Blockchain", "Central Server database", "Local text spreadsheet", "RAM cache files"], correct: 0 },
+            { q: "What futuristic term describes an AI that can perfectly master any cognitive human skill?", a: ["AGI (Artificial General Intelligence)", "Narrow AI Expert", "Voice Bot", "Simple Machine Script"], correct: 0 }
+        ]
+    };
+
+    const stageRanks = {
+        test1: "🟢 Stage 1: Rookie Coder (Easy)",
+        test2: "🟢 Stage 2: Tech Scout (Easy)",
+        test3: "🟡 Stage 3: Code Apprentice (Medium)",
+        test4: "🟡 Stage 4: Byte Cruiser (Medium)",
+        test5: "🟡 Stage 5: Cyber Operator (Medium)",
+        test6: "🟠 Stage 6: Prompt Engineer (Hard)",
+        test7: "🟠 Stage 7: Network Ninja (Hard)",
+        test8: "🔴 Stage 8: Kernel Commander (Expert)",
+        test9: "🔴 Stage 9: Quantum Hacker (Expert)",
+        test10: "🔥 Stage 10: AI Overlord (Insane)"
+    };
+
+    let currentTestKey = '';
+    let currentQuestionIndex = 0;
+    let score = 0;
+    let isQuizActive = false; // Prevents leaving tab during an active test inadvertently
+
+    const avatar = {
+        talk: (text) => { document.getElementById('avatarTalk').innerText = text; },
+        setMood: (mood) => {
+            const mouth = document.getElementById('avatarMouth');
+            const graphic = document.getElementById('avatarGraphic');
+            const leftEye = document.getElementById('leftEye');
+            const rightEye = document.getElementById('rightEye');
+            
+            if (mood === 'thinking') {
+                mouth.setAttribute('d', 'M45,56 Q50,56 55,56'); 
+                leftEye.setAttribute('rx', '6'); leftEye.setAttribute('ry', '6');
+                rightEye.setAttribute('rx', '6'); rightEye.setAttribute('ry', '6');
+                graphic.style.transform = "scale(1.0) rotate(0deg)";
+            } else if (mood === 'excited') {
+                mouth.setAttribute('d', 'M44,54 Q50,62 56,54'); 
+                leftEye.setAttribute('rx', '6'); leftEye.setAttribute('ry', '3'); 
+                rightEye.setAttribute('rx', '6'); rightEye.setAttribute('ry', '3');
+                graphic.style.transform = "scale(1.08) translateY(-5px)";
+            } else if (mood === 'smug') {
+                mouth.setAttribute('d', 'M45,54 Q52,58 55,53'); 
+                leftEye.setAttribute('rx', '6'); leftEye.setAttribute('ry', '6');
+                rightEye.setAttribute('rx', '6'); rightEye.setAttribute('ry', '1.5'); 
+                graphic.style.transform = "scale(1.03) rotate(-3deg)";
+            }
+        }
+    };
+
+    function initMenu() {
+        const grid = document.getElementById('testGrid');
+        grid.innerHTML = '';
+        for (let i = 1; i <= 10; i++) {
+            const key = `test${i}`;
+            const btn = document.createElement('button');
+            btn.className = 'btn';
+            btn.innerText = stageRanks[key];
+            btn.onclick = () => startTest(key);
+            grid.appendChild(btn);
+        }
+    }
+
+    // Modern Tab Navigation Handling
+    function navigateTo(target) {
+        if (isQuizActive && target === 'about') {
+            avatar.setMood('smug');
+            avatar.talk("Finish your active hardware diagnostic matrix before scanning my files!");
+            return;
+        }
+
+        document.getElementById('quizTab').classList.remove('active-tab');
+        document.getElementById('aboutTab').classList.remove('active-tab');
+        
+        document.getElementById('selectorScreen').style.display = 'none';
+        document.getElementById('aboutScreen').style.display = 'none';
+        document.getElementById('quizScreen').style.display = 'none';
+        document.getElementById('resultScreen').style.display = 'none';
+
+        if (target === 'quiz') {
+            document.getElementById('quizTab').classList.add('active-tab');
+            document.getElementById('selectorScreen').style.display = 'block';
+            avatar.setMood('smug');
+            avatar.talk("Systems Online! Ready to check your digital knowledge metrics? Pick a level!");
+        } else if (target === 'about') {
+            document.getElementById('aboutTab').classList.add('active-tab');
+            document.getElementById('aboutScreen').style.display = 'block';
+            avatar.setMood('excited');
+            avatar.talk("Processing self-profile files... Here is everything about my configuration!");
+        }
+    }
+
+    function startTest(testKey) {
+        currentTestKey = testKey;
+        currentQuestionIndex = 0;
+        score = 0;
+        isQuizActive = true;
+        
+        document.getElementById('selectorScreen').style.display = 'none';
+        document.getElementById('quizScreen').style.display = 'block';
+        
+        avatar.setMood('thinking');
+        avatar.talk("Mainframe link secure. Run the parameters!");
+        loadQuestion();
+    }
+
+    function loadQuestion() {
+        avatar.setMood('thinking');
+        const currentTestData = quizData[currentTestKey];
+        const currentQuestion = currentTestData[currentQuestionIndex];
+        
+        const progressPercent = (currentQuestionIndex / currentTestData.length) * 100;
+        document.getElementById('progressFill').style.width = `${progressPercent}%`;
+        document.getElementById('questionText').innerText = `Q${currentQuestionIndex + 1}. ${currentQuestion.q}`;
+        
+        const optionsContainer = document.getElementById('optionsContainer');
+        optionsContainer.innerHTML = '';
+
+        currentQuestion.a.forEach((option, idx) => {
+            const button = document.createElement('button');
+            button.className = 'btn option-btn';
+            button.innerText = option;
+            button.onclick = () => checkAnswer(idx);
+            optionsContainer.appendChild(button);
+        });
+    }
+
+    function checkAnswer(selectedIndex) {
+        const currentTestData = quizData[currentTestKey];
+        const correctAnswerIndex = currentTestData[currentQuestionIndex].correct;
+
+        if (selectedIndex === correctAnswerIndex) {
+            score++;
+            avatar.setMood('excited');
+            avatar.talk("Ping! Data match successful. Excellent job!");
+        } else {
+            avatar.setMood('smug');
+            avatar.talk("Negative response. Updating logs... move to next line.");
+        }
+
+        setTimeout(() => {
+            currentQuestionIndex++;
+            if (currentQuestionIndex < currentTestData.length) {
+                loadQuestion();
+            } else {
+                finishQuiz();
+            }
+        }, 1500);
+    }
+
+    function finishQuiz() {
+        isQuizActive = false;
+        document.getElementById('quizScreen').style.display = 'none';
+        document.getElementById('resultScreen').style.display = 'block';
+        
+        document.getElementById('progressFill').style.width = `100%`;
+        document.getElementById('scoreDisplay').innerText = `Stage Complete! Final System Accuracy: ${score} / 10`;
+        
+        if(score >= 7) {
+            avatar.setMood('excited');
+            avatar.talk(`Awesome! Efficiency metrics at ${score * 10}% are fully optimized!`);
+        } else {
+            avatar.setMood('smug');
+            avatar.talk(`Data sequence complete with ${score}/10 points. Ready to run a system reboot?`);
+        }
+    }
+
+    function showHome() {
+        navigateTo('quiz');
+    }
+
+    initMenu();
+</script>
+</body>
+</html>

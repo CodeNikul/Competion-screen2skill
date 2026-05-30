@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Skill-Builders: Digital to Real-World!</title>
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Quicksand:wght@500;700&display=swap"
+rel="stylesheet">
+
+<style>
+
+/* ---------------- GLOBAL ---------------- */
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+:root{
+  --orange:#FF7A00;
+  --blue:#0094FF;
+  --green:#39d353;
+  --dark:#08294d;
+  --bg:#FFFDF9;
+  --shadow:0 12px 24px rgba(0,0,0,0.08);
+}
+
+body{
+  font-family:'Quicksand',sans-serif;
+  color:#333;
+  overflow-x:hidden;
+  position: relative;
+
+  background-image: url('Gemini_Generated_Image_1i9jmz1i9jmz1i9j.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-color:#0b1f33;
+}
+
+/* Smooth animations */
+
+button,
+.card,
+.card-btn,
+.ai-project-btn,
+.nav-link{
+  transition:all 0.3s ease;
+}
+
+/* HERO - REMOVED BLUR EFFECT, REPLACED WITH SOLID WHITE BACKGROUND WITH SLIGHT TRANSPARENCY FOR MODERN LOOK */
+.logo-area{
+  background: rgba(255, 255, 255, 0.92);  /* Changed from blur to solid white with slight transparency */
+  backdrop-filter: none;  /* Removed blur effect */
+  display:inline-block;
+  padding:15px 30px;
+  border-radius:60px;
+  margin-bottom:20px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+  border: 1px solid rgba(255,255,255,0.8);
+}
+
+.logo-area h1{
+  font-size:52px;
+  color: #FF7A00;  /* Changed to orange for better contrast on white background */
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
+  letter-spacing: -0.5px;
+}
+
+.logo-icon{
+  font-size:42px;
+  filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.1));
+}
+
+.tagline{
+  font-size:20px;
+  color: #0094FF;  /* Changed to blue for vibrant look */
+  text-shadow: none;
+  font-weight: 600;
+}
+
+/* HERO CONTENT - REMOVED BLUR, REPLACED WITH SOLID WHITE BACKGROUND */
+.hero-content{
+  background: rgba(255, 255, 255, 0.96);  /* Solid white background instead of blur */
+  backdrop-filter: none;  /* Removed blur */
+  border: 1px solid rgba(255,255,255,0.5);
+  padding:30px 40px;
+  border-radius:50px;
+  max-width:900px;
+  margin:20px auto 0;
+  box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+}
+
+.hero-content h2{
+  font-size:60px;
+  color: #FF7A00;  /* Keeping orange for warmth, good on white */
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
+  margin-bottom:15px;
+}
+
+.hero-content p{
+  font-size:19px;
+  color: #1a3a5a;  /* Dark blue for readability on white background */
+  font-weight: 500;
+}
+
+.badge{
+  background:#FF7A00;
+  color:#fff;
+  font-weight:800;
+  padding:6px 18px;
+  border-radius:30px;
+  display:inline-block;
+  margin-bottom:15px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+/* Keep other sections with their existing styles - no blur issues there */
+/* But the main heading sections are now white, crisp and clear */
+
+/* NAVBAR */
+
+.utility-nav{
+  background:rgba(255,255,255,0.98);
+  backdrop-filter:blur(4px);  /* Keeping subtle blur on nav for modern look, can adjust if needed */
+  padding:16px 0;
+  position:sticky;
+  top:0;
+  z-index:1000;
+  box-shadow:0 2px 15px rgba(0,0,0,0.06);
+}
+
+.nav-container{
+  max-width:1200px;
+  margin:auto;
+  padding:0 24px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.nav-left,
+.nav-right{
+  display:flex;
+  align-items:center;
+  gap:14px;
+}
+
+.nav-link{
+  color:#1a2a3a;
+  font-weight:800;
+  text-decoration:none;
+}
+
+.nav-link:hover{
+  color:var(--orange);
+}
+
+.kids-tab{
+  background:#FF7A00;
+  color:white;
+  padding:8px 16px;
+  border-radius:20px;
+}
+
+.cta-connect{
+  background:linear-gradient(135deg,#FF7A00,#ff9f43);
+  color:white;
+  padding:10px 18px;
+  border-radius:24px;
+  font-weight:700;
+  text-decoration:none;
+}
+
+.cta-connect:hover{
+  transform:translateY(-2px);
+}
+
+/* HERO SECTION */
+
+.hero-section{
+  padding:90px 20px;
+  text-align:center;
+}
+
+.hero-buttons{
+  margin-top:30px;
+}
+
+.hero-buttons button{
+  padding:16px 30px;
+  border:none;
+  border-radius:30px;
+  font-size:16px;
+  font-weight:700;
+  cursor:pointer;
+  margin:10px;
+}
+
+.btn-orange{
+  background:linear-gradient(135deg,var(--orange),#ff9f43);
+  color:white;
+  box-shadow:0 8px 20px rgba(255,122,0,0.3);
+}
+
+.btn-blue{
+  background:linear-gradient(135deg,var(--blue),#4ab3ff);
+  color:white;
+  box-shadow:0 8px 20px rgba(0,148,255,0.25);
+}
+
+.btn-orange:hover,
+.btn-blue:hover{
+  transform:translateY(-4px);
+}
+
+/* MAIN CONTENT */
+
+.main-content{
+  max-width:1200px;
+  margin:auto;
+  padding:60px 20px;
+}
+
+.content-container{
+  display:grid;
+  grid-template-columns:1.7fr 1fr;
+  gap:35px;
+}
+
+/* SECTION TITLE - improved readability on background */
+.section-title{
+  background: rgba(255, 255, 255, 0.92);  /* Changed from blur to solid white with slight transparency */
+  backdrop-filter: none;
+  display:inline-block;
+  padding:10px 25px;
+  border-radius:40px;
+  font-size:34px;
+  color: #FF7A00;  /* Orange for contrast */
+  margin-bottom:25px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  border: 1px solid rgba(255,255,255,0.9);
+  font-weight: 700;
+}
+
+.card-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:25px;
+}
+
+.card-link{
+  text-decoration:none;
+  color:inherit;
+}
+
+.card{
+  background:rgba(255,255,255,0.96);
+  border:1px solid rgba(255,255,255,0.5);
+  border-radius:28px;
+  padding:28px;
+  box-shadow:var(--shadow);
+  min-height:300px;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+}
+
+.card:hover{
+  transform:translateY(-10px) scale(1.02);
+  box-shadow:0 25px 45px rgba(0,0,0,0.15);
+}
+
+.card-icon{
+  font-size:42px;
+  margin-bottom:18px;
+}
+
+.card h4{
+  font-size:26px;
+  line-height:1.4;
+  font-family:'Fredoka',sans-serif;
+  color:#1e2a3a;
+}
+
+.card p{
+  margin-top:14px;
+  line-height:1.6;
+  font-size:15px;
+  color:#2c3e44;
+}
+
+.card-btn{
+  margin-top:24px;
+  padding:12px 18px;
+  border-radius:30px;
+  font-weight:700;
+  text-align:center;
+  width:fit-content;
+}
+
+/* LevelUpScreen */
+
+.card-robotics .card-icon{
+  color:var(--green);
+}
+
+.card-robotics .card-btn{
+  border:2px solid #c8f0d4;
+  color:var(--green);
+}
+
+.card-robotics .card-btn:hover{
+  background:#f0faf2;
+}
+
+/* RESEARCH */
+
+.card-blue .card-icon{
+  color:var(--blue);
+}
+
+.card-blue .card-btn{
+  border:2px solid #d9e9ff;
+  color:var(--blue);
+}
+
+/* BENEFITS */
+
+.card-orange .card-icon{
+  color:var(--orange);
+}
+
+.card-orange .card-btn{
+  border:2px solid #ffe1c5;
+  color:var(--orange);
+}
+
+/* SIDE PANEL */
+
+.side-panel{
+  display:flex;
+  flex-direction:column;
+  gap:24px;
+}
+
+.kid-image-wrapper{
+  background:rgba(255,255,255,0.95);
+  border-radius:28px;
+  padding:24px;
+  text-align:center;
+  box-shadow:var(--shadow);
+}
+
+.kid-image-wrapper img{
+  width:100%;
+  max-width:280px;
+}
+
+.ai-project-btn{
+  background:linear-gradient(135deg,#0a1f2f,#1a3a5a);
+  color:white;
+  width:100%;
+  border:none;
+  border-radius:24px;
+  padding:22px;
+  font-weight:700;
+  font-size:17px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  cursor:pointer;
+}
+
+.ai-project-btn:hover{
+  transform:translateY(-5px);
+}
+
+.ai-icon{
+  font-size:30px;
+  color:#38ef7d;
+}
+
+.spark-icon{
+  color:#fff275;
+}
+
+.challenge-box{
+  background:linear-gradient(135deg,#0a1f2f,#1a3a5a);
+  border-radius:28px;
+  padding:28px;
+  text-align:center;
+  color:white;
+  box-shadow:var(--shadow);
+}
+
+.challenge-tag{
+  display:inline-block;
+  background:#ffe14d;
+  color:#000;
+  padding:6px 12px;
+  border-radius:12px;
+  font-size:12px;
+  font-weight:700;
+  margin-bottom:16px;
+}
+
+.btn-green{
+  background:#2ecc71;
+  color:white;
+  border:none;
+  margin-top:20px;
+  padding:12px 24px;
+  border-radius:24px;
+  font-weight:700;
+  cursor:pointer;
+  text-decoration:none;
+  display:inline-block;
+}
+
+.btn-green:hover{
+  transform:scale(1.05);
+  background:#2bc24b;
+}
+
+/* Additional improvement for background readability */
+.hero-section {
+  position: relative;
+}
+
+/* Ensure all text on white backgrounds has good contrast */
+.hero-content, .logo-area, .section-title {
+  transition: all 0.2s ease;
+}
+
+/* MOBILE */
+@media(max-width:950px){
+
+  .content-container{
+    grid-template-columns:1fr;
+  }
+
+  .hero-content h2{
+    font-size:42px;
+  }
+
+  .nav-container{
+    flex-direction:column;
+    gap:15px;
+  }
+}
+
+@media(max-width:650px){
+
+  .hero-section{
+    padding:70px 20px;
+  }
+
+  .card-grid{
+    grid-template-columns:1fr;
+  }
+
+  .hero-content h2{
+    font-size:34px;
+  }
+
+  .logo-area h1{
+    font-size:38px;
+  }
+
+  .section-title{
+    font-size:28px;
+  }
+}
+
+</style>
+</head>
+
+<body>
+
+<header class="utility-nav">
+  <div class="nav-container">
+
+    <div class="nav-left">
+      <a class="nav-link" href="#">Home</a>
+      <a class="nav-link kids-tab" href="#">Kids (8–12)</a>
+    </div>
+
+    <div class="nav-right">
+      <a class="nav-link" href="#">Parent/Teacher</a>
+      <a class="cta-connect" href="#">Connect</a>
+    </div>
+
+  </div>
+</header>
+
+<section class="hero-section">
+
+  <div class="logo-area">
+
+    <div class="logo-icon">
+      🛠️ 💡 📱
+    </div>
+
+    <h1>SKILL-BUILDERS</h1>
+
+    <p class="tagline">
+      Digital to Real-World!
+    </p>
+
+  </div>
+
+  <div class="hero-content">
+
+    <span class="badge">
+      ACTIVE LEARNING
+    </span>
+
+    <h2>
+      Turn Screen Time Into
+      Real-Life Superpowers
+    </h2>
+
+    <p>
+      Learn robotics, research, creativity, and future-ready skills through fun projects and hands-on activities.
+    </p>
+
+    <div class="hero-buttons">
+
+      <button class="btn-orange"
+      onclick="window.location.href='about.html'">
+        Learn More
+      </button>
+
+      <button class="btn-blue"
+      onclick="window.location.href='explore.html'">
+        Explore Projects
+      </button>
+
+    </div>
+
+  </div>
+
+</section>
+
+<main class="main-content">
+
+  <div class="content-container">
+
+    <section>
+
+      <h3 class="section-title">
+        Level Up Your Habits
+      </h3>
+
+      <div class="card-grid">
+
+       <!-- ROBOTICS -->
+
+<div class="card card-robotics"
+onclick="window.location.href='story.html'"
+style="cursor:pointer;">
+
+  <div>
+
+    <div class="card-icon">
+      <i class="fa-solid fa-robot"></i>
+    </div>
+
+    <h4>
+      1. Level Up <br>
+      Screen
+    </h4>
+
+    <p>
+      Stop watching. Start winning.
+    </p>
+
+  </div>
+
+  <button class="card-btn"
+  onclick="event.stopPropagation(); window.location.href='story.html'">
+
+    Open Project
+
+  </button>
+
+</div>
+
+<!-- RESEARCH -->
+
+<div class="card card-blue"
+onclick="window.location.href='research.html'"
+style="cursor:pointer;">
+
+  <div>
+
+    <div class="card-icon">
+      <i class="fa-solid fa-chart-column"></i>
+    </div>
+
+    <h4>
+      Research → Data Skills
+    </h4>
+
+    <p>
+      Learn surveys, charts, analysis, and smart thinking.
+    </p>
+
+  </div>
+
+  <button class="card-btn"
+  onclick="event.stopPropagation(); window.location.href='research.html'">
+
+    View Research
+
+  </button>
+
+</div>
+
+        <!-- BENEFITS -->
+
+        <a href="benefits.html" target="_blank" class="card-link">
+
+          <div class="card card-orange">
+
+            <div>
+
+              <div class="card-icon">
+                <i class="fa-solid fa-comment-dots"></i>
+              </div>
+
+              <h4>
+                Benefits of Digital Learning
+              </h4>
+
+              <p>
+                Why only Digital learning?
+              </p>
+
+            </div>
+
+            <div class="card-btn">
+              Learn More
+            </div>
+
+          </div>
+
+        </a>
+
+      </div>
+
+    </section>
+
+    <aside class="side-panel">
+
+      <div class="kid-image-wrapper">
+        <img src="https://cdn-icons-png.flaticon.com/512/4140/4140048.png"
+        alt="Creative Kid">
+      </div>
+
+      <button class="ai-project-btn"
+      onclick="openAiBuilder()">
+
+        <i class="fa-solid fa-brain ai-icon"></i>
+
+        <span>AI PROJECT BUILDER</span>
+
+        <i class="fa-solid fa-wand-magic-sparkles spark-icon"></i>
+
+      </button>
+
+      <div class="challenge-box">
+
+        <div class="challenge-tag">
+          THIS WEEK
+        </div>
+
+        <h4>
+          Quiz Challenge!
+        </h4>
+
+        <p>
+          Think fast, answer smart, and prove your skills!
+        </p>
+
+        <a href="quiz.html" class="btn-green">
+          Join Challenge
+        </a>
+
+      </div>
+
+    </aside>
+
+  </div>
+
+</main>
+
+<script>
+
+function openAiBuilder(){
+  alert("Launching AI Project Builder 🚀");
+}
+
+</script>
+
+</body>
+</html>

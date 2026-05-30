@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Tech & Education Surveys</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --primary: #4f46e5;
+            --primary-light: #eef2ff;
+            --text-main: #1f2937;
+            --text-muted: #4b5563;
+            --bg-body: #f9fafb;
+            --bg-card: #ffffff;
+            --border: #e5e7eb;
+            --accent-orange: #f97316;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar Navigation */
+        aside {
+            width: 280px;
+            background-color: var(--bg-card);
+            border-right: 1px solid var(--border);
+            padding: 2rem 1rem;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+        }
+
+        .logo {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 2rem;
+            padding-left: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-list {
+            list-style: none;
+        }
+
+        .nav-item {
+            padding: 0.75rem 1rem;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            color: var(--text-muted);
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            transition: all 0.2s ease;
+        }
+
+        .nav-item:hover, .nav-item.active {
+            background-color: var(--primary-light);
+            color: var(--primary);
+        }
+
+        /* Main Content Area */
+        main {
+            margin-left: 280px;
+            flex: 1;
+            padding: 3rem;
+            max-width: 1200px;
+        }
+
+        header {
+            margin-bottom: 3rem;
+        }
+
+        header h1 {
+            font-size: 2.25rem;
+            margin-bottom: 0.5rem;
+        }
+
+        header p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+        }
+
+        /* Survey Content Layout */
+        .survey-section {
+            display: none;
+        }
+
+        .survey-section.active {
+            display: block;
+            animation: fadeIn 0.4s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .section-intro {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        /* Grid for Charts/Data */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        .card h3 {
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            color: var(--text-main);
+            font-weight: 600;
+        }
+
+        .chart-container {
+            position: relative;
+            height: 280px;
+            width: 100%;
+        }
+
+        /* Takeaways Box */
+        .takeaway-box {
+            background-color: var(--primary-light);
+            border-left: 4px solid var(--primary);
+            padding: 1.5rem;
+            border-radius: 0 0.5rem 0.5rem 0;
+            margin-top: 2rem;
+        }
+
+        .takeaway-box h4 {
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .takeaway-box ul {
+            padding-left: 1.25rem;
+            color: var(--text-main);
+        }
+
+        .takeaway-box li {
+            margin-bottom: 0.5rem;
+            line-height: 1.5;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 900px) {
+            body { flex-direction: column; }
+            aside { width: 100%; height: auto; position: relative; padding: 1rem; }
+            main { margin-left: 0; padding: 1.5rem; }
+            .dashboard-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <aside>
+        <div class="logo">
+            📊 TechInsights Survey
+        </div>
+        <ul class="nav-list">
+            <li class="nav-item active" onclick="switchTab('screentime')">📱 Screen Time & Learning</li>
+            <li class="nav-item" onclick="switchTab('gaming')">🎮 Gaming & Skills</li>
+            <li class="nav-item" onclick="switchTab('ai')">🤖 AI & Education</li>
+            <li class="nav-item" onclick="switchTab('robotics')">⚙️ Robotics & Innovation</li>
+            <li class="nav-item" onclick="switchTab('socialmedia')">📢 Social Media Impact</li>
+            <li class="nav-item" onclick="switchTab('careers')">🚀 Future Careers</li>
+        </ul>
+    </aside>
+
+    <main>
+        <header>
+            <h1 id="main-title">Screen Time & Learning</h1>
+            <p id="main-subtitle">Data insights from 1,200 surveyed students.</p>
+        </header>
+
+        <section id="screentime" class="survey-section active">
+            <p class="section-intro">Evaluating how digital screen hours translate into constructive educational outcomes vs. pure entertainment.</p>
+            <div class="dashboard-grid">
+                <div class="card">
+                    <h3>Daily Screen Time Breakdown (Hours)</h3>
+                    <div class="chart-container"><canvas id="chartScreenHours"></canvas></div>
+                </div>
+                <div class="card">
+                    <h3>Primary Purpose of Screen Use</h3>
+                    <div class="chart-container"><canvas id="chartScreenPurpose"></canvas></div>
+                </div>
+            </div>
+            <div class="takeaway-box">
+                <h4>🎯 Key Conclusions</h4>
+                <ul>
+                    <li>Over 60% of students exceed 5 hours of daily screen time.</li>
+                    <li>While entertainment dominates, 35% of total screen usage is actively dedicated to intentional skill learning.</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="gaming" class="survey-section">
+            <p class="section-intro">Analyzing the intersection of gaming, logic development, and building early tech interests.</p>
+            <div class="dashboard-grid">
+                <div class="card">
+                    <h3>Does gaming improve your problem-solving skills?</h3>
+                    <div class="chart-container"><canvas id="chartGamingProblem"></canvas></div>
+                </div>
+                <div class="card">
+                    <h3>Has gaming sparked an interest in coding/robotics?</h3>
+                    <div class="chart-container"><canvas id="chartGamingInterest"></canvas></div>
+                </div>
+            </div>
+            <div class="takeaway-box">
+                <h4>🎯 Key Conclusions</h4>
+                <ul>
+                    <li>An overwhelming majority connect gaming to improved strategic thinking and problem-solving capabilities.</li>
+                    <li>Sandbox and strategy games act as gateway experiences toward coding and robotics.</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="ai" class="survey-section">
+            <p class="section-intro">Tracking how generative AI tools are shifting classroom performance and homework trends.</p>
+            <div class="dashboard-grid">
+                <div class="card">
+                    <h3>Frequency of AI Tools for Homework/Projects</h3>
+                    <div class="chart-container"><canvas id="chartAiUsage"></canvas></div>
+                </div>
+                <div class="card">
+                    <h3>Biggest Risk of AI in Education</h3>
+                    <div class="chart-container"><canvas id="chartAiRisks"></canvas></div>
+                </div>
+            </div>
+            <div class="takeaway-box">
+                <h4>🎯 Key Conclusions</h4>
+                <ul>
+                    <li>AI tool adoption is highly prevalent, with over half using it weekly or daily.</li>
+                    <li>Loss of critical thinking is viewed as a far greater threat than outright cheating/plagiarism.</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="robotics" class="survey-section">
+            <p class="section-intro">Uncovering barriers to hardware education and student interest in physical engineering.</p>
+            <div class="dashboard-grid">
+                <div class="card">
+                    <h3>Are students interested in learning robotics?</h3>
+                    <div class="chart-container"><canvas id="chartRoboInterest"></canvas></div>
+                </div>
+                <div class="card">
+                    <h3>What is the biggest barrier to entry?</h3>
+                    <div class="chart-container"><canvas id="chartRoboBarriers"></canvas></div>
+                </div>
+            </div>
+            <div class="takeaway-box">
+                <h4>🎯 Key Conclusions</h4>
+                <ul>
+                    <li>Interest remains high, but physical access acts as a severe gatekeeper.</li>
+                    <li>Students heavily agree that schools must invest in hardware/robotics labs to bridge this gap.</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="socialmedia" class="survey-section">
+            <p class="section-intro">Exploring the dual nature of social feeds as attention-spanners vs. learning utilities.</p>
+            <div class="dashboard-grid">
+                <div class="card">
+                    <h3>Does social media drastically reduce your focus?</h3>
+                    <div class="chart-container"><canvas id="chartSmFocus"></canvas></div>
+                </div>
+                <div class="card">
+                    <h3>Has social media inspired you to learn a business/creative skill?</h3>
+                    <div class="chart-container"><canvas id="chartSmInspiration"></canvas></div>
+                </div>
+            </div>
+            <div class="takeaway-box">
+                <h4>🎯 Key Conclusions</h4>
+                <ul>
+                    <li>While attention fragmentation is real, social spaces act as powerful hubs for micro-learning (e.g., video editing, side-hustle knowledge).</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="careers" class="survey-section">
+            <p class="section-intro">Gauging student preparedness and goals for a highly automated job market.</p>
+            <div class="dashboard-grid">
+                <div class="card">
+                    <h3>Tech Careers generating the most interest</h3>
+                    <div class="chart-container"><canvas id="chartCareerInterest"></canvas></div>
+                </div>
+                <div class="card">
+                    <h3>Do you feel prepared for an AI-driven job market?</h3>
+                    <div class="chart-container"><canvas id="chartCareerPrepared"></canvas></div>
+                </div>
+            </div>
+            <div class="takeaway-box">
+                <h4>🎯 Key Conclusions</h4>
+                <ul>
+                    <li>AI and Software development lead career targets.</li>
+                    <li>However, a visible preparedness gap suggests standard school curricula are trailing behind actual workplace evolutionary speed.</li>
+                </ul>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // Global navigation handling
+        function switchTab(sectionId) {
+            // Update active section
+            document.querySelectorAll('.survey-section').forEach(sec => sec.classList.remove('active'));
+            document.getElementById(sectionId).classList.add('active');
+
+            // Update active sidebar link
+            document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
+            event.currentTarget.classList.add('active');
+
+            // Update header text based on section
+            const titles = {
+                screentime: ["Screen Time & Learning", "Data insights from 1,200 surveyed students."],
+                gaming: ["Gaming & Skill Development", "How games impact logic and hard tech skills."],
+                ai: ["AI & Education", "Tracking generative tool adoption and risks."],
+                robotics: ["Robotics & Innovation", "Analyzing hands-on engineering barriers."],
+                socialmedia: ["Social Media Impact", "Creativity and focus in the digital age."],
+                careers: ["Future Careers & Technology", "Gauging readiness for the future workforce."]
+            };
+            document.getElementById('main-title').innerText = titles[sectionId][0];
+            document.getElementById('main-subtitle').innerText = titles[sectionId][1];
+        }
+
+        // --- CHART GENERATION (CHART.JS) ---
+        const colors = {
+            primary: ['#4f46e5', '#6366f1', '#818cf8', '#a5b4fc'],
+            accent: ['#f97316', '#fb923c', '#fdba74', '#fed7aa'],
+            mixed: ['#4f46e5', '#f97316', '#10b981', '#ef4444', '#f59e0b']
+        };
+
+        // 1. Screen Time Charts
+        new Chart(document.getElementById('chartScreenHours'), {
+            type: 'bar',
+            data: {
+                labels: ['1-2 Hours', '3-4 Hours', '5-7 Hours', '8+ Hours'],
+                datasets: [{ label: '% of Students', data: [12, 26, 44, 18], backgroundColor: colors.primary }]
+            },
+            options: { responsive: true, maintainAspectRatio: false }
+        });
+
+        new Chart(document.getElementById('chartScreenPurpose'), {
+            type: 'pie',
+            data: {
+                labels: ['Pure Entertainment', 'Learning & Skills', 'Communication', 'School Work'],
+                datasets: [{ data: [45, 20, 15, 20], backgroundColor: colors.mixed }]
+            },
+            options: { responsive: true, maintainAspectRatio: false }
+        });
+
+        // 2. Gaming Charts
+        new Chart(document.getElementById('chartGamingProblem'), {
+            type: 'doughnut',
+            data: {
+                labels: ['Yes, significantly', 'Somewhat', 'Not really', 'No impact at all'],
+                datasets: [{ data: [52, 33, 11, 4], backgroundColor: colors.primary }]
+            },
+            options: { responsive: true, maintainAspectRatio: false }
+        });
+
+        new Chart(document.getElementById('chartGamingInterest'), {
+            type: 'bar',
+            data: {
+                labels: ['Yes, heavily', 'Slightly', 'No change'],
+                datasets: [{ label: '% Response', data: [38, 41, 21], backgroundColor: colors.accent }]
+            },
+            options: { responsive: true, maintainAspectRatio: false }
+        });
+
+        // 3. AI Charts
+        new Chart(document.getElementById('chartAiUsage'), {
+            type: 'bar',
+            data: {
+                labels: ['Daily', 'Weekly', 'Rarely', 'Never'],
+                datasets: [{ label: '% Usage', data: [28, 43, 22, 7], backgroundColor: colors.primary }]
+            },
+            options: { responsive: true, maintainAspectRatio: false }
+        });
+
+        new Chart(document.getElementById('chartAiRisks'), {
+            type: 'pie',
+            data: {
+                labels: ['Loss of Critical Thinking', 'Plagiarism/Cheating', 'Incorrect Answers', 'Lazy Work Habits'],
+                datasets: [{ data: [48, 22, 12, 18], backgroundColor: colors.mixed }]
+            },
+            options: { responsive: true, maintainAspectRatio: false }
+        });
+
+        // 4. Robotics Charts
+        new Chart(document.getElementById('chartRoboInterest'), {
+            type: 'doughnut',
+            data: {
+                labels: ['Very Interested', 'Moderately Interested', 'Neutral', 'Not Interested'],
+                datasets: [{ data: [45, 30, 15, 10], backgroundColor: colors.mixed }]
+            },
+            options: { responsive: true, maintainAspectRatio: false }
+        });
+
+        new Chart(document.getElementById('chartRoboBarriers'), {
+            type: 'bar',
+            data: {
+                labels: ['No school lab/equipment', 'Too expensive to buy own', 'Hard to learn alone', 'No time'],
+                datasets: [{ label: '% Students', data: [56, 22, 14, 8], backgroundColor: colors.accent }]
+            },
+            options: { indexAxis: 'y', responsive: true, maintainAspectRatio: false }
+        });
+
+        // 5. Social Media Charts
+        new Chart(document.getElementById('chartSmFocus'), {
+            type: 'bar',
+            data: {
+                labels: ['Strongly Agree', 'Agree', 'Disagree', 'Strongly Disagree'],
+                datasets: [{ label: '% Response', data: [39, 42, 15, 4], backgroundColor: colors.primary }]
+            },
+            options: { responsive: true, maintainAspectRatio: false }
+        });
+
+        new Chart(document.getElementById('chartSmInspiration'), {
+            type: 'doughnut',
+            data: {
+                labels: ['Yes (Design/Video/Coding)', 'Yes (Business/Marketing)', 'No, strictly entertainment'],
+                datasets: [{ data: [34, 28, 38], backgroundColor: colors.mixed }]
+            },
+            options: { responsive: true, maintainAspectRatio: false }
+        });
+
+        // 6. Career Charts
+        new Chart(document.getElementById('chartCareerInterest'), {
+            type: 'bar',
+            data: {
+                labels: ['AI / Data Science', 'Software & Web Dev', 'Robotics & Hardware', 'Digital Creative/Design'],
+                datasets: [{ label: '% Choices', data: [41, 29, 12, 18], backgroundColor: colors.primary }]
+            },
+            options: { responsive: true, maintainAspectRatio: false }
+        });
+
+        new Chart(document.getElementById('chartCareerPrepared'), {
+            type: 'pie',
+            data: {
+                labels: ['Completely Ready', 'Somewhat Ready', 'Unprepared', ' Terrified/Clueless'],
+                datasets: [{ data: [15, 47, 28, 10], backgroundColor: colors.mixed }]
+            },
+            options: { responsive: true, maintainAspectRatio: false }
+        });
+    </script>
+</body>
+</html>

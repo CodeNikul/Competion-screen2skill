@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>BrainVerse AI | Simple & Smart Learning</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #ffffff;
+            color: #1a1a2e;
+            line-height: 1.5;
+        }
+
+        /* Orange accent utilities */
+        .text-orange {
+            color: #f97316;
+        }
+        .bg-orange {
+            background: #f97316;
+        }
+        .border-orange {
+            border-color: #f97316;
+        }
+
+        /* Buttons */
+        .btn-primary {
+            background: #f97316;
+            color: white;
+            border: none;
+            padding: 12px 28px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 0 2px 8px rgba(249, 115, 22, 0.2);
+        }
+        .btn-primary:hover {
+            background: #ea580c;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(249, 115, 22, 0.3);
+        }
+        .btn-outline {
+            background: transparent;
+            border: 2px solid #f97316;
+            color: #f97316;
+            padding: 10px 24px;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .btn-outline:hover {
+            background: #f97316;
+            color: white;
+        }
+
+        /* Cards */
+        .card {
+            background: white;
+            border-radius: 24px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            border: 1px solid #f0f0f0;
+        }
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+            border-color: #f97316;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Header */
+        header {
+            background: white;
+            padding: 16px 0;
+            border-bottom: 1px solid #eee;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+        }
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+        .logo span {
+            color: #f97316;
+        }
+
+        /* Hero */
+        .hero {
+            padding: 60px 0 40px;
+            text-align: center;
+        }
+        .hero h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #1a1a2e, #f97316);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        .hero p {
+            font-size: 1.2rem;
+            color: #666;
+            max-width: 600px;
+            margin: 0 auto 30px;
+        }
+
+        /* Feature Grid */
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 24px;
+            margin: 50px 0;
+        }
+        .feature-icon {
+            font-size: 2.5rem;
+            color: #f97316;
+            margin-bottom: 16px;
+        }
+        .feature-card h3 {
+            margin-bottom: 10px;
+            font-size: 1.3rem;
+        }
+        .feature-card p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        /* Subject Worlds */
+        .subject-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 20px;
+            margin: 40px 0;
+        }
+        .subject-item {
+            background: #fafafa;
+            border-radius: 20px;
+            padding: 20px;
+            text-align: center;
+            transition: 0.2s;
+            cursor: pointer;
+            border: 1px solid #eee;
+        }
+        .subject-item:hover {
+            background: #fff5ed;
+            border-color: #f97316;
+            transform: scale(1.02);
+        }
+        .subject-item i {
+            font-size: 2rem;
+            color: #f97316;
+            margin-bottom: 12px;
+        }
+
+        /* Gamified Stats Bar */
+        .stats-bar {
+            background: linear-gradient(135deg, #fff5ed, #ffffff);
+            border-radius: 28px;
+            padding: 24px;
+            margin: 40px 0;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            gap: 20px;
+            border: 1px solid #ffe0cc;
+        }
+        .stat-item {
+            text-align: center;
+        }
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #f97316;
+        }
+        .stat-label {
+            color: #666;
+            font-size: 0.85rem;
+        }
+
+        /* Chatbot - Simple & Cute */
+        .chatbot {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            width: 360px;
+            background: white;
+            border-radius: 28px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+            border: 1px solid #f0f0f0;
+            z-index: 1000;
+            transition: 0.3s;
+        }
+        .chatbot.minimized .chat-body {
+            display: none;
+        }
+        .chat-header {
+            padding: 16px 20px;
+            background: #f97316;
+            border-radius: 28px 28px 0 0;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+        .chat-header i {
+            font-size: 1.4rem;
+        }
+        .chat-header span {
+            flex: 1;
+        }
+        .chat-body {
+            padding: 16px;
+            max-height: 400px;
+            display: flex;
+            flex-direction: column;
+        }
+        .chat-messages {
+            height: 300px;
+            overflow-y: auto;
+            margin-bottom: 12px;
+            padding-right: 6px;
+        }
+        .message {
+            margin-bottom: 12px;
+            display: flex;
+            gap: 10px;
+        }
+        .message.bot {
+            justify-content: flex-start;
+        }
+        .message.user {
+            justify-content: flex-end;
+        }
+        .message.bot .bubble {
+            background: #f1f5f9;
+            color: #1e293b;
+            border-radius: 20px 20px 20px 6px;
+        }
+        .message.user .bubble {
+            background: #f97316;
+            color: white;
+            border-radius: 20px 20px 6px 20px;
+        }
+        .bubble {
+            max-width: 80%;
+            padding: 10px 16px;
+            font-size: 0.9rem;
+        }
+        .chat-input-area {
+            display: flex;
+            gap: 10px;
+            border-top: 1px solid #eee;
+            padding-top: 12px;
+        }
+        .chat-input-area input {
+            flex: 1;
+            padding: 10px 14px;
+            border: 1px solid #e2e8f0;
+            border-radius: 40px;
+            outline: none;
+            font-family: 'Inter', sans-serif;
+        }
+        .chat-input-area input:focus {
+            border-color: #f97316;
+        }
+        .chat-input-area button {
+            background: #f97316;
+            border: none;
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            color: white;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .chat-input-area button:hover {
+            background: #ea580c;
+        }
+        .suggestions {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-top: 12px;
+        }
+        .suggest-chip {
+            background: #f1f5f9;
+            padding: 6px 14px;
+            border-radius: 40px;
+            font-size: 0.75rem;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .suggest-chip:hover {
+            background: #f97316;
+            color: white;
+        }
+
+        /* Footer */
+        footer {
+            background: #fafafa;
+            padding: 40px 0 20px;
+            margin-top: 60px;
+            border-top: 1px solid #eee;
+        }
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 30px;
+        }
+        .social-icons i {
+            font-size: 1.5rem;
+            margin-right: 16px;
+            color: #f97316;
+            cursor: pointer;
+        }
+
+        @media (max-width: 600px) {
+            .chatbot {
+                width: 300px;
+                right: 16px;
+                bottom: 16px;
+            }
+            .hero h1 {
+                font-size: 2rem;
+            }
+            .container {
+                padding: 0 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="container" style="display: flex; justify-content: space-between; align-items: center;">
+        <div class="logo">Brain<span>Verse</span> AI</div>
+        <div style="display: flex; gap: 20px;">
+            <a href="#" style="text-decoration: none; color: #333;">Home</a>
+            <a href="#" style="text-decoration: none; color: #333;">Features</a>
+            <a href="#" style="text-decoration: none; color: #333;">Parents</a>
+        </div>
+    </div>
+</header>
+
+<main>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>Learn Smarter.<br>Play Harder. Build the Future.</h1>
+            <p>Your friendly AI tutor makes learning fun, interactive, and personalized for kids aged 6–14.</p>
+            <button class="btn-primary" id="startBtn"><i class="fas fa-play"></i> Start Learning</button>
+            <button class="btn-outline" id="exploreBtn" style="margin-left: 12px;"><i class="fas fa-gamepad"></i> Explore Games</button>
+        </div>
+    </section>
+
+    <!-- Feature Cards -->
+    <div class="container">
+        <div class="feature-grid">
+            <div class="card feature-card"><div class="feature-icon"><i class="fas fa-robot"></i></div><h3>AI Tutor</h3><p>Personalized lessons just for you</p></div>
+            <div class="card feature-card"><div class="feature-icon"><i class="fas fa-code"></i></div><h3>Coding Lab</h3><p>Python, Scratch, Web games</p></div>
+            <div class="card feature-card"><div class="feature-icon"><i class="fas fa-microchip"></i></div><h3>Robotics Zone</h3><p>Build & code your own robot</p></div>
+            <div class="card feature-card"><div class="feature-icon"><i class="fas fa-trophy"></i></div><h3>Quiz Arena</h3><p>Compete with friends</p></div>
+            <div class="card feature-card"><div class="feature-icon"><i class="fas fa-book-open"></i></div><h3>Story Generator</h3><p>AI writes with you</p></div>
+            <div class="card feature-card"><div class="feature-icon"><i class="fas fa-flask"></i></div><h3>Science Lab</h3><p>Fun experiments at home</p></div>
+        </div>
+    </div>
+
+    <!-- Gamified Stats -->
+    <div class="container">
+        <div class="stats-bar">
+            <div class="stat-item"><div class="stat-value">2,450</div><div class="stat-label">XP Points</div></div>
+            <div class="stat-item"><div class="stat-value">7 🔥</div><div class="stat-label">Day Streak</div></div>
+            <div class="stat-item"><div class="stat-value">12</div><div class="stat-label">Badges Earned</div></div>
+            <div class="stat-item"><div class="stat-value">#42</div><div class="stat-label">Global Rank</div></div>
+        </div>
+    </div>
+
+    <!-- Subjects as Worlds -->
+    <div class="container">
+        <h2 style="font-size: 1.8rem; margin: 30px 0 20px;">✨ Choose Your World ✨</h2>
+        <div class="subject-grid">
+            <div class="subject-item"><i class="fas fa-chart-line"></i><h4>Math Galaxy</h4><span style="font-size:0.8rem; color:#f97316;">+400 XP</span></div>
+            <div class="subject-item"><i class="fas fa-terminal"></i><h4>Coding Planet</h4><span style="font-size:0.8rem; color:#f97316;">Build Apps</span></div>
+            <div class="subject-item"><i class="fas fa-atom"></i><h4>Science Lab</h4><span style="font-size:0.8rem; color:#f97316;">Experiments</span></div>
+            <div class="subject-item"><i class="fas fa-palette"></i><h4>Art Studio</h4><span style="font-size:0.8rem; color:#f97316;">Creative</span></div>
+            <div class="subject-item"><i class="fas fa-robot"></i><h4>Robotics</h4><span style="font-size:0.8rem; color:#f97316;">Build Bots</span></div>
+            <div class="subject-item"><i class="fas fa-globe"></i><h4>Eco Mission</h4><span style="font-size:0.8rem; color:#f97316;">Save Earth</span></div>
+        </div>
+    </div>
+
+    <!-- Parent Dashboard Preview -->
+    <div class="container">
+        <div class="card" style="margin: 40px 0; background: #fef9f4;">
+            <h3><i class="fas fa-chalkboard-user" style="color:#f97316;"></i> Parent Dashboard</h3>
+            <div style="display: flex; flex-wrap: wrap; gap: 24px; margin-top: 20px;">
+                <div><i class="fas fa-chart-line"></i> Progress: +28% this month</div>
+                <div><i class="fas fa-clock"></i> Screen time: 45min/day</div>
+                <div><i class="fas fa-chart-simple"></i> Skill growth: Coding + Math ↑</div>
+                <div><i class="fas fa-shield-alt"></i> Safety controls: Active</div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<footer>
+    <div class="container">
+        <div class="footer-content">
+            <div><h3>BrainVerse AI</h3><p style="color:#666;">© 2026 · Learn Smarter</p><div class="social-icons"><i class="fab fa-instagram"></i><i class="fab fa-discord"></i><i class="fab fa-tiktok"></i><i class="fab fa-youtube"></i></div></div>
+            <div><h4>Quick Links</h4><p>Home · Features · Games · Parents</p></div>
+            <div><h4>🚀 Newsletter</h4><input type="email" placeholder="Your email" style="padding: 10px; border-radius: 40px; border:1px solid #ddd; margin-top: 8px;"><button class="btn-primary" style="padding: 8px 20px; margin-top: 8px;">Subscribe</button></div>
+        </div>
+    </div>
+</footer>
+
+<!-- Simple Cute Chatbot -->
+<div class="chatbot" id="chatbot">
+    <div class="chat-header" id="chatHeader">
+        <i class="fas fa-robot"></i>
+        <span>Nexi - Your AI Buddy 🧡</span>
+        <i class="fas fa-chevron-down" id="chatToggleIcon"></i>
+    </div>
+    <div class="chat-body" id="chatBody">
+        <div class="chat-messages" id="chatMessages">
+            <div class="message bot">
+                <div class="bubble">👋 Hi! I'm Nexi. Ask me anything about learning, coding, or just say hi!</div>
+            </div>
+        </div>
+        <div class="chat-input-area">
+            <input type="text" id="chatInput" placeholder="Type your message...">
+            <button id="sendBtn"><i class="fas fa-paper-plane"></i></button>
+        </div>
+        <div class="suggestions">
+            <div class="suggest-chip" data-msg="What is AI?">🤖 What is AI?</div>
+            <div class="suggest-chip" data-msg="Give me a math puzzle">🧮 Math puzzle</div>
+            <div class="suggest-chip" data-msg="Tell me a joke">😂 Joke please</div>
+            <div class="suggest-chip" data-msg="How to start coding?">💻 Start coding</div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Chatbot functionality
+    const chatbot = document.getElementById('chatbot');
+    const chatHeader = document.getElementById('chatHeader');
+    const chatBody = document.getElementById('chatBody');
+    const chatToggleIcon = document.getElementById('chatToggleIcon');
+    const chatMessages = document.getElementById('chatMessages');
+    const chatInput = document.getElementById('chatInput');
+    const sendBtn = document.getElementById('sendBtn');
+
+    let isMinimized = false;
+
+    chatHeader.addEventListener('click', () => {
+        isMinimized = !isMinimized;
+        if (isMinimized) {
+            chatBody.style.display = 'none';
+            chatToggleIcon.classList.remove('fa-chevron-down');
+            chatToggleIcon.classList.add('fa-chevron-up');
+        } else {
+            chatBody.style.display = 'flex';
+            chatToggleIcon.classList.remove('fa-chevron-up');
+            chatToggleIcon.classList.add('fa-chevron-down');
+        }
+    });
+
+    function addMessage(text, isUser = false) {
+        const messageDiv = document.createElement('div');
+        messageDiv.className = `message ${isUser ? 'user' : 'bot'}`;
+        const bubble = document.createElement('div');
+        bubble.className = 'bubble';
+        bubble.textContent = text;
+        messageDiv.appendChild(bubble);
+        chatMessages.appendChild(messageDiv);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+
+    function getBotReply(userMsg) {
+        const msg = userMsg.toLowerCase();
+        if (msg.includes('ai') || msg.includes('what is')) {
+            return "🤖 AI stands for Artificial Intelligence! I'm an AI that helps you learn. Cool, right?";
+        } else if (msg.includes('joke')) {
+            return "😂 Why did the math book look so sad? Because it had too many problems!";
+        } else if (msg.includes('math') || msg.includes('puzzle')) {
+            return "🧮 Here's a puzzle: I'm thinking of a number. Double it and add 6, you get 20. What's the number? (Answer: 7)";
+        } else if (msg.includes('code') || msg.includes('coding')) {
+            return "💻 Start with Scratch or Python! Want me to show you a simple Python 'Hello World'?";
+        } else if (msg.includes('hello') || msg.includes('hi')) {
+            return "👋 Hello! Ready to learn something new today?";
+        } else {
+            return "🧡 That's awesome! Try exploring Math Galaxy or Coding Planet. Want a hint? Just ask!";
+        }
+    }
+
+    function sendMessage() {
+        const text = chatInput.value.trim();
+        if (text === "") return;
+        addMessage(text, true);
+        chatInput.value = "";
+        setTimeout(() => {
+            const reply = getBotReply(text);
+            addMessage(reply, false);
+        }, 400);
+    }
+
+    sendBtn.addEventListener('click', sendMessage);
+    chatInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') sendMessage();
+    });
+
+    document.querySelectorAll('.suggest-chip').forEach(chip => {
+        chip.addEventListener('click', () => {
+            const msg = chip.getAttribute('data-msg');
+            addMessage(msg, true);
+            setTimeout(() => {
+                const reply = getBotReply(msg);
+                addMessage(reply, false);
+            }, 300);
+        });
+    });
+
+    // Button actions
+    document.getElementById('startBtn').addEventListener('click', () => {
+        addMessage("Let's start learning! 🚀", false);
+        addMessage("I want to learn something new!", true);
+        setTimeout(() => {
+            addMessage("Great! Try Math Galaxy first — it's super fun! 🌟", false);
+        }, 500);
+    });
+
+    document.getElementById('exploreBtn').addEventListener('click', () => {
+        alert("🎮 Game Worlds: Math Galaxy, Coding Planet, Quiz Arena — unlock with XP!");
+    });
+
+    // Hover effects on subject cards
+    document.querySelectorAll('.subject-item').forEach(item => {
+        item.addEventListener('click', () => {
+            const name = item.querySelector('h4')?.innerText || "this world";
+            addMessage(`Let's go to ${name}!`, false);
+        });
+    });
+</script>
+
+</body>
+</html>

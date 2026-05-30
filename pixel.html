@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pixel Art Studio</title>
+
+<style>
+body{
+  margin:0;
+  font-family:Arial, sans-serif;
+  background:#111;
+  color:#fff;
+  text-align:center;
+}
+
+h1{
+  margin:20px;
+}
+
+.controls{
+  margin:10px;
+}
+
+button, input, select{
+  margin:5px;
+  padding:8px;
+  border:none;
+  border-radius:6px;
+}
+
+button{
+  background:#444;
+  color:white;
+  cursor:pointer;
+}
+
+button:hover{
+  background:#666;
+}
+
+canvas{
+  border:2px solid #fff;
+  background:#fff;
+  margin-top:10px;
+  cursor:crosshair;
+}
+</style>
+</head>
+
+<body>
+
+<h1>🎨 Pixel Art Studio</h1>
+
+<div class="controls">
+  <label>🎨 Pick Color:</label>
+  <input type="color" id="colorPicker" value="#000000">
+
+  <button onclick="tool='draw'">✏️ Draw</button>
+  <button onclick="tool='erase'">🧽 Erase</button>
+
+  <button onclick="toggleGrid()">🔲 Grid</button>
+  <button onclick="undo()">↩ Undo</button>
+
+  <button onclick="saveArt()">💾 Save</button>
+  <button onclick="loadArt()">📂 Load</button>
+
+  <select id="gridSelect" onchange="changeGrid(this.value)">
+    <option value="16">16x16</option>
+    <option value="32" selected>32x32</option>
+    <option value="64">64x64</option>
+  </select>
+
+  <button onclick="clearCanvas()">🗑 Clear</button>
+</div>
+
+<canvas id="canvas" width="512" height="512"></canvas>
+
+<script>
+const canvas = document.getElementById("canvas");
+const ctx = canvas.getContext("2d");
+const colorPicker = document.getElementById("colorPicker");
+const gridSelect = document.getElementById("gridSelect");
+
+let gridSize = 32;
+let pixelSize = canvas.width / gridSize;
+
+let drawing = false;
+let tool = "draw";
+let showGrid = true;
+
+let history = [];
+
+// Save undo state
+function saveState(){
+  history.push(ctx.getImageData(0,0,canvas.width,canvas.height));
+  if(history.length > 20) history.shift();
+}
+
+// Undo
+function undo(){
+  if(history.length === 0) return;
+  ctx.putImageData(history.pop(),0,0);
+  drawGrid();
+}
+
+// Grid
+function drawGrid(){
+  if(!showGrid) return;
+
+  ctx.strokeStyle = "#ddd";
+
+  for(let i=0;i<=gridSize;i++){
+    ctx.beginPath();
+    ctx.moveTo(i*pixelSize,0);
+    ctx.lineTo(i*pixelSize,canvas.height);
+    ctx.stroke();
+
+    ctx.beginPath();
+    ctx.moveTo(0,i*pixelSize);
+    ctx.lineTo(canvas.width,i*pixelSize);
+    ctx.stroke();
+  }
+}
+
+// Toggle grid
+function toggleGrid(){
+  showGrid = !showGrid;
+  redraw();
+}
+
+// Safe redraw
+function redraw(){
+  const img = ctx.getImageData(0,0,canvas.width,canvas.height);
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  ctx.putImageData(img,0,0);
+  drawGrid();
+}
+
+// Change grid size
+function changeGrid(size){
+  gridSize = parseInt(size);
+  pixelSize = canvas.width / gridSize;
+  clearCanvas();
+}
+
+// Get pixel position
+function getPixel(e){
+  const rect = canvas.getBoundingClientRect();
+  return {
+    x: Math.floor((e.clientX - rect.left) / pixelSize),
+    y: Math.floor((e.clientY - rect.top) / pixelSize)
+  };
+}
+
+// Draw / erase
+function draw(e){
+  if(!drawing) return;
+
+  const {x,y} = getPixel(e);
+
+  ctx.fillStyle = (tool === "draw") ? colorPicker.value : "#ffffff";
+
+  ctx.fillRect(x*pixelSize, y*pixelSize, pixelSize, pixelSize);
+
+  if(showGrid){
+    ctx.strokeStyle = "#ddd";
+    ctx.strokeRect(x*pixelSize, y*pixelSize, pixelSize, pixelSize);
+  }
+}
+
+// Events
+canvas.addEventListener("mousedown", (e)=>{
+  saveState();
+  drawing = true;
+  draw(e);
+});
+
+canvas.addEventListener("mouseup", ()=> drawing = false);
+canvas.addEventListener("mouseleave", ()=> drawing = false);
+canvas.addEventListener("mousemove", draw);
+
+// Clear
+function clearCanvas(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  drawGrid();
+}
+
+// SAVE
+function saveArt(){
+  const saveData = {
+    image: canvas.toDataURL("image/png"),
+    grid: gridSize
+  };
+
+  localStorage.setItem("pixelArtSave", JSON.stringify(saveData));
+  alert("✅ Saved!");
+}
+
+// LOAD (old + new compatible)
+function loadArt(){
+  const data = localStorage.getItem("pixelArtSave");
+
+  if(!data){
+    alert("❌ No save found");
+    return;
+  }
+
+  let saveData;
+
+  try{
+    saveData = JSON.parse(data);
+  } catch {
+    saveData = { image: data, grid: gridSize };
+  }
+
+  const img = new Image();
+  img.src = saveData.image;
+
+  img.onload = () => {
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+
+    ctx.imageSmoothingEnabled = false;
+
+    ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+
+    drawGrid();
+  };
+}
+
+// INIT
+drawGrid();
+</script>
+
+</body>
+</html>
