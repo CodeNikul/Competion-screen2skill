@@ -2,892 +2,902 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Skill-Builders: Digital to Real-World! | Pie Charts</title>
-
-  <!-- Font Awesome 6 (free icons) -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <!-- Google Fonts: playful but readable -->
-  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
-
-  <!-- Chart.js CDN for beautiful pie charts -->
-  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
-
-  <style>
-
-    /* ---------------- GLOBAL ---------------- */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    :root {
-      --orange: #FF7A00;
-      --blue: #0094FF;
-      --green: #39d353;
-      --dark: #08294d;
-      --bg: #FFFDF9;
-      --shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
-    }
-
-    body {
-      font-family: 'Quicksand', sans-serif;
-      color: #333;
-      overflow-x: hidden;
-      background-image: url('Gemini_Generated_Image_1i9jmz1i9jmz1i9j.png');
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-      background-attachment: fixed;
-      background-color: #0b1f33;
-    }
-
-    button,
-    .card,
-    .card-btn,
-    .ai-project-btn,
-    .nav-link {
-      transition: all 0.3s ease;
-    }
-
-    /* NAVBAR (sticky, modern) */
-    .utility-nav {
-      background: rgba(255, 255, 255, 0.98);
-      backdrop-filter: blur(4px);
-      padding: 16px 0;
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-      box-shadow: 0 2px 15px rgba(0, 0, 0, 0.06);
-    }
-
-    .nav-container {
-      max-width: 1200px;
-      margin: auto;
-      padding: 0 24px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-    }
-
-    .nav-left,
-    .nav-right {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      flex-wrap: wrap;
-    }
-
-    .nav-link {
-      color: #1a2a3a;
-      font-weight: 800;
-      text-decoration: none;
-    }
-
-    .nav-link:hover {
-      color: var(--orange);
-    }
-
-    .kids-tab {
-      background: #FF7A00;
-      color: white;
-      padding: 8px 16px;
-      border-radius: 20px;
-    }
-
-    /* NEW PIE CHART TAB STYLE (matches kids-tab but distinct) */
-    .pie-tab {
-      background: linear-gradient(135deg, #0094FF, #6c5ce7);
-      color: white;
-      padding: 8px 18px;
-      border-radius: 30px;
-      font-weight: 800;
-      box-shadow: 0 4px 10px rgba(0, 148, 255, 0.3);
-    }
-
-    .pie-tab i {
-      margin-right: 6px;
-    }
-
-    .pie-tab:hover {
-      transform: translateY(-2px);
-      background: linear-gradient(135deg, #0080dd, #5a4bcf);
-      color: white;
-    }
-
-    .cta-connect {
-      background: linear-gradient(135deg, #FF7A00, #ff9f43);
-      color: white;
-      padding: 10px 18px;
-      border-radius: 24px;
-      font-weight: 700;
-      text-decoration: none;
-    }
-
-    .cta-connect:hover {
-      transform: translateY(-2px);
-    }
-
-    /* HERO SECTION (crisp white background) */
-    .hero-section {
-      padding: 90px 20px;
-      text-align: center;
-    }
-
-    .logo-area {
-      background: rgba(255, 255, 255, 0.92);
-      display: inline-block;
-      padding: 15px 30px;
-      border-radius: 60px;
-      margin-bottom: 20px;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-      border: 1px solid rgba(255, 255, 255, 0.8);
-    }
-
-    .logo-area h1 {
-      font-size: 52px;
-      color: #FF7A00;
-      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);
-    }
-
-    .logo-icon {
-      font-size: 42px;
-    }
-
-    .tagline {
-      font-size: 20px;
-      color: #0094FF;
-      font-weight: 600;
-    }
-
-    .hero-content {
-      background: rgba(255, 255, 255, 0.96);
-      border: 1px solid rgba(255, 255, 255, 0.5);
-      padding: 30px 40px;
-      border-radius: 50px;
-      max-width: 900px;
-      margin: 20px auto 0;
-      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
-    }
-
-    .hero-content h2 {
-      font-size: 60px;
-      color: #FF7A00;
-      margin-bottom: 15px;
-    }
-
-    .hero-content p {
-      font-size: 19px;
-      color: #1a3a5a;
-      font-weight: 500;
-    }
-
-    .badge {
-      background: #FF7A00;
-      color: #fff;
-      font-weight: 800;
-      padding: 6px 18px;
-      border-radius: 30px;
-      display: inline-block;
-      margin-bottom: 15px;
-    }
-
-    .hero-buttons button {
-      padding: 16px 30px;
-      border: none;
-      border-radius: 30px;
-      font-size: 16px;
-      font-weight: 700;
-      cursor: pointer;
-      margin: 10px;
-    }
-
-    .btn-orange {
-      background: linear-gradient(135deg, var(--orange), #ff9f43);
-      color: white;
-      box-shadow: 0 8px 20px rgba(255, 122, 0, 0.3);
-    }
-
-    .btn-blue {
-      background: linear-gradient(135deg, var(--blue), #4ab3ff);
-      color: white;
-    }
-
-    .btn-orange:hover,
-    .btn-blue:hover {
-      transform: translateY(-4px);
-    }
-
-    /* MAIN CONTENT */
-    .main-content {
-      max-width: 1200px;
-      margin: auto;
-      padding: 60px 20px;
-    }
-
-    .content-container {
-      display: grid;
-      grid-template-columns: 1.7fr 1fr;
-      gap: 35px;
-    }
-
-    .section-title {
-      background: rgba(255, 255, 255, 0.92);
-      display: inline-block;
-      padding: 10px 25px;
-      border-radius: 40px;
-      font-size: 34px;
-      color: #FF7A00;
-      margin-bottom: 25px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-      font-weight: 700;
-    }
-
-    .card-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 25px;
-    }
-
-    .card-link {
-      text-decoration: none;
-      color: inherit;
-    }
-
-    .card {
-      background: rgba(255, 255, 255, 0.96);
-      border: 1px solid rgba(255, 255, 255, 0.5);
-      border-radius: 28px;
-      padding: 28px;
-      box-shadow: var(--shadow);
-      min-height: 300px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
-
-    .card:hover {
-      transform: translateY(-10px) scale(1.02);
-      box-shadow: 0 25px 45px rgba(0, 0, 0, 0.15);
-    }
-
-    .card-icon {
-      font-size: 42px;
-      margin-bottom: 18px;
-    }
-
-    .card h4 {
-      font-size: 26px;
-      font-family: 'Fredoka', sans-serif;
-      color: #1e2a3a;
-    }
-
-    .card p {
-      margin-top: 14px;
-      line-height: 1.6;
-      font-size: 15px;
-      color: #2c3e44;
-    }
-
-    .card-btn {
-      margin-top: 24px;
-      padding: 12px 18px;
-      border-radius: 30px;
-      font-weight: 700;
-      text-align: center;
-      width: fit-content;
-      cursor: pointer;
-    }
-
-    .card-robotics .card-icon {
-      color: var(--green);
-    }
-
-    .card-robotics .card-btn {
-      border: 2px solid #c8f0d4;
-      color: var(--green);
-    }
-
-    .card-blue .card-icon {
-      color: var(--blue);
-    }
-
-    .card-blue .card-btn {
-      border: 2px solid #d9e9ff;
-      color: var(--blue);
-    }
-
-    .card-orange .card-icon {
-      color: var(--orange);
-    }
-
-    .card-orange .card-btn {
-      border: 2px solid #ffe1c5;
-      color: var(--orange);
-    }
-
-    /* NEW PIE CHART CARD STYLES */
-    .card-pie {
-      background: linear-gradient(145deg, rgba(255, 255, 255, 0.98), rgba(245, 250, 255, 0.98));
-      border-left: 6px solid #0094FF;
-    }
-
-    .card-pie .card-icon {
-      color: #0094FF;
-    }
-
-    .card-pie .card-btn {
-      border: 2px solid #cce5ff;
-      color: #0094FF;
-      background: white;
-    }
-
-    .pie-preview {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-top: 15px;
-      gap: 12px;
-      flex-wrap: wrap;
-    }
-
-    .mini-canvas {
-      width: 70px;
-      height: 70px;
-      background: #f4f9ff;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    /* SIDE PANEL */
-    .side-panel {
-      display: flex;
-      flex-direction: column;
-      gap: 24px;
-    }
-
-    .kid-image-wrapper {
-      background: rgba(255, 255, 255, 0.95);
-      border-radius: 28px;
-      padding: 24px;
-      text-align: center;
-      box-shadow: var(--shadow);
-    }
-
-    .kid-image-wrapper img {
-      width: 100%;
-      max-width: 220px;
-    }
-
-    .ai-project-btn {
-      background: linear-gradient(135deg, #0a1f2f, #1a3a5a);
-      color: white;
-      width: 100%;
-      border: none;
-      border-radius: 24px;
-      padding: 22px;
-      font-weight: 700;
-      font-size: 17px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      cursor: pointer;
-    }
-
-    .ai-project-btn:hover {
-      transform: translateY(-5px);
-    }
-
-    .challenge-box {
-      background: linear-gradient(135deg, #0a1f2f, #1a3a5a);
-      border-radius: 28px;
-      padding: 28px;
-      text-align: center;
-      color: white;
-      box-shadow: var(--shadow);
-    }
-
-    .challenge-tag {
-      display: inline-block;
-      background: #ffe14d;
-      color: #000;
-      padding: 6px 12px;
-      border-radius: 12px;
-      font-size: 12px;
-      font-weight: 700;
-      margin-bottom: 16px;
-    }
-
-    .btn-green {
-      background: #2ecc71;
-      color: white;
-      border: none;
-      margin-top: 20px;
-      padding: 12px 24px;
-      border-radius: 24px;
-      font-weight: 700;
-      cursor: pointer;
-      display: inline-block;
-      text-decoration: none;
-    }
-
-    /* MODAL FOR PIE CHARTS (Interactive lesson) */
-    .modal {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0, 0, 0, 0.75);
-      z-index: 2000;
-      justify-content: center;
-      align-items: center;
-      backdrop-filter: blur(3px);
-    }
-
-    .modal-content {
-      background: #fffefa;
-      max-width: 800px;
-      width: 90%;
-      border-radius: 48px;
-      padding: 30px;
-      position: relative;
-      box-shadow: 0 30px 40px rgba(0, 0, 0, 0.3);
-      animation: fadeUp 0.3s ease;
-    }
-
-    @keyframes fadeUp {
-      from {
-        opacity: 0;
-        transform: translateY(30px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    .modal-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-bottom: 2px solid #FF7A00;
-      padding-bottom: 12px;
-      margin-bottom: 20px;
-    }
-
-    .modal-header h3 {
-      font-size: 28px;
-      color: #FF7A00;
-      font-family: 'Fredoka', sans-serif;
-    }
-
-    .close-modal {
-      font-size: 32px;
-      font-weight: bold;
-      cursor: pointer;
-      color: #777;
-      transition: 0.2s;
-    }
-
-    .close-modal:hover {
-      color: #FF7A00;
-    }
-
-    .chart-container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 20px;
-      margin: 15px 0;
-    }
-
-    canvas#pieChartCanvas {
-      max-width: 280px;
-      max-height: 280px;
-      background: #ffffff;
-      border-radius: 50%;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-      padding: 8px;
-    }
-
-    .pie-stats {
-      background: #f0f7ff;
-      border-radius: 28px;
-      padding: 15px 20px;
-      width: 100%;
-    }
-
-    .pie-stats p {
-      font-weight: 600;
-      margin: 5px 0;
-    }
-
-    .data-buttons {
-      display: flex;
-      gap: 12px;
-      flex-wrap: wrap;
-      justify-content: center;
-      margin: 15px 0 5px;
-    }
-
-    .data-btn {
-      background: #eef2fa;
-      border: none;
-      border-radius: 60px;
-      padding: 8px 18px;
-      font-weight: 700;
-      cursor: pointer;
-      transition: all 0.2s;
-      color: #1a3a5a;
-    }
-
-    .data-btn.active {
-      background: #0094FF;
-      color: white;
-      box-shadow: 0 4px 8px rgba(0, 148, 255, 0.3);
-    }
-
-    .pie-fact {
-      background: #FF7A0015;
-      border-left: 5px solid #FF7A00;
-      padding: 12px;
-      border-radius: 20px;
-      margin-top: 15px;
-      font-size: 14px;
-    }
-
-    @media (max-width: 950px) {
-      .content-container {
-        grid-template-columns: 1fr;
-      }
-      .hero-content h2 {
-        font-size: 42px;
-      }
-      .nav-container {
-        flex-direction: column;
-        gap: 12px;
-      }
-    }
-
-    @media (max-width: 650px) {
-      .hero-section {
-        padding: 70px 20px;
-      }
-      .card-grid {
-        grid-template-columns: 1fr;
-      }
-      .hero-content h2 {
-        font-size: 34px;
-      }
-      .logo-area h1 {
-        font-size: 38px;
-      }
-      .section-title {
-        font-size: 28px;
-      }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Skill-Builders: Digital to Real-World! | Pie Charts</title>
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Quicksand:wght@500;700&display=swap"
+rel="stylesheet">
+
+<style>
+
+/* ---------------- GLOBAL ---------------- */
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+:root{
+  --orange:#FF7A00;
+  --blue:#0094FF;
+  --green:#39d353;
+  --dark:#08294d;
+  --bg:#FFFDF9;
+  --shadow:0 12px 24px rgba(0,0,0,0.08);
+}
+
+body{
+  font-family:'Quicksand',sans-serif;
+  color:#333;
+  overflow-x:hidden;
+  position: relative;
+
+  background-image: url('Gemini_Generated_Image_1i9jmz1i9jmz1i9j.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-color:#0b1f33;
+}
+
+/* Smooth animations */
+
+button,
+.card,
+.card-btn,
+.ai-project-btn,
+.nav-link{
+  transition:all 0.3s ease;
+}
+
+/* NAVBAR */
+
+.utility-nav{
+  background:rgba(255,255,255,0.98);
+  backdrop-filter:blur(4px);
+  padding:16px 0;
+  position:sticky;
+  top:0;
+  z-index:1000;
+  box-shadow:0 2px 15px rgba(0,0,0,0.06);
+}
+
+.nav-container{
+  max-width:1200px;
+  margin:auto;
+  padding:0 24px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.nav-left,
+.nav-right{
+  display:flex;
+  align-items:center;
+  gap:14px;
+}
+
+.nav-link{
+  color:#1a2a3a;
+  font-weight:800;
+  text-decoration:none;
+}
+
+.nav-link:hover{
+  color:var(--orange);
+}
+
+.kids-tab{
+  background:#FF7A00;
+  color:white;
+  padding:8px 16px;
+  border-radius:20px;
+}
+
+/* NEW PIE CHARTS TAB - ADDED! */
+.pie-tab{
+  background: linear-gradient(135deg, #0094FF, #6c5ce7);
+  color:white;
+  padding:8px 18px;
+  border-radius:20px;
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+}
+
+.pie-tab i{
+  font-size:14px;
+}
+
+.pie-tab:hover{
+  transform:translateY(-2px);
+  background: linear-gradient(135deg, #0080dd, #5a4bcf);
+  color:white;
+}
+
+.cta-connect{
+  background:linear-gradient(135deg,#FF7A00,#ff9f43);
+  color:white;
+  padding:10px 18px;
+  border-radius:24px;
+  font-weight:700;
+  text-decoration:none;
+}
+
+.cta-connect:hover{
+  transform:translateY(-2px);
+}
+
+/* HERO SECTION - crisp white backgrounds */
+.hero-section{
+  padding:90px 20px;
+  text-align:center;
+}
+
+.logo-area{
+  background: rgba(255, 255, 255, 0.92);
+  display:inline-block;
+  padding:15px 30px;
+  border-radius:60px;
+  margin-bottom:20px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+  border: 1px solid rgba(255,255,255,0.8);
+}
+
+.logo-area h1{
+  font-size:52px;
+  color: #FF7A00;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
+  letter-spacing: -0.5px;
+}
+
+.logo-icon{
+  font-size:42px;
+  filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.1));
+}
+
+.tagline{
+  font-size:20px;
+  color: #0094FF;
+  text-shadow: none;
+  font-weight: 600;
+}
+
+.hero-content{
+  background: rgba(255, 255, 255, 0.96);
+  border: 1px solid rgba(255,255,255,0.5);
+  padding:30px 40px;
+  border-radius:50px;
+  max-width:900px;
+  margin:20px auto 0;
+  box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+}
+
+.hero-content h2{
+  font-size:60px;
+  color: #FF7A00;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
+  margin-bottom:15px;
+}
+
+.hero-content p{
+  font-size:19px;
+  color: #1a3a5a;
+  font-weight: 500;
+}
+
+.badge{
+  background:#FF7A00;
+  color:#fff;
+  font-weight:800;
+  padding:6px 18px;
+  border-radius:30px;
+  display:inline-block;
+  margin-bottom:15px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.hero-buttons{
+  margin-top:30px;
+}
+
+.hero-buttons button{
+  padding:16px 30px;
+  border:none;
+  border-radius:30px;
+  font-size:16px;
+  font-weight:700;
+  cursor:pointer;
+  margin:10px;
+}
+
+.btn-orange{
+  background:linear-gradient(135deg,var(--orange),#ff9f43);
+  color:white;
+  box-shadow:0 8px 20px rgba(255,122,0,0.3);
+}
+
+.btn-blue{
+  background:linear-gradient(135deg,var(--blue),#4ab3ff);
+  color:white;
+  box-shadow:0 8px 20px rgba(0,148,255,0.25);
+}
+
+.btn-orange:hover,
+.btn-blue:hover{
+  transform:translateY(-4px);
+}
+
+/* MAIN CONTENT */
+
+.main-content{
+  max-width:1200px;
+  margin:auto;
+  padding:60px 20px;
+}
+
+.content-container{
+  display:grid;
+  grid-template-columns:1.7fr 1fr;
+  gap:35px;
+}
+
+.section-title{
+  background: rgba(255, 255, 255, 0.92);
+  display:inline-block;
+  padding:10px 25px;
+  border-radius:40px;
+  font-size:34px;
+  color: #FF7A00;
+  margin-bottom:25px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  border: 1px solid rgba(255,255,255,0.9);
+  font-weight: 700;
+}
+
+.card-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:25px;
+}
+
+.card-link{
+  text-decoration:none;
+  color:inherit;
+}
+
+.card{
+  background:rgba(255,255,255,0.96);
+  border:1px solid rgba(255,255,255,0.5);
+  border-radius:28px;
+  padding:28px;
+  box-shadow:var(--shadow);
+  min-height:300px;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+}
+
+.card:hover{
+  transform:translateY(-10px) scale(1.02);
+  box-shadow:0 25px 45px rgba(0,0,0,0.15);
+}
+
+.card-icon{
+  font-size:42px;
+  margin-bottom:18px;
+}
+
+.card h4{
+  font-size:26px;
+  line-height:1.4;
+  font-family:'Fredoka',sans-serif;
+  color:#1e2a3a;
+}
+
+.card p{
+  margin-top:14px;
+  line-height:1.6;
+  font-size:15px;
+  color:#2c3e44;
+}
+
+.card-btn{
+  margin-top:24px;
+  padding:12px 18px;
+  border-radius:30px;
+  font-weight:700;
+  text-align:center;
+  width:fit-content;
+  cursor:pointer;
+  border:none;
+  background:transparent;
+}
+
+/* LevelUpScreen */
+
+.card-robotics .card-icon{
+  color:var(--green);
+}
+
+.card-robotics .card-btn{
+  border:2px solid #c8f0d4;
+  color:var(--green);
+  background:white;
+}
+
+.card-robotics .card-btn:hover{
+  background:#f0faf2;
+}
+
+/* RESEARCH */
+
+.card-blue .card-icon{
+  color:var(--blue);
+}
+
+.card-blue .card-btn{
+  border:2px solid #d9e9ff;
+  color:var(--blue);
+  background:white;
+}
+
+/* BENEFITS */
+
+.card-orange .card-icon{
+  color:var(--orange);
+}
+
+.card-orange .card-btn{
+  border:2px solid #ffe1c5;
+  color:var(--orange);
+  background:white;
+}
+
+/* SIDE PANEL */
+
+.side-panel{
+  display:flex;
+  flex-direction:column;
+  gap:24px;
+}
+
+.kid-image-wrapper{
+  background:rgba(255,255,255,0.95);
+  border-radius:28px;
+  padding:24px;
+  text-align:center;
+  box-shadow:var(--shadow);
+}
+
+.kid-image-wrapper img{
+  width:100%;
+  max-width:280px;
+}
+
+.ai-project-btn{
+  background:linear-gradient(135deg,#0a1f2f,#1a3a5a);
+  color:white;
+  width:100%;
+  border:none;
+  border-radius:24px;
+  padding:22px;
+  font-weight:700;
+  font-size:17px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  cursor:pointer;
+}
+
+.ai-project-btn:hover{
+  transform:translateY(-5px);
+}
+
+.ai-icon{
+  font-size:30px;
+  color:#38ef7d;
+}
+
+.spark-icon{
+  color:#fff275;
+}
+
+.challenge-box{
+  background:linear-gradient(135deg,#0a1f2f,#1a3a5a);
+  border-radius:28px;
+  padding:28px;
+  text-align:center;
+  color:white;
+  box-shadow:var(--shadow);
+}
+
+.challenge-tag{
+  display:inline-block;
+  background:#ffe14d;
+  color:#000;
+  padding:6px 12px;
+  border-radius:12px;
+  font-size:12px;
+  font-weight:700;
+  margin-bottom:16px;
+}
+
+.btn-green{
+  background:#2ecc71;
+  color:white;
+  border:none;
+  margin-top:20px;
+  padding:12px 24px;
+  border-radius:24px;
+  font-weight:700;
+  cursor:pointer;
+  text-decoration:none;
+  display:inline-block;
+}
+
+.btn-green:hover{
+  transform:scale(1.05);
+  background:#2bc24b;
+}
+
+/* PIE CHARTS PAGE SECTION - NEW! */
+.pie-charts-section {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 40px;
+  padding: 40px;
+  margin-top: 40px;
+  box-shadow: var(--shadow);
+}
+
+.pie-header {
+  text-align: center;
+  margin-bottom: 35px;
+}
+
+.pie-header h2 {
+  font-size: 38px;
+  color: #FF7A00;
+  font-family: 'Fredoka', sans-serif;
+}
+
+.pie-header p {
+  font-size: 18px;
+  color: #1a3a5a;
+  margin-top: 10px;
+}
+
+.pie-showcase {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+  margin-top: 20px;
+}
+
+.pie-card {
+  background: white;
+  border-radius: 28px;
+  padding: 25px;
+  text-align: center;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+  transition: transform 0.3s ease;
+}
+
+.pie-card:hover {
+  transform: translateY(-5px);
+}
+
+.pie-card h3 {
+  color: #0094FF;
+  margin-bottom: 20px;
+  font-size: 24px;
+}
+
+.pie-chart-container {
+  max-width: 250px;
+  margin: 0 auto;
+  position: relative;
+}
+
+canvas.pie-canvas {
+  max-width: 100%;
+  height: auto;
+}
+
+.pie-fun-fact {
+  margin-top: 20px;
+  background: #FFF3E0;
+  padding: 12px;
+  border-radius: 20px;
+  font-size: 14px;
+  color: #FF7A00;
+  font-weight: 600;
+}
+
+/* MOBILE */
+@media(max-width:950px){
+  .content-container{
+    grid-template-columns:1fr;
+  }
+  .hero-content h2{
+    font-size:42px;
+  }
+  .nav-container{
+    flex-direction:column;
+    gap:15px;
+  }
+  .pie-showcase {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media(max-width:650px){
+  .hero-section{
+    padding:70px 20px;
+  }
+  .card-grid{
+    grid-template-columns:1fr;
+  }
+  .hero-content h2{
+    font-size:34px;
+  }
+  .logo-area h1{
+    font-size:38px;
+  }
+  .section-title{
+    font-size:28px;
+  }
+  .pie-charts-section {
+    padding: 25px;
+  }
+}
+
+</style>
 </head>
 
 <body>
 
-  <header class="utility-nav">
-    <div class="nav-container">
-      <div class="nav-left">
-        <a class="nav-link" href="#">Home</a>
-        <a class="nav-link kids-tab" href="#">Kids (8–12)</a>
-        <!-- NEW PIE CHART TAB ADDED -->
-        <a class="nav-link pie-tab" href="#" id="pieChartNavBtn">
-          <i class="fa-solid fa-chart-pie"></i> Pie Charts
+<header class="utility-nav">
+  <div class="nav-container">
+
+    <div class="nav-left">
+      <a class="nav-link" href="#">Home</a>
+      <a class="nav-link kids-tab" href="#">Kids (8–12)</a>
+      <!-- NEW PIE CHARTS TAB - ADDED RIGHT HERE! -->
+      <a class="nav-link pie-tab" href="#" id="pieChartTabLink">
+        <i class="fa-solid fa-chart-pie"></i> Pie Charts
+      </a>
+    </div>
+
+    <div class="nav-right">
+      <a class="nav-link" href="#">Parent/Teacher</a>
+      <a class="cta-connect" href="#">Connect</a>
+    </div>
+
+  </div>
+</header>
+
+<section class="hero-section">
+
+  <div class="logo-area">
+    <div class="logo-icon">
+      🛠️ 💡 📊
+    </div>
+    <h1>SKILL-BUILDERS</h1>
+    <p class="tagline">
+      Digital to Real-World!
+    </p>
+  </div>
+
+  <div class="hero-content">
+    <span class="badge">
+      ACTIVE LEARNING
+    </span>
+    <h2>
+      Turn Screen Time Into
+      Real-Life Superpowers
+    </h2>
+    <p>
+      Learn robotics, research, creativity, and future-ready skills through fun projects and hands-on activities.
+    </p>
+    <div class="hero-buttons">
+      <button class="btn-orange"
+      onclick="window.location.href='about.html'">
+        Learn More
+      </button>
+      <button class="btn-blue"
+      onclick="window.location.href='explore.html'">
+        Explore Projects
+      </button>
+    </div>
+  </div>
+
+</section>
+
+<main class="main-content">
+
+  <div class="content-container">
+
+    <section>
+
+      <h3 class="section-title">
+        Level Up Your Habits
+      </h3>
+
+      <div class="card-grid">
+
+       <!-- ROBOTICS -->
+       <div class="card card-robotics"
+       onclick="window.location.href='story.html'"
+       style="cursor:pointer;">
+        <div>
+          <div class="card-icon">
+            <i class="fa-solid fa-robot"></i>
+          </div>
+          <h4>
+            1. Level Up <br>
+            Screen
+          </h4>
+          <p>
+            Stop watching. Start winning.
+          </p>
+        </div>
+        <button class="card-btn"
+        onclick="event.stopPropagation(); window.location.href='story.html'">
+          Open Project
+        </button>
+      </div>
+
+      <!-- RESEARCH -->
+      <div class="card card-blue"
+      onclick="window.location.href='research.html'"
+      style="cursor:pointer;">
+        <div>
+          <div class="card-icon">
+            <i class="fa-solid fa-chart-column"></i>
+          </div>
+          <h4>
+            Research → Data Skills
+          </h4>
+          <p>
+            Learn surveys, charts, analysis, and smart thinking.
+          </p>
+        </div>
+        <button class="card-btn"
+        onclick="event.stopPropagation(); window.location.href='research.html'">
+          View Research
+        </button>
+      </div>
+
+      <!-- BENEFITS -->
+      <a href="benefits.html" target="_blank" class="card-link">
+        <div class="card card-orange">
+          <div>
+            <div class="card-icon">
+              <i class="fa-solid fa-comment-dots"></i>
+            </div>
+            <h4>
+              Benefits of Digital Learning
+            </h4>
+            <p>
+              Why only Digital learning?
+            </p>
+          </div>
+          <div class="card-btn">
+            Learn More
+          </div>
+        </div>
+      </a>
+
+    </div>
+
+    </section>
+
+    <aside class="side-panel">
+
+      <div class="kid-image-wrapper">
+        <img src="https://cdn-icons-png.flaticon.com/512/4140/4140048.png"
+        alt="Creative Kid">
+      </div>
+
+      <button class="ai-project-btn"
+      onclick="openAiBuilder()">
+        <i class="fa-solid fa-brain ai-icon"></i>
+        <span>AI PROJECT BUILDER</span>
+        <i class="fa-solid fa-wand-magic-sparkles spark-icon"></i>
+      </button>
+
+      <div class="challenge-box">
+        <div class="challenge-tag">
+          THIS WEEK
+        </div>
+        <h4>
+          Quiz Challenge!
+        </h4>
+        <p>
+          Think fast, answer smart, and prove your skills!
+        </p>
+        <a href="quiz.html" class="btn-green">
+          Join Challenge
         </a>
       </div>
-      <div class="nav-right">
-        <a class="nav-link" href="#">Parent/Teacher</a>
-        <a class="cta-connect" href="#">Connect</a>
+
+    </aside>
+
+  </div>
+
+  <!-- NEW PIE CHARTS SECTION - This appears when you click the Pie Charts tab! -->
+  <div id="pieChartsSection" style="display: none;">
+    <div class="pie-charts-section">
+      <div class="pie-header">
+        <h2><i class="fa-solid fa-chart-pie"></i> Let's Explore Pie Charts!</h2>
+        <p>Pie charts help us see parts of a whole — just like slicing a pizza! 🍕</p>
       </div>
-    </div>
-  </header>
 
-  <section class="hero-section">
-    <div class="logo-area">
-      <div class="logo-icon">🛠️ 💡 📊</div>
-      <h1>SKILL-BUILDERS</h1>
-      <p class="tagline">Digital to Real-World!</p>
-    </div>
-    <div class="hero-content">
-      <span class="badge">DATA SUPERSTARS</span>
-      <h2>Turn Screen Time Into Real-Life Superpowers</h2>
-      <p>Learn robotics, research, pie charts, and future-ready skills through fun hands-on projects.</p>
-      <div class="hero-buttons">
-        <button class="btn-orange" onclick="window.location.href='about.html'">Learn More</button>
-        <button class="btn-blue" onclick="window.location.href='explore.html'">Explore Projects</button>
-      </div>
-    </div>
-  </section>
-
-  <main class="main-content">
-    <div class="content-container">
-      <section>
-        <h3 class="section-title">Level Up Your Habits</h3>
-        <div class="card-grid">
-          <!-- ROBOTICS CARD -->
-          <div class="card card-robotics" onclick="window.location.href='story.html'" style="cursor:pointer;">
-            <div>
-              <div class="card-icon"><i class="fa-solid fa-robot"></i></div>
-              <h4>1. Level Up <br> Screen</h4>
-              <p>Stop watching. Start winning.</p>
-            </div>
-            <button class="card-btn" onclick="event.stopPropagation(); window.location.href='story.html'">Open Project</button>
+      <div class="pie-showcase">
+        <!-- Pie Chart 1: Favorite Fruits -->
+        <div class="pie-card">
+          <h3>🍎 Favorite Fruits</h3>
+          <div class="pie-chart-container">
+            <canvas id="fruitPieChart" width="250" height="250"></canvas>
           </div>
-
-          <!-- RESEARCH CARD -->
-          <div class="card card-blue" onclick="window.location.href='research.html'" style="cursor:pointer;">
-            <div>
-              <div class="card-icon"><i class="fa-solid fa-chart-column"></i></div>
-              <h4>Research → Data Skills</h4>
-              <p>Learn surveys, charts, analysis, and smart thinking.</p>
-            </div>
-            <button class="card-btn" onclick="event.stopPropagation(); window.location.href='research.html'">View Research</button>
-          </div>
-
-          <!-- BENEFITS CARD -->
-          <a href="benefits.html" target="_blank" class="card-link">
-            <div class="card card-orange">
-              <div>
-                <div class="card-icon"><i class="fa-solid fa-comment-dots"></i></div>
-                <h4>Benefits of Digital Learning</h4>
-                <p>Why only Digital learning?</p>
-              </div>
-              <div class="card-btn">Learn More</div>
-            </div>
-          </a>
-
-          <!-- NEW PIE CHARTS CARD (extra content) -->
-          <div class="card card-pie" id="pieChartCard" style="cursor:pointer;">
-            <div>
-              <div class="card-icon"><i class="fa-solid fa-chart-pie"></i></div>
-              <h4>📊 Pie Charts <br>Master Data Viz!</h4>
-              <p>Turn numbers into colorful slices. Understand fractions & percentages — the fun way!</p>
-              <div class="pie-preview">
-                <span style="font-size:14px; font-weight:500;">🍕 Favorite Pizza Toppings</span>
-                <div class="mini-canvas">
-                  <i class="fa-solid fa-chart-simple" style="font-size:32px; color:#FF7A00;"></i>
-                </div>
-              </div>
-            </div>
-            <button class="card-btn" id="openPieModalBtn">Explore Pie Charts 🥧</button>
+          <div class="pie-fun-fact">
+            💡 Fun Fact: 45% of kids love apples the most!
           </div>
         </div>
-      </section>
 
-      <aside class="side-panel">
-        <div class="kid-image-wrapper">
-          <img src="https://cdn-icons-png.flaticon.com/512/4140/4140048.png" alt="Creative Kid">
+        <!-- Pie Chart 2: Screen Time Activities -->
+        <div class="pie-card">
+          <h3>📱 Screen Time Activities</h3>
+          <div class="pie-chart-container">
+            <canvas id="screenPieChart" width="250" height="250"></canvas>
+          </div>
+          <div class="pie-fun-fact">
+            💡 Fun Fact: Gaming takes up 40% of screen time!
+          </div>
         </div>
-        <button class="ai-project-btn" onclick="openAiBuilder()">
-          <i class="fa-solid fa-brain ai-icon"></i>
-          <span>AI PROJECT BUILDER</span>
-          <i class="fa-solid fa-wand-magic-sparkles spark-icon"></i>
+
+        <!-- Pie Chart 3: Future Careers -->
+        <div class="pie-card">
+          <h3>🚀 Dream Jobs</h3>
+          <div class="pie-chart-container">
+            <canvas id="careerPieChart" width="250" height="250"></canvas>
+          </div>
+          <div class="pie-fun-fact">
+            💡 Fun Fact: 35% of kids want to be scientists!
+          </div>
+        </div>
+      </div>
+
+      <div style="text-align: center; margin-top: 30px;">
+        <button class="btn-orange" onclick="hidePieCharts()" style="padding: 12px 28px;">
+          ← Back to Main
         </button>
-        <div class="challenge-box">
-          <div class="challenge-tag">THIS WEEK</div>
-          <h4>Quiz Challenge!</h4>
-          <p>Think fast, answer smart, and prove your skills!</p>
-          <a href="quiz.html" class="btn-green">Join Challenge</a>
-        </div>
-      </aside>
-    </div>
-  </main>
-
-  <!-- MODAL: Interactive Pie Chart Lesson -->
-  <div id="pieModal" class="modal">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h3><i class="fa-solid fa-chart-pie"></i> Pie Chart Playground</h3>
-        <span class="close-modal">&times;</span>
-      </div>
-      <div class="chart-container">
-        <canvas id="pieChartCanvas" width="300" height="300"></canvas>
-        <div class="pie-stats">
-          <p><strong>📊 What is a pie chart?</strong> A circle divided into slices to show proportions of a whole.</p>
-          <div class="data-buttons">
-            <button class="data-btn active" data-dataset="pets">🐾 Favorite Pets</button>
-            <button class="data-btn" data-dataset="sports">⚽ Favorite Sports</button>
-            <button class="data-btn" data-dataset="subjects">📚 School Subjects</button>
-          </div>
-          <div id="pieExplanation" class="pie-fact">
-            🐶 45% of kids love dogs as pets, 30% prefer cats, 15% like fish, and 10% choose hamsters!
-          </div>
-        </div>
-      </div>
-      <div style="text-align:center; margin-top:15px;">
-        <button class="btn-green" style="background:#FF7A00; margin:5px;" onclick="closePieModal()">Got it! ✨</button>
       </div>
     </div>
   </div>
 
-  <script>
-    // ----- PIE CHART GLOBAL VARIABLES -----
-    let pieChart = null;
-    let currentDataset = 'pets';
+</main>
 
-    // Data collections for three different pie charts
-    const chartData = {
-      pets: {
-        labels: ['Dogs 🐕', 'Cats 🐈', 'Fish 🐠', 'Hamsters 🐹'],
-        data: [45, 30, 15, 10],
-        background: ['#FF7A00', '#0094FF', '#39d353', '#f1c40f'],
-        explanation: '🐶 45% of kids love dogs as pets, 30% prefer cats, 15% like fish, and 10% choose hamsters! Pie charts help compare these favorites instantly.'
-      },
-      sports: {
-        labels: ['Soccer ⚽', 'Basketball 🏀', 'Swimming 🏊', 'Tennis 🎾'],
-        data: [50, 25, 15, 10],
-        background: ['#FF7A00', '#0094FF', '#39d353', '#e67e22'],
-        explanation: '⚽ Soccer is the most loved sport (50%), then Basketball (25%). Pie charts show that over half of the group loves soccer — big slice!'
-      },
-      subjects: {
-        labels: ['Math 🔢', 'Science 🔬', 'Art 🎨', 'History 🏛️'],
-        data: [35, 40, 15, 10],
-        background: ['#FF7A00', '#0094FF', '#39d353', '#9b59b6'],
-        explanation: '📚 Science is the favorite subject (40%), followed by Math (35%). Pie charts make percentages easy to compare — Science slice is slightly bigger!'
-      }
-    };
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 
-    // function to render pie chart dynamically
-    function renderPieChart(datasetKey) {
-      const ctx = document.getElementById('pieChartCanvas').getContext('2d');
-      const dataObj = chartData[datasetKey];
-      if (!dataObj) return;
+<script>
 
-      if (pieChart) {
-        pieChart.destroy();
-      }
+// Function to show Pie Charts section and hide main cards
+function showPieCharts() {
+  document.querySelector('.content-container').style.display = 'none';
+  document.getElementById('pieChartsSection').style.display = 'block';
+  
+  // Initialize charts if they haven't been created yet
+  if (!window.fruitChart) {
+    initPieCharts();
+  }
+}
 
-      pieChart = new Chart(ctx, {
-        type: 'pie',
-        data: {
-          labels: dataObj.labels,
-          datasets: [{
-            data: dataObj.data,
-            backgroundColor: dataObj.background,
-            borderWidth: 2,
-            borderColor: '#ffffff',
-            hoverOffset: 12,
-          }]
-        },
-        options: {
-          responsive: true,
-          maintainAspectRatio: true,
-          plugins: {
-            legend: {
-              position: 'bottom',
-              labels: { font: { size: 11, family: 'Quicksand', weight: 'bold' } }
-            },
-            tooltip: {
-              callbacks: {
-                label: function(context) {
-                  let label = context.label || '';
-                  let value = context.raw;
-                  let total = context.dataset.data.reduce((a,b) => a + b, 0);
-                  let percent = ((value / total) * 100).toFixed(1);
-                  return `${label}: ${value}% (${percent}%)`;
-                }
-              }
-            }
-          }
+// Function to hide Pie Charts section and show main content
+function hidePieCharts() {
+  document.querySelector('.content-container').style.display = 'grid';
+  document.getElementById('pieChartsSection').style.display = 'none';
+}
+
+// Initialize all pie charts
+function initPieCharts() {
+  // Fruit Pie Chart
+  const fruitCtx = document.getElementById('fruitPieChart').getContext('2d');
+  window.fruitChart = new Chart(fruitCtx, {
+    type: 'pie',
+    data: {
+      labels: ['Apples 🍎', 'Bananas 🍌', 'Oranges 🍊', 'Strawberries 🍓'],
+      datasets: [{
+        data: [45, 25, 20, 10],
+        backgroundColor: ['#FF3B30', '#FFCC00', '#FF9500', '#FF2D55'],
+        borderWidth: 2,
+        borderColor: 'white'
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: true,
+      plugins: {
+        legend: {
+          position: 'bottom',
+          labels: { font: { size: 11, family: 'Quicksand' } }
         }
-      });
-
-      // update explanation text
-      const explanationDiv = document.getElementById('pieExplanation');
-      if (explanationDiv) {
-        explanationDiv.innerHTML = `<i class="fa-solid fa-lightbulb"></i> ${dataObj.explanation}`;
       }
     }
+  });
 
-    // open modal and initialize pie chart
-    function openPieModal() {
-      const modal = document.getElementById('pieModal');
-      modal.style.display = 'flex';
-      if (!pieChart) {
-        renderPieChart(currentDataset);
-      } else {
-        renderPieChart(currentDataset);
-      }
-      // set active button style
-      document.querySelectorAll('.data-btn').forEach(btn => {
-        if (btn.getAttribute('data-dataset') === currentDataset) {
-          btn.classList.add('active');
-        } else {
-          btn.classList.remove('active');
+  // Screen Time Pie Chart
+  const screenCtx = document.getElementById('screenPieChart').getContext('2d');
+  window.screenChart = new Chart(screenCtx, {
+    type: 'pie',
+    data: {
+      labels: ['Gaming 🎮', 'Learning Apps 📚', 'Social Media 💬', 'Videos 📺'],
+      datasets: [{
+        data: [40, 30, 15, 15],
+        backgroundColor: ['#5856D6', '#34C759', '#FF9F0A', '#64D2FF'],
+        borderWidth: 2,
+        borderColor: 'white'
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: true,
+      plugins: {
+        legend: {
+          position: 'bottom',
+          labels: { font: { size: 11, family: 'Quicksand' } }
         }
-      });
-    }
-
-    function closePieModal() {
-      const modal = document.getElementById('pieModal');
-      modal.style.display = 'none';
-    }
-
-    // attach event listeners for dataset buttons
-    function initPieChartEvents() {
-      const modal = document.getElementById('pieModal');
-      const closeBtn = document.querySelector('.close-modal');
-      if (closeBtn) {
-        closeBtn.addEventListener('click', closePieModal);
       }
-      window.addEventListener('click', (e) => {
-        if (e.target === modal) closePieModal();
-      });
-
-      const dataBtns = document.querySelectorAll('.data-btn');
-      dataBtns.forEach(btn => {
-        btn.addEventListener('click', (e) => {
-          const dataset = btn.getAttribute('data-dataset');
-          if (dataset) {
-            currentDataset = dataset;
-            renderPieChart(currentDataset);
-            // update active state
-            dataBtns.forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-          }
-        });
-      });
     }
+  });
 
-    // open modal via card button and also via the navigation tab
-    document.getElementById('openPieModalBtn')?.addEventListener('click', (e) => {
-      e.stopPropagation();
-      openPieModal();
-    });
-    document.getElementById('pieChartNavBtn')?.addEventListener('click', (e) => {
-      e.preventDefault();
-      openPieModal();
-    });
-    document.getElementById('pieChartCard')?.addEventListener('click', (e) => {
-      // if clicked directly on card but not on button, still open modal (optional)
-      if (e.target.closest('#openPieModalBtn')) return;
-      openPieModal();
-    });
-
-    function openAiBuilder() {
-      alert("Launching AI Project Builder 🚀 Create data-driven stories with pie charts!");
+  // Career Pie Chart
+  const careerCtx = document.getElementById('careerPieChart').getContext('2d');
+  window.careerChart = new Chart(careerCtx, {
+    type: 'pie',
+    data: {
+      labels: ['Scientist 🔬', 'Engineer 🛠️', 'Artist 🎨', 'Teacher 📖', 'Doctor 🏥'],
+      datasets: [{
+        data: [35, 25, 20, 12, 8],
+        backgroundColor: ['#007AFF', '#FF7A00', '#AF52DE', '#30B0C0', '#FF3B30'],
+        borderWidth: 2,
+        borderColor: 'white'
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: true,
+      plugins: {
+        legend: {
+          position: 'bottom',
+          labels: { font: { size: 11, family: 'Quicksand' } }
+        }
+      }
     }
+  });
+}
 
-    // once DOM ready, init chart events
-    document.addEventListener('DOMContentLoaded', () => {
-      initPieChartEvents();
-      // pre-create canvas context but only when modal opens. but we'll ensure it's ready.
-      console.log("Pie charts module loaded — click 'Pie Charts' tab or card!");
-    });
-  </script>
+function openAiBuilder(){
+  alert("Launching AI Project Builder 🚀 Create your own pie charts with real data!");
+}
+
+// Add click event to the Pie Charts tab
+document.getElementById('pieChartTabLink').addEventListener('click', function(e) {
+  e.preventDefault();
+  showPieCharts();
+});
+
+// If you want to keep the main content visible initially
+// Also, handle the "Back" button functionality
+</script>
+
 </body>
-
 </html>
