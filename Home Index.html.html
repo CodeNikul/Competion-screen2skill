@@ -557,8 +557,8 @@ body{
     <h2>Turn Screen Time Into Real-Life Superpowers</h2>
     <p>Learn robotics, research, and data storytelling with pie charts — built for students who want to shape the future.</p>
     <div class="hero-buttons">
-      <button class="btn-orange" onclick="window.location.href='about.html'">Learn More</button>
-      <button class="btn-blue" onclick="window.location.href='explore.html'">Explore Projects</button>
+      <button class="btn-orange" id="learnMoreBtn">Learn More</button>
+      <button class="btn-blue" id="exploreBtn">Explore Projects</button>
     </div>
   </div>
 </section>
@@ -568,22 +568,22 @@ body{
     <section>
       <h3 class="section-title">Level Up Your Habits</h3>
       <div class="card-grid">
-        <div class="card card-robotics" onclick="window.location.href='story.html'" style="cursor:pointer;">
+        <div class="card card-robotics" id="roboticsCard" style="cursor:pointer;">
           <div>
             <div class="card-icon"><i class="fa-solid fa-robot"></i></div>
             <h4>1. Level Up <br>Screen</h4>
             <p>Stop watching. Start winning.</p>
           </div>
-          <button class="card-btn" onclick="event.stopPropagation(); window.location.href='story.html'">Open Project</button>
+          <button class="card-btn" id="roboticsBtn">Open Project</button>
         </div>
 
-        <div class="card card-blue" onclick="window.location.href='research.html'" style="cursor:pointer;">
+        <div class="card card-blue" id="researchCard" style="cursor:pointer;">
           <div>
             <div class="card-icon"><i class="fa-solid fa-chart-column"></i></div>
             <h4>Research → Data Skills</h4>
             <p>Learn surveys, charts, analysis, and smart thinking.</p>
           </div>
-          <button class="card-btn" onclick="event.stopPropagation(); window.location.href='research.html'">View Research</button>
+          <button class="card-btn" id="researchBtn">View Research</button>
         </div>
 
         <div class="card card-purple" id="pieChartCard" style="cursor:pointer;">
@@ -595,16 +595,14 @@ body{
           <button class="card-btn" id="openPieSectionBtn">Explore Pie Charts 📊</button>
         </div>
 
-        <a href="benefits.html" target="_blank" class="card-link">
-          <div class="card card-orange">
-            <div>
-              <div class="card-icon"><i class="fa-solid fa-comment-dots"></i></div>
-              <h4>Benefits of Digital Learning</h4>
-              <p>Why only Digital learning?</p>
-            </div>
-            <div class="card-btn">Learn More</div>
+        <div class="card card-orange" id="benefitsCard" style="cursor:pointer;">
+          <div>
+            <div class="card-icon"><i class="fa-solid fa-comment-dots"></i></div>
+            <h4>Benefits of Digital Learning</h4>
+            <p>Why only Digital learning?</p>
           </div>
-        </a>
+          <button class="card-btn" id="benefitsBtn">Learn More</button>
+        </div>
       </div>
     </section>
 
@@ -623,7 +621,7 @@ body{
         <div class="challenge-tag">THIS WEEK</div>
         <h4>Quiz Challenge!</h4>
         <p>Think fast, answer smart, and prove your skills!</p>
-        <a href="quiz.html" class="btn-green">Join Challenge</a>
+        <button class="btn-green" id="quizBtn">Join Challenge</button>
       </div>
     </aside>
   </div>
@@ -671,6 +669,11 @@ body{
 </div>
 
 <script>
+// Helper function to show popup message
+function showMessage(title, message) {
+  alert(title + "\n\n" + message);
+}
+
 // PIE CHARTS
 let screenChart, skillsChart, careerChart;
 let chartsInitialized = false;
@@ -699,35 +702,70 @@ function hidePieCharts() {
   document.getElementById('pieChartsArea').style.display = 'none';
 }
 
-document.getElementById('openPieSectionBtn')?.addEventListener('click', (e) => { e.stopPropagation(); showPieCharts(); });
-document.getElementById('pieChartCard')?.addEventListener('click', (e) => { if(!e.target.closest('#openPieSectionBtn')) showPieCharts(); });
-document.getElementById('backToMainBtn')?.addEventListener('click', hidePieCharts);
-
-// ========== HEADER BUTTONS - ONLY THESE WERE FIXED ==========
-// Home button - scroll to top
-document.getElementById('homeBtn').addEventListener('click', function() {
+// ========== HEADER BUTTONS - WORKING WITH POPUPS ==========
+document.getElementById('homeBtn').onclick = () => {
   window.scrollTo({ top: 0, behavior: 'smooth' });
-});
+  showMessage("🏠 Home", "Welcome to Skill-Builders! Your journey from Screen to Skill starts here.");
+};
 
-// Kids button - scroll to cards section
-document.getElementById('kidsBtn').addEventListener('click', function() {
+document.getElementById('kidsBtn').onclick = () => {
   document.querySelector('.card-grid').scrollIntoView({ behavior: 'smooth', block: 'start' });
-});
+  showMessage("👋 For Kids (8-12)", "Hey young learner! Check out our Robotics projects, Research skills, and fun Pie Charts! 🚀");
+};
 
-// Parent/Teacher button - scroll to Benefits card
-document.getElementById('parentBtn').addEventListener('click', function() {
-  const benefitsCard = document.querySelector('.card-orange');
-  if(benefitsCard) {
-    benefitsCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
-  }
-});
+document.getElementById('parentBtn').onclick = () => {
+  document.querySelector('.card-orange').scrollIntoView({ behavior: 'smooth', block: 'center' });
+  showMessage("👨‍👩‍👧 For Parents & Teachers", "Screen2Skill helps turn screen time into real-world abilities. Explore our resources to guide your students!");
+};
 
-// Connect button - show contact popup
-document.getElementById('connectBtn').addEventListener('click', function() {
-  alert("📧 Connect with Skill-Builders!\n\nEmail: hello@skill-builders.com\nPhone: (555) 123-SKILL\n\nFollow us for daily tips and updates!");
-});
+document.getElementById('connectBtn').onclick = () => {
+  showMessage("📧 Connect With Us", "Email: hello@skill-builders.com\nPhone: (555) 123-SKILL\n\nFollow us for daily tips and updates!");
+};
 
-// ========== AI CHATBOT (unchanged from before) ==========
+// ========== HERO BUTTONS ==========
+document.getElementById('learnMoreBtn').onclick = () => {
+  showMessage("📚 Learn More About Screen2Skill", "Screen2Skill transforms passive screen time into active skill-building!\n\n4 Pillars:\n🤖 Robotics & Coding\n📊 Research & Data Skills\n🥧 Pie Chart Visualization\n✨ Benefits of Digital Learning\n\nStart your journey today!");
+};
+
+document.getElementById('exploreBtn').onclick = () => {
+  showMessage("🔍 Explore Projects", "Check out our interactive projects:\n\n• Level Up Screen - Robotics\n• Research & Data Skills\n• Pie Charts Visualization\n• Digital Learning Benefits\n\nClick on any card above to get started!");
+};
+
+// ========== CARD BUTTONS ==========
+document.getElementById('roboticsCard').onclick = () => {
+  showMessage("🤖 Robotics Project", "Level Up Screen!\n\nWhat you'll learn:\n• Basic robotics concepts\n• Coding fundamentals\n• Building your first robot\n\nComing soon: Full video tutorials and step-by-step guides!");
+};
+document.getElementById('roboticsBtn').onclick = (e) => { 
+  e.stopPropagation();
+  showMessage("🤖 Open Robotics Project", "Start your robotics journey:\n\n1. Learn basic circuits\n2. Understand sensors\n3. Program your robot\n4. Test and improve!\n\nReady to build? Let's go!");
+};
+
+document.getElementById('researchCard').onclick = () => {
+  showMessage("📊 Research & Data Skills", "Learn to think like a scientist!\n\nTopics covered:\n• Creating surveys\n• Collecting data\n• Making charts and graphs\n• Drawing conclusions\n\nTurn questions into answers!");
+};
+document.getElementById('researchBtn').onclick = (e) => { 
+  e.stopPropagation();
+  showMessage("📈 View Research Projects", "Sample Projects:\n\n1. Screen Time Survey - Track your daily usage\n2. Class Favorites - Create a pie chart\n3. Data Patterns - Find trends\n\nStart your first research project today!");
+};
+
+document.getElementById('benefitsCard').onclick = () => {
+  showMessage("✨ Benefits of Digital Learning", "Why digital learning works:\n\n✅ Personalized learning pace\n✅ Interactive & engaging content\n✅ Immediate feedback\n✅ Builds 21st century skills\n✅ Prepares for future careers\n\nScreen2Skill makes learning fun!");
+};
+document.getElementById('benefitsBtn').onclick = (e) => { 
+  e.stopPropagation();
+  showMessage("💡 Why Digital Learning?", "Digital learning helps you:\n\n• Develop critical thinking\n• Build problem-solving skills\n• Encourage creativity\n• Learn anywhere, anytime\n\nStart your Screen2Skill journey!");
+};
+
+document.getElementById('quizBtn').onclick = () => {
+  showMessage("🎯 Weekly Quiz Challenge", "Test your Screen2Skill knowledge!\n\nSample Question:\nWhat does Screen2Skill help you do?\nA) Watch more videos\nB) Turn screen time into real skills ✓\nC) Play games only\n\nFull quiz coming soon! Check back every Monday for new challenges.");
+};
+
+// Pie Charts
+document.getElementById('openPieSectionBtn').onclick = (e) => { e.stopPropagation(); showPieCharts(); };
+document.getElementById('pieChartCard').onclick = (e) => { if(!e.target.closest('#openPieSectionBtn')) showPieCharts(); };
+document.getElementById('backToMainBtn').onclick = hidePieCharts;
+
+// ========== AI CHATBOT ==========
 const allowedTopics = [
   'screen2skill', 'screen to skill', 'digital learning', 'robotics', 'robot', 'coding', 
   'research', 'data', 'pie chart', 'pie charts', 'benefits', 'skill', 'skills',
@@ -750,22 +788,25 @@ function getBotResponse(question) {
     return "🎯 Screen2Skill transforms passive screen time into active skill-building! It has 4 pillars: Robotics, Research & Data, Pie Charts, and Digital Benefits.";
   }
   else if(lowerQ.includes('pie chart')) {
-    return "📊 Pie charts show parts of a whole - like slicing a pizza! They help visualize percentages and compare data easily.";
+    return "📊 Pie charts show parts of a whole - like slicing a pizza! They help visualize percentages and compare data easily. Click the Pie Charts card above to see interactive examples!";
   }
   else if(lowerQ.includes('robotics')) {
-    return "🤖 Robotics teaches problem-solving and creativity! Start with simple kits like LEGO or online simulators.";
+    return "🤖 Robotics teaches problem-solving and creativity! Start with simple kits like LEGO or online simulators. Our 'Level Up Screen' project guides you step by step!";
   }
   else if(lowerQ.includes('research') || lowerQ.includes('data')) {
-    return "📈 Research skills help you ask questions and find answers! Try making a survey and turning results into a pie chart.";
+    return "📈 Research skills help you ask questions and find answers! Try making a survey about screen habits, then turn the results into a pie chart. That's data storytelling!";
   }
   else if(lowerQ.includes('screen time')) {
-    return "⏰ Balanced screen time: 40% active learning, 30% creative, 20% entertainment, 10% social. Track yours with a pie chart!";
+    return "⏰ Balanced screen time: 40% active learning, 30% creative making, 20% entertainment, 10% social. Track YOUR balance with a pie chart!";
   }
   else if(lowerQ.includes('career')) {
-    return "🚀 Top future careers: AI/Robotics (42%), Data Scientist (23%), Creative Technologist (18%). Screen2Skill builds foundations for all!";
+    return "🚀 Top future careers from our survey: AI/Robotics (42%), Data Scientist (23%), Creative Technologist (18%). Screen2Skill builds foundations for all of them!";
+  }
+  else if(lowerQ.includes('quiz')) {
+    return "🎯 This week's quiz challenge tests your Screen2Skill knowledge! Click 'Join Challenge' to see sample questions. Full interactive quiz coming soon!";
   }
   else {
-    return "💡 Great question! Check out our Pie Charts section or Research card to learn more!";
+    return "💡 Great question! Check out our Pie Charts section (click the purple card) or the Research card to learn more!";
   }
 }
 
