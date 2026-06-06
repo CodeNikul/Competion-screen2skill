@@ -517,6 +517,115 @@ body{
   cursor:pointer;
 }
 
+/* CONTACT MODAL - UNIQUE DESIGN */
+.contact-modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  z-index: 2001;
+  justify-content: center;
+  align-items: center;
+}
+
+.contact-container {
+  background: white;
+  width: 90%;
+  max-width: 500px;
+  border-radius: 40px;
+  overflow: hidden;
+  animation: slideUp 0.3s ease;
+}
+
+.contact-header {
+  background: linear-gradient(135deg, #FF7A00, #ff9f43);
+  color: white;
+  padding: 25px;
+  text-align: center;
+}
+
+.contact-header h3 {
+  font-size: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+
+.contact-body {
+  padding: 30px;
+}
+
+.contact-info {
+  background: #f8f9fa;
+  border-radius: 20px;
+  padding: 20px;
+  margin-bottom: 25px;
+}
+
+.contact-info p {
+  margin: 12px 0;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 16px;
+  color: #1a2a3a;
+}
+
+.contact-info i {
+  width: 28px;
+  color: #FF7A00;
+  font-size: 18px;
+}
+
+.social-icons {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.social-icon {
+  width: 50px;
+  height: 50px;
+  background: #f0f0f0;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  color: #FF7A00;
+  font-size: 24px;
+  text-decoration: none;
+}
+
+.social-icon:hover {
+  background: #FF7A00;
+  color: white;
+  transform: translateY(-3px);
+}
+
+.close-contact {
+  background: #FF7A00;
+  color: white;
+  border: none;
+  padding: 14px;
+  width: 100%;
+  border-radius: 40px;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.close-contact:hover {
+  background: #e06e00;
+}
+
 @media(max-width:950px){
   .content-container{ grid-template-columns:1fr; }
   .hero-content h2{ font-size:42px; }
@@ -650,6 +759,30 @@ body{
   </div>
 </main>
 
+<!-- CONTACT MODAL - UNIQUE DESIGN -->
+<div id="contactModal" class="contact-modal">
+  <div class="contact-container">
+    <div class="contact-header">
+      <h3><i class="fa-solid fa-envelope"></i> Connect With Us</h3>
+    </div>
+    <div class="contact-body">
+      <div class="contact-info">
+        <p><i class="fa-solid fa-envelope"></i> <strong>Email:</strong> hello@skill-builders.com</p>
+        <p><i class="fa-solid fa-phone"></i> <strong>Phone:</strong> (555) 123-SKILL</p>
+        <p><i class="fa-solid fa-location-dot"></i> <strong>Location:</strong> 123 Learning Lane, Edutown</p>
+        <p><i class="fa-solid fa-clock"></i> <strong>Hours:</strong> Mon-Fri 9am-6pm EST</p>
+      </div>
+      <div class="social-icons">
+        <a class="social-icon" id="twitterLink"><i class="fa-brands fa-twitter"></i></a>
+        <a class="social-icon" id="instagramLink"><i class="fa-brands fa-instagram"></i></a>
+        <a class="social-icon" id="facebookLink"><i class="fa-brands fa-facebook-f"></i></a>
+        <a class="social-icon" id="linkedinLink"><i class="fa-brands fa-linkedin-in"></i></a>
+      </div>
+      <button class="close-contact" id="closeContactBtn"><i class="fa-solid fa-check-circle"></i> Got it!</button>
+    </div>
+  </div>
+</div>
+
 <div id="chatbotModal" class="chatbot-modal">
   <div class="chatbot-container">
     <div class="chatbot-header">
@@ -702,24 +835,55 @@ function hidePieCharts() {
   document.getElementById('pieChartsArea').style.display = 'none';
 }
 
-// ========== HEADER BUTTONS - WORKING WITH POPUPS ==========
+// ========== HEADER BUTTONS ==========
+// Home button - scroll to top + welcome message
 document.getElementById('homeBtn').onclick = () => {
   window.scrollTo({ top: 0, behavior: 'smooth' });
-  showMessage("🏠 Home", "Welcome to Skill-Builders! Your journey from Screen to Skill starts here.");
+  showMessage("🏠 Welcome to Skill-Builders!", "Your journey from Screen to Skill starts here!\n\nExplore robotics, research, and pie charts to turn screen time into real-world superpowers.");
 };
 
+// Kids button - scroll to cards + kids message
 document.getElementById('kidsBtn').onclick = () => {
   document.querySelector('.card-grid').scrollIntoView({ behavior: 'smooth', block: 'start' });
-  showMessage("👋 For Kids (8-12)", "Hey young learner! Check out our Robotics projects, Research skills, and fun Pie Charts! 🚀");
+  showMessage("👋 Hey Kids! (Ages 8-12)", "Ready to level up? 🚀\n\n• Build cool robots 🤖\n• Become a data detective 📊\n• Create awesome pie charts 🥧\n\nClick any card above to start your adventure!");
 };
 
+// Parent/Teacher button - scroll to Benefits + parent message
 document.getElementById('parentBtn').onclick = () => {
   document.querySelector('.card-orange').scrollIntoView({ behavior: 'smooth', block: 'center' });
-  showMessage("👨‍👩‍👧 For Parents & Teachers", "Screen2Skill helps turn screen time into real-world abilities. Explore our resources to guide your students!");
+  showMessage("👨‍👩‍👧 For Parents & Teachers", "Screen2Skill helps turn screen time into real-world abilities!\n\n📚 Why it works:\n• Builds critical thinking\n• Develops data literacy\n• Encourages creativity\n• Prepares for future careers\n\nEmpower your students today!");
 };
 
+// Connect button - OPENS UNIQUE CONTACT MODAL (not a popup!)
+const contactModal = document.getElementById('contactModal');
+const closeContactBtn = document.getElementById('closeContactBtn');
+
 document.getElementById('connectBtn').onclick = () => {
-  showMessage("📧 Connect With Us", "Email: hello@skill-builders.com\nPhone: (555) 123-SKILL\n\nFollow us for daily tips and updates!");
+  contactModal.style.display = 'flex';
+};
+
+closeContactBtn.onclick = () => {
+  contactModal.style.display = 'none';
+};
+
+// Social media links (show messages)
+document.getElementById('twitterLink').onclick = () => {
+  showMessage("🐦 Twitter", "Follow us @SkillBuilders for daily tips, project ideas, and learning resources!");
+};
+document.getElementById('instagramLink').onclick = () => {
+  showMessage("📸 Instagram", "Follow @SkillBuilders on Instagram for behind-the-scenes content and student spotlights!");
+};
+document.getElementById('facebookLink').onclick = () => {
+  showMessage("📘 Facebook", "Like our Facebook page SkillBuilders to join our community of young learners!");
+};
+document.getElementById('linkedinLink').onclick = () => {
+  showMessage("🔗 LinkedIn", "Connect with SkillBuilders on LinkedIn for professional updates and partnerships!");
+};
+
+// Close modal when clicking outside
+window.onclick = (e) => {
+  if(e.target === contactModal) contactModal.style.display = 'none';
+  if(e.target === document.getElementById('chatbotModal')) document.getElementById('chatbotModal').style.display = 'none';
 };
 
 // ========== HERO BUTTONS ==========
@@ -733,7 +897,7 @@ document.getElementById('exploreBtn').onclick = () => {
 
 // ========== CARD BUTTONS ==========
 document.getElementById('roboticsCard').onclick = () => {
-  showMessage("🤖 Robotics Project", "Level Up Screen!\n\nWhat you'll learn:\n• Basic robotics concepts\n• Coding fundamentals\n• Building your first robot\n\nComing soon: Full video tutorials and step-by-step guides!");
+  showMessage("🤖 Robotics Project", "Level Up Screen!\n\nWhat you'll learn:\n• Basic robotics concepts\n• Coding fundamentals\n• Building your first robot\n\nComing soon: Full video tutorials!");
 };
 document.getElementById('roboticsBtn').onclick = (e) => { 
   e.stopPropagation();
@@ -741,23 +905,23 @@ document.getElementById('roboticsBtn').onclick = (e) => {
 };
 
 document.getElementById('researchCard').onclick = () => {
-  showMessage("📊 Research & Data Skills", "Learn to think like a scientist!\n\nTopics covered:\n• Creating surveys\n• Collecting data\n• Making charts and graphs\n• Drawing conclusions\n\nTurn questions into answers!");
+  showMessage("📊 Research & Data Skills", "Learn to think like a scientist!\n\nTopics covered:\n• Creating surveys\n• Collecting data\n• Making charts and graphs\n• Drawing conclusions");
 };
 document.getElementById('researchBtn').onclick = (e) => { 
   e.stopPropagation();
-  showMessage("📈 View Research Projects", "Sample Projects:\n\n1. Screen Time Survey - Track your daily usage\n2. Class Favorites - Create a pie chart\n3. Data Patterns - Find trends\n\nStart your first research project today!");
+  showMessage("📈 View Research Projects", "Sample Projects:\n\n1. Screen Time Survey\n2. Class Favorites Pie Chart\n3. Data Pattern Analysis\n\nStart your first research project today!");
 };
 
 document.getElementById('benefitsCard').onclick = () => {
-  showMessage("✨ Benefits of Digital Learning", "Why digital learning works:\n\n✅ Personalized learning pace\n✅ Interactive & engaging content\n✅ Immediate feedback\n✅ Builds 21st century skills\n✅ Prepares for future careers\n\nScreen2Skill makes learning fun!");
+  showMessage("✨ Benefits of Digital Learning", "Why digital learning works:\n\n✅ Personalized learning pace\n✅ Interactive & engaging content\n✅ Immediate feedback\n✅ Builds 21st century skills");
 };
 document.getElementById('benefitsBtn').onclick = (e) => { 
   e.stopPropagation();
-  showMessage("💡 Why Digital Learning?", "Digital learning helps you:\n\n• Develop critical thinking\n• Build problem-solving skills\n• Encourage creativity\n• Learn anywhere, anytime\n\nStart your Screen2Skill journey!");
+  showMessage("💡 Why Digital Learning?", "Digital learning helps you:\n\n• Develop critical thinking\n• Build problem-solving skills\n• Encourage creativity\n• Learn anywhere, anytime");
 };
 
 document.getElementById('quizBtn').onclick = () => {
-  showMessage("🎯 Weekly Quiz Challenge", "Test your Screen2Skill knowledge!\n\nSample Question:\nWhat does Screen2Skill help you do?\nA) Watch more videos\nB) Turn screen time into real skills ✓\nC) Play games only\n\nFull quiz coming soon! Check back every Monday for new challenges.");
+  showMessage("🎯 Weekly Quiz Challenge", "Test your Screen2Skill knowledge!\n\nSample Question:\nWhat does Screen2Skill help you do?\nA) Watch more videos\nB) Turn screen time into real skills ✓\nC) Play games only\n\nFull quiz coming soon!");
 };
 
 // Pie Charts
@@ -791,22 +955,19 @@ function getBotResponse(question) {
     return "📊 Pie charts show parts of a whole - like slicing a pizza! They help visualize percentages and compare data easily. Click the Pie Charts card above to see interactive examples!";
   }
   else if(lowerQ.includes('robotics')) {
-    return "🤖 Robotics teaches problem-solving and creativity! Start with simple kits like LEGO or online simulators. Our 'Level Up Screen' project guides you step by step!";
+    return "🤖 Robotics teaches problem-solving and creativity! Start with simple kits or online simulators. Our 'Level Up Screen' project guides you step by step!";
   }
   else if(lowerQ.includes('research') || lowerQ.includes('data')) {
-    return "📈 Research skills help you ask questions and find answers! Try making a survey about screen habits, then turn the results into a pie chart. That's data storytelling!";
+    return "📈 Research skills help you ask questions and find answers! Try making a survey about screen habits, then turn the results into a pie chart.";
   }
   else if(lowerQ.includes('screen time')) {
     return "⏰ Balanced screen time: 40% active learning, 30% creative making, 20% entertainment, 10% social. Track YOUR balance with a pie chart!";
   }
   else if(lowerQ.includes('career')) {
-    return "🚀 Top future careers from our survey: AI/Robotics (42%), Data Scientist (23%), Creative Technologist (18%). Screen2Skill builds foundations for all of them!";
-  }
-  else if(lowerQ.includes('quiz')) {
-    return "🎯 This week's quiz challenge tests your Screen2Skill knowledge! Click 'Join Challenge' to see sample questions. Full interactive quiz coming soon!";
+    return "🚀 Top future careers: AI/Robotics (42%), Data Scientist (23%), Creative Technologist (18%). Screen2Skill builds foundations for all of them!";
   }
   else {
-    return "💡 Great question! Check out our Pie Charts section (click the purple card) or the Research card to learn more!";
+    return "💡 Great question! Check out our Pie Charts section or the Research card to learn more!";
   }
 }
 
@@ -833,15 +994,14 @@ function sendMessage() {
   }, 400);
 }
 
-const modal = document.getElementById('chatbotModal');
-const openBtn = document.getElementById('openChatbotBtn');
-const closeBtn = document.getElementById('closeChatBtn');
+const chatbotModal = document.getElementById('chatbotModal');
+const openChatBtn = document.getElementById('openChatbotBtn');
+const closeChatBtn = document.getElementById('closeChatBtn');
 const sendBtn = document.getElementById('sendChatBtn');
 const chatInput = document.getElementById('chatInput');
 
-openBtn.onclick = () => { modal.style.display = 'flex'; };
-closeBtn.onclick = () => { modal.style.display = 'none'; };
-window.onclick = (e) => { if(e.target === modal) modal.style.display = 'none'; };
+openChatBtn.onclick = () => { chatbotModal.style.display = 'flex'; };
+closeChatBtn.onclick = () => { chatbotModal.style.display = 'none'; };
 sendBtn.onclick = sendMessage;
 chatInput.onkeypress = (e) => { if(e.key === 'Enter') sendMessage(); };
 </script>
