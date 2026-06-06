@@ -338,12 +338,9 @@ button,
   background:white;
 }
 
-/* PIE CHARTS CARD - SAME SIZE/DESIGN AS RESEARCH, PURPLE OUTLINE */
+/* PIE CHARTS CARD - NOW IDENTICAL TO OTHER CARDS (SAME STYLE AS RESEARCH/BENEFITS) */
 .card-purple .card-icon{
   color:var(--purple);
-}
-.card-purple{
-  border-left: 4px solid var(--purple);
 }
 .card-purple .card-btn{
   border:2px solid #e0d6ff;
@@ -440,7 +437,7 @@ button,
   background:#2bc24b;
 }
 
-/* PIE CHARTS SECTION */
+/* PIE CHARTS SECTION (Screen2Skill Technology) */
 .pie-charts-section {
   background: rgba(255, 255, 255, 0.96);
   border-radius: 48px;
@@ -581,7 +578,7 @@ button,
     <div class="nav-left">
       <a class="nav-link" href="#">Home</a>
       <a class="nav-link kids-tab" href="#">Kids (8–12)</a>
-      <!-- NO PIE CHARTS TAB HERE - REMOVED COMPLETELY FROM HEADER -->
+      <!-- NO PIE CHARTS TAB IN HEADER - COMPLETELY REMOVED -->
     </div>
     <div class="nav-right">
       <a class="nav-link" href="#">Parent/Teacher</a>
@@ -615,7 +612,7 @@ button,
       <h3 class="section-title">Level Up Your Habits</h3>
       <div class="card-grid">
 
-        <!-- ROBOTICS -->
+        <!-- ROBOTICS CARD -->
         <div class="card card-robotics" onclick="window.location.href='story.html'" style="cursor:pointer;">
           <div>
             <div class="card-icon"><i class="fa-solid fa-robot"></i></div>
@@ -635,7 +632,7 @@ button,
           <button class="card-btn" onclick="event.stopPropagation(); window.location.href='research.html'">View Research</button>
         </div>
 
-        <!-- PIE CHARTS CARD - BELOW RESEARCH, SAME SIZE/DESIGN, PURPLE OUTLINE -->
+        <!-- PIE CHARTS CARD - NOW IDENTICAL BLOCK STYLE AS RESEARCH AND OTHERS (same padding, button, hover effect) -->
         <div class="card card-purple" id="pieChartCard" style="cursor:pointer;">
           <div>
             <div class="card-icon"><i class="fa-solid fa-chart-pie"></i></div>
@@ -678,7 +675,7 @@ button,
     </aside>
   </div>
 
-  <!-- PIE CHARTS SECTION (Screen2Skill Technology) -->
+  <!-- PIE CHARTS SECTION (Screen2Skill Technology) - appears when card is clicked -->
   <div id="pieChartsArea" style="display: none;">
     <div class="pie-charts-section">
       <div class="pie-header">
@@ -688,7 +685,7 @@ button,
       </div>
 
       <div class="pie-showcase">
-        <!-- Pie 1: Screen Time Breakdown -->
+        <!-- Pie Chart 1: Screen Time Breakdown -->
         <div class="pie-card">
           <h3>📊 Screen Time Breakdown</h3>
           <div class="pie-chart-container">
@@ -699,7 +696,7 @@ button,
           </div>
         </div>
 
-        <!-- Pie 2: Skills Gained -->
+        <!-- Pie Chart 2: Skills Gained via Screen2Skill -->
         <div class="pie-card">
           <h3>🚀 Skills Gained (Screen2Skill)</h3>
           <div class="pie-chart-container">
@@ -710,7 +707,7 @@ button,
           </div>
         </div>
 
-        <!-- Pie 3: Future Careers -->
+        <!-- Pie Chart 3: Future Career Aspirations -->
         <div class="pie-card">
           <h3>💡 Dream Careers After Screen2Skill</h3>
           <div class="pie-chart-container">
@@ -735,6 +732,7 @@ button,
 let screenChart, skillsChart, careerChart;
 let chartsInitialized = false;
 
+// Initialize all pie charts with Screen2Skill data
 function initPieCharts() {
   if (chartsInitialized) return;
   
@@ -742,6 +740,7 @@ function initPieCharts() {
   const ctxSkills = document.getElementById('skillsGainPie').getContext('2d');
   const ctxCareer = document.getElementById('careerPieTech').getContext('2d');
 
+  // Screen Time Distribution Pie Chart
   screenChart = new Chart(ctxScreen, {
     type: 'pie',
     data: {
@@ -762,6 +761,7 @@ function initPieCharts() {
     }
   });
 
+  // Skills Gained Pie Chart
   skillsChart = new Chart(ctxSkills, {
     type: 'pie',
     data: {
@@ -780,6 +780,7 @@ function initPieCharts() {
     }
   });
 
+  // Dream Careers Pie Chart
   careerChart = new Chart(ctxCareer, {
     type: 'pie',
     data: {
@@ -801,6 +802,7 @@ function initPieCharts() {
   chartsInitialized = true;
 }
 
+// Show the pie charts section (hide main cards, show interactive charts)
 function showPieCharts() {
   document.getElementById('mainCardsContainer').style.display = 'none';
   const pieArea = document.getElementById('pieChartsArea');
@@ -809,30 +811,34 @@ function showPieCharts() {
   pieArea.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
+// Hide pie charts and return to main card grid
 function hidePieCharts() {
   document.getElementById('mainCardsContainer').style.display = 'grid';
   document.getElementById('pieChartsArea').style.display = 'none';
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
+// AI Project Builder popup
 function openAiBuilder() {
   alert("🚀 AI Project Builder: Create your own pie charts from real surveys! Turn Screen2Skill data into stories.");
 }
 
-// Event listeners
+// Event listeners for opening pie charts from the card
 document.getElementById('openPieSectionBtn').addEventListener('click', (e) => {
   e.stopPropagation();
   showPieCharts();
 });
 
 document.getElementById('pieChartCard').addEventListener('click', (e) => {
+  // Prevent double-trigger if clicking on button itself
   if (e.target.closest('#openPieSectionBtn')) return;
   showPieCharts();
 });
 
+// Back to main dashboard button
 document.getElementById('backToMainBtn').addEventListener('click', hidePieCharts);
 
-// Initial state
+// Ensure initial state: main cards visible, pie section hidden
 document.getElementById('mainCardsContainer').style.display = 'grid';
 document.getElementById('pieChartsArea').style.display = 'none';
 </script>
