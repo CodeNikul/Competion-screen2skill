@@ -565,8 +565,8 @@ body{
     <h2>Turn Screen Time Into Real-Life Superpowers</h2>
     <p>Learn robotics, research, and data storytelling with pie charts — built for students who want to shape the future.</p>
     <div class="hero-buttons">
-      <button class="btn-orange" id="learnMoreBtn">Learn More</button>
-      <button class="btn-blue" id="exploreBtn">Explore Projects</button>
+      <button class="btn-orange" onclick="window.location.href='about.html'">Learn More</button>
+      <button class="btn-blue" onclick="window.location.href='explore.html'">Explore Projects</button>
     </div>
   </div>
 </section>
@@ -576,22 +576,22 @@ body{
     <section>
       <h3 class="section-title">Level Up Your Habits</h3>
       <div class="card-grid">
-        <div class="card card-robotics" id="roboticsCard" style="cursor:pointer;">
+        <div class="card card-robotics" onclick="window.location.href='story.html'" style="cursor:pointer;">
           <div>
             <div class="card-icon"><i class="fa-solid fa-robot"></i></div>
             <h4>1. Level Up <br>Screen</h4>
             <p>Stop watching. Start winning.</p>
           </div>
-          <button class="card-btn" id="roboticsBtn">Open Project</button>
+          <button class="card-btn" onclick="event.stopPropagation(); window.location.href='story.html'">Open Project</button>
         </div>
 
-        <div class="card card-blue" id="researchCard" style="cursor:pointer;">
+        <div class="card card-blue" onclick="window.location.href='research.html'" style="cursor:pointer;">
           <div>
             <div class="card-icon"><i class="fa-solid fa-chart-column"></i></div>
             <h4>Research → Data Skills</h4>
             <p>Learn surveys, charts, analysis, and smart thinking.</p>
           </div>
-          <button class="card-btn" id="researchBtn">View Research</button>
+          <button class="card-btn" onclick="event.stopPropagation(); window.location.href='research.html'">View Research</button>
         </div>
 
         <div class="card card-purple" id="pieChartCard" style="cursor:pointer;">
@@ -603,14 +603,16 @@ body{
           <button class="card-btn" id="openPieSectionBtn">Explore Pie Charts 📊</button>
         </div>
 
-        <div class="card card-orange" id="benefitsCard" style="cursor:pointer;">
-          <div>
-            <div class="card-icon"><i class="fa-solid fa-comment-dots"></i></div>
-            <h4>Benefits of Digital Learning</h4>
-            <p>Why only Digital learning?</p>
+        <a href="benefits.html" target="_blank" class="card-link">
+          <div class="card card-orange">
+            <div>
+              <div class="card-icon"><i class="fa-solid fa-comment-dots"></i></div>
+              <h4>Benefits of Digital Learning</h4>
+              <p>Why only Digital learning?</p>
+            </div>
+            <div class="card-btn">Learn More</div>
           </div>
-          <button class="card-btn" id="benefitsBtn">Learn More</button>
-        </div>
+        </a>
       </div>
     </section>
 
@@ -629,7 +631,7 @@ body{
         <div class="challenge-tag">THIS WEEK</div>
         <h4>Quiz Challenge!</h4>
         <p>Think fast, answer smart, and prove your skills!</p>
-        <button class="btn-green" id="quizBtn">Join Challenge</button>
+        <a href="quiz.html" class="btn-green">Join Challenge</a>
       </div>
     </aside>
   </div>
@@ -826,28 +828,18 @@ window.onclick = (e) => {
   if(e.target === contactModal) contactModal.style.display = 'none';
 };
 
-// Hero buttons
-document.getElementById('learnMoreBtn').onclick = () => { homeModal.style.display = 'flex'; };
-document.getElementById('exploreBtn').onclick = () => { showPieCharts(); };
-
-// Card buttons
-document.getElementById('roboticsCard').onclick = () => { openAI(); };
-document.getElementById('roboticsBtn').onclick = (e) => { e.stopPropagation(); openAI(); };
-document.getElementById('researchCard').onclick = () => { alert("📊 RESEARCH & DATA SKILLS\n\nLearn surveys, data collection, and analysis!"); };
-document.getElementById('researchBtn').onclick = (e) => { e.stopPropagation(); alert("📈 Create surveys, collect data, and make charts!"); };
-document.getElementById('benefitsCard').onclick = () => { alert("✨ BENEFITS OF DIGITAL LEARNING\n\n• Builds critical thinking\n• Develops creativity\n• Prepares for future careers"); };
-document.getElementById('benefitsBtn').onclick = (e) => { e.stopPropagation(); alert("💡 Digital learning lets you learn anywhere, anytime!"); };
-document.getElementById('quizBtn').onclick = () => { alert("🎯 WEEKLY QUIZ CHALLENGE\n\nTest your Screen2Skill knowledge!\n\nFull quiz coming soon!"); };
-
-// AI CHATBOT BUTTON - opens UncloseAI
-document.getElementById('openChatbotBtn').onclick = () => {
-  openAI();
-};
+// Hero buttons - KEEP ORIGINAL FILE LINKS
+// Already have onclick="window.location.href='about.html'" and 'explore.html' in HTML
 
 // Pie Charts
 document.getElementById('openPieSectionBtn').onclick = (e) => { e.stopPropagation(); showPieCharts(); };
 document.getElementById('pieChartCard').onclick = (e) => { if(!e.target.closest('#openPieSectionBtn')) showPieCharts(); };
 document.getElementById('backToMainBtn').onclick = hidePieCharts;
+
+// AI CHATBOT BUTTON - opens UncloseAI
+document.getElementById('openChatbotBtn').onclick = () => {
+  openAI();
+};
 
 // Load UncloseAI script
 const uncloseScript = document.createElement('script');
