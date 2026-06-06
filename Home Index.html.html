@@ -338,7 +338,7 @@ button,
   background:white;
 }
 
-/* PIE CHARTS CARD - NOW IDENTICAL TO OTHER CARDS (SAME STYLE AS RESEARCH/BENEFITS) */
+/* PIE CHARTS CARD - NO PURPLE LINE, MATCHES OTHER CARDS EXACTLY */
 .card-purple .card-icon{
   color:var(--purple);
 }
@@ -350,6 +350,7 @@ button,
 .card-purple .card-btn:hover{
   background:#f3f0ff;
 }
+/* REMOVED THE border-left PROPERTY - NO PURPLE LINE ANYMORE */
 
 /* SIDE PANEL */
 .side-panel{
@@ -632,7 +633,7 @@ button,
           <button class="card-btn" onclick="event.stopPropagation(); window.location.href='research.html'">View Research</button>
         </div>
 
-        <!-- PIE CHARTS CARD - NOW IDENTICAL BLOCK STYLE AS RESEARCH AND OTHERS (same padding, button, hover effect) -->
+        <!-- PIE CHARTS CARD - NO PURPLE LINE, MATCHES EXACT STYLE OF OTHER CARDS -->
         <div class="card card-purple" id="pieChartCard" style="cursor:pointer;">
           <div>
             <div class="card-icon"><i class="fa-solid fa-chart-pie"></i></div>
