@@ -517,7 +517,8 @@ body{
   cursor:pointer;
 }
 
-.contact-modal {
+/* MODAL STYLES - Same design for all */
+.info-modal {
   display: none;
   position: fixed;
   top: 0;
@@ -530,7 +531,7 @@ body{
   align-items: center;
 }
 
-.contact-container {
+.info-container {
   background: white;
   width: 90%;
   max-width: 500px;
@@ -539,14 +540,14 @@ body{
   animation: slideUp 0.3s ease;
 }
 
-.contact-header {
+.info-header {
   background: linear-gradient(135deg, #FF7A00, #ff9f43);
   color: white;
   padding: 25px;
   text-align: center;
 }
 
-.contact-header h3 {
+.info-header h3 {
   font-size: 28px;
   display: flex;
   align-items: center;
@@ -554,61 +555,49 @@ body{
   gap: 12px;
 }
 
-.contact-body {
+.info-body {
   padding: 30px;
 }
 
-.contact-info {
+.info-content {
   background: #f8f9fa;
   border-radius: 20px;
-  padding: 20px;
-  margin-bottom: 25px;
+  padding: 25px;
+  margin-bottom: 20px;
+  text-align: center;
 }
 
-.contact-info p {
-  margin: 12px 0;
-  display: flex;
-  align-items: center;
-  gap: 12px;
+.info-content p {
+  margin: 15px 0;
   font-size: 16px;
   color: #1a2a3a;
+  line-height: 1.6;
 }
 
-.contact-info i {
-  width: 28px;
+.info-icon-large {
+  font-size: 60px;
   color: #FF7A00;
-  font-size: 18px;
+  margin-bottom: 15px;
 }
 
-.social-icons {
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-  margin-top: 20px;
+.feature-list {
+  text-align: left;
+  margin-top: 15px;
 }
 
-.social-icon {
-  width: 50px;
-  height: 50px;
-  background: #f0f0f0;
-  border-radius: 50%;
+.feature-list li {
+  margin: 10px 0;
   display: flex;
   align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: all 0.3s ease;
+  gap: 10px;
+}
+
+.feature-list i {
   color: #FF7A00;
-  font-size: 24px;
-  text-decoration: none;
+  width: 24px;
 }
 
-.social-icon:hover {
-  background: #FF7A00;
-  color: white;
-  transform: translateY(-3px);
-}
-
-.close-contact {
+.close-info {
   background: #FF7A00;
   color: white;
   border: none;
@@ -621,7 +610,7 @@ body{
   margin-top: 10px;
 }
 
-.close-contact:hover {
+.close-info:hover {
   background: #e06e00;
 }
 
@@ -758,25 +747,99 @@ body{
   </div>
 </main>
 
-<div id="contactModal" class="contact-modal">
-  <div class="contact-container">
-    <div class="contact-header">
+<!-- HOME MODAL -->
+<div id="homeModal" class="info-modal">
+  <div class="info-container">
+    <div class="info-header">
+      <h3><i class="fa-solid fa-house"></i> Welcome to Skill-Builders</h3>
+    </div>
+    <div class="info-body">
+      <div class="info-content">
+        <div class="info-icon-large"><i class="fa-solid fa-rocket"></i></div>
+        <p><strong>Your journey from Screen to Skill starts here!</strong></p>
+        <p>Skill-Builders helps students turn passive screen time into active, real-world abilities through fun, hands-on projects.</p>
+        <ul class="feature-list">
+          <li><i class="fa-solid fa-robot"></i> Build cool robots</li>
+          <li><i class="fa-solid fa-chart-line"></i> Learn research & data skills</li>
+          <li><i class="fa-solid fa-chart-pie"></i> Create amazing pie charts</li>
+          <li><i class="fa-solid fa-brain"></i> Develop future-ready skills</li>
+        </ul>
+      </div>
+      <button class="close-info" id="closeHomeBtn"><i class="fa-solid fa-check-circle"></i> Let's Go!</button>
+    </div>
+  </div>
+</div>
+
+<!-- KIDS MODAL -->
+<div id="kidsModal" class="info-modal">
+  <div class="info-container">
+    <div class="info-header">
+      <h3><i class="fa-solid fa-child"></i> Hey Kids! (Ages 8-12)</h3>
+    </div>
+    <div class="info-body">
+      <div class="info-content">
+        <div class="info-icon-large"><i class="fa-solid fa-gamepad"></i></div>
+        <p><strong>Ready to level up? 🚀</strong></p>
+        <p>Turn your screen time into superpowers! Here's what you can do:</p>
+        <ul class="feature-list">
+          <li><i class="fa-solid fa-robot"></i> Build and code your own robots</li>
+          <li><i class="fa-solid fa-magnifying-glass-chart"></i> Become a data detective</li>
+          <li><i class="fa-solid fa-chart-pie"></i> Create awesome pie charts</li>
+          <li><i class="fa-solid fa-trophy"></i> Win quiz challenges</li>
+        </ul>
+        <p style="margin-top:15px;"><strong>Click any card above to start your adventure!</strong></p>
+      </div>
+      <button class="close-info" id="closeKidsBtn"><i class="fa-solid fa-check-circle"></i> Let's Play!</button>
+    </div>
+  </div>
+</div>
+
+<!-- PARENT/TEACHER MODAL -->
+<div id="parentModal" class="info-modal">
+  <div class="info-container">
+    <div class="info-header">
+      <h3><i class="fa-solid fa-chalkboard-user"></i> For Parents & Teachers</h3>
+    </div>
+    <div class="info-body">
+      <div class="info-content">
+        <div class="info-icon-large"><i class="fa-solid fa-graduation-cap"></i></div>
+        <p><strong>Screen2Skill helps turn screen time into real-world abilities!</strong></p>
+        <p><strong>Why it works:</strong></p>
+        <ul class="feature-list">
+          <li><i class="fa-solid fa-brain"></i> Builds critical thinking</li>
+          <li><i class="fa-solid fa-chart-line"></i> Develops data literacy</li>
+          <li><i class="fa-solid fa-lightbulb"></i> Encourages creativity</li>
+          <li><i class="fa-solid fa-briefcase"></i> Prepares for future careers</li>
+          <li><i class="fa-solid fa-clock"></i> Turns passive watching into active building</li>
+        </ul>
+        <p style="margin-top:15px;"><strong>Empower your students with Screen2Skill today!</strong></p>
+      </div>
+      <button class="close-info" id="closeParentBtn"><i class="fa-solid fa-check-circle"></i> Get Started</button>
+    </div>
+  </div>
+</div>
+
+<!-- CONNECT MODAL -->
+<div id="contactModal" class="info-modal">
+  <div class="info-container">
+    <div class="info-header">
       <h3><i class="fa-solid fa-envelope"></i> Connect With Us</h3>
     </div>
-    <div class="contact-body">
-      <div class="contact-info">
+    <div class="info-body">
+      <div class="info-content">
+        <div class="info-icon-large"><i class="fa-solid fa-address-card"></i></div>
         <p><i class="fa-solid fa-envelope"></i> <strong>Email:</strong> hello@skill-builders.com</p>
         <p><i class="fa-solid fa-phone"></i> <strong>Phone:</strong> (555) 123-SKILL</p>
         <p><i class="fa-solid fa-location-dot"></i> <strong>Location:</strong> 123 Learning Lane, Edutown</p>
         <p><i class="fa-solid fa-clock"></i> <strong>Hours:</strong> Mon-Fri 9am-6pm EST</p>
+        <div class="social-icons" style="display:flex; justify-content:center; gap:20px; margin-top:20px;">
+          <a class="social-icon" id="twitterLink" style="cursor:pointer;"><i class="fa-brands fa-twitter"></i></a>
+          <a class="social-icon" id="instagramLink" style="cursor:pointer;"><i class="fa-brands fa-instagram"></i></a>
+          <a class="social-icon" id="facebookLink" style="cursor:pointer;"><i class="fa-brands fa-facebook-f"></i></a>
+          <a class="social-icon" id="linkedinLink" style="cursor:pointer;"><i class="fa-brands fa-linkedin-in"></i></a>
+        </div>
       </div>
-      <div class="social-icons">
-        <a class="social-icon" id="twitterLink"><i class="fa-brands fa-twitter"></i></a>
-        <a class="social-icon" id="instagramLink"><i class="fa-brands fa-instagram"></i></a>
-        <a class="social-icon" id="facebookLink"><i class="fa-brands fa-facebook-f"></i></a>
-        <a class="social-icon" id="linkedinLink"><i class="fa-brands fa-linkedin-in"></i></a>
-      </div>
-      <button class="close-contact" id="closeContactBtn"><i class="fa-solid fa-check-circle"></i> Got it!</button>
+      <button class="close-info" id="closeContactBtn"><i class="fa-solid fa-check-circle"></i> Got it!</button>
     </div>
   </div>
 </div>
@@ -800,10 +863,6 @@ body{
 </div>
 
 <script>
-function showMessage(title, message) {
-  alert(title + "\n\n" + message);
-}
-
 let screenChart, skillsChart, careerChart;
 let chartsInitialized = false;
 
@@ -831,89 +890,73 @@ function hidePieCharts() {
   document.getElementById('pieChartsArea').style.display = 'none';
 }
 
+// MODAL REFERENCES
+const homeModal = document.getElementById('homeModal');
+const kidsModal = document.getElementById('kidsModal');
+const parentModal = document.getElementById('parentModal');
+const contactModal = document.getElementById('contactModal');
+
+// HOME BUTTON
 document.getElementById('homeBtn').onclick = () => {
   window.scrollTo({ top: 0, behavior: 'smooth' });
-  showMessage("🏠 Welcome to Skill-Builders!", "Your journey from Screen to Skill starts here!");
+  homeModal.style.display = 'flex';
 };
+document.getElementById('closeHomeBtn').onclick = () => { homeModal.style.display = 'none'; };
 
+// KIDS BUTTON
 document.getElementById('kidsBtn').onclick = () => {
   document.querySelector('.card-grid').scrollIntoView({ behavior: 'smooth', block: 'start' });
-  showMessage("👋 Hey Kids!", "Ready to level up? Build robots, become a data detective, and create awesome pie charts!");
+  kidsModal.style.display = 'flex';
 };
+document.getElementById('closeKidsBtn').onclick = () => { kidsModal.style.display = 'none'; };
 
+// PARENT/TEACHER BUTTON
 document.getElementById('parentBtn').onclick = () => {
   document.querySelector('.card-orange').scrollIntoView({ behavior: 'smooth', block: 'center' });
-  showMessage("👨‍👩‍👧 For Parents & Teachers", "Screen2Skill helps turn screen time into real-world abilities!");
+  parentModal.style.display = 'flex';
 };
+document.getElementById('closeParentBtn').onclick = () => { parentModal.style.display = 'none'; };
 
-const contactModal = document.getElementById('contactModal');
-const closeContactBtn = document.getElementById('closeContactBtn');
-
+// CONNECT BUTTON
 document.getElementById('connectBtn').onclick = () => {
   contactModal.style.display = 'flex';
 };
+document.getElementById('closeContactBtn').onclick = () => { contactModal.style.display = 'none'; };
 
-closeContactBtn.onclick = () => {
-  contactModal.style.display = 'none';
-};
+// Social media links
+document.getElementById('twitterLink').onclick = () => { alert("🐦 Follow us @SkillBuilders for daily tips!"); };
+document.getElementById('instagramLink').onclick = () => { alert("📸 Follow @SkillBuilders on Instagram!"); };
+document.getElementById('facebookLink').onclick = () => { alert("📘 Like our page SkillBuilders!"); };
+document.getElementById('linkedinLink').onclick = () => { alert("🔗 Connect with SkillBuilders on LinkedIn!"); };
 
-document.getElementById('twitterLink').onclick = () => {
-  showMessage("🐦 Twitter", "Follow us @SkillBuilders for daily tips!");
-};
-document.getElementById('instagramLink').onclick = () => {
-  showMessage("📸 Instagram", "Follow @SkillBuilders on Instagram!");
-};
-document.getElementById('facebookLink').onclick = () => {
-  showMessage("📘 Facebook", "Like our page SkillBuilders!");
-};
-document.getElementById('linkedinLink').onclick = () => {
-  showMessage("🔗 LinkedIn", "Connect with SkillBuilders on LinkedIn!");
-};
-
+// Close modals when clicking outside
 window.onclick = (e) => {
+  if(e.target === homeModal) homeModal.style.display = 'none';
+  if(e.target === kidsModal) kidsModal.style.display = 'none';
+  if(e.target === parentModal) parentModal.style.display = 'none';
   if(e.target === contactModal) contactModal.style.display = 'none';
   if(e.target === document.getElementById('chatbotModal')) document.getElementById('chatbotModal').style.display = 'none';
 };
 
-document.getElementById('learnMoreBtn').onclick = () => {
-  showMessage("📚 Learn More", "Screen2Skill transforms passive screen time into active skill-building!");
-};
-document.getElementById('exploreBtn').onclick = () => {
-  showMessage("🔍 Explore Projects", "Check out Robotics, Research, and Pie Charts!");
-};
+// Hero buttons
+document.getElementById('learnMoreBtn').onclick = () => { homeModal.style.display = 'flex'; };
+document.getElementById('exploreBtn').onclick = () => { showPieCharts(); };
 
-document.getElementById('roboticsCard').onclick = () => {
-  showMessage("🤖 Robotics", "Learn basic robotics and coding fundamentals!");
-};
-document.getElementById('roboticsBtn').onclick = (e) => { 
-  e.stopPropagation();
-  showMessage("🤖 Open Robotics", "Start your robotics journey today!");
-};
+// Card buttons
+document.getElementById('roboticsCard').onclick = () => { alert("🤖 ROBOTICS PROJECT\n\nLearn basic robotics and coding fundamentals!\n\nComing soon: Full video tutorials!"); };
+document.getElementById('roboticsBtn').onclick = (e) => { e.stopPropagation(); alert("🤖 Start your robotics journey today!\n\n1. Learn circuits\n2. Program sensors\n3. Build your robot!"); };
+document.getElementById('researchCard').onclick = () => { alert("📊 RESEARCH & DATA SKILLS\n\nLearn surveys, data collection, and analysis!\n\nTurn questions into answers!"); };
+document.getElementById('researchBtn').onclick = (e) => { e.stopPropagation(); alert("📈 Create surveys, collect data, and make charts!"); };
+document.getElementById('benefitsCard').onclick = () => { alert("✨ BENEFITS OF DIGITAL LEARNING\n\n• Builds critical thinking\n• Develops creativity\n• Prepares for future careers"); };
+document.getElementById('benefitsBtn').onclick = (e) => { e.stopPropagation(); alert("💡 Digital learning lets you learn anywhere, anytime!"); };
+document.getElementById('quizBtn').onclick = () => { alert("🎯 WEEKLY QUIZ CHALLENGE\n\nTest your Screen2Skill knowledge!\n\nFull quiz coming soon!"); };
 
-document.getElementById('researchCard').onclick = () => {
-  showMessage("📊 Research", "Learn surveys, data collection, and analysis!");
-};
-document.getElementById('researchBtn').onclick = (e) => { 
-  e.stopPropagation();
-  showMessage("📈 Research Projects", "Create surveys and analyze data!");
-};
-
-document.getElementById('benefitsCard').onclick = () => {
-  showMessage("✨ Benefits", "Digital learning builds critical thinking and creativity!");
-};
-document.getElementById('benefitsBtn').onclick = (e) => { 
-  e.stopPropagation();
-  showMessage("💡 Why Digital Learning?", "Learn anywhere, anytime!");
-};
-
-document.getElementById('quizBtn').onclick = () => {
-  showMessage("🎯 Quiz Challenge", "Test your Screen2Skill knowledge!");
-};
-
+// Pie Charts
 document.getElementById('openPieSectionBtn').onclick = (e) => { e.stopPropagation(); showPieCharts(); };
 document.getElementById('pieChartCard').onclick = (e) => { if(!e.target.closest('#openPieSectionBtn')) showPieCharts(); };
 document.getElementById('backToMainBtn').onclick = hidePieCharts;
 
+// AI CHATBOT
 const allowedTopics = ['screen2skill', 'robotics', 'robot', 'research', 'data', 'pie chart', 'benefits', 'skill', 'career', 'screen time', 'learning', 'quiz'];
 
 function isOffTopic(question) {
