@@ -517,7 +517,7 @@ body{
   cursor:pointer;
 }
 
-/* MODAL STYLES - Same design for all */
+/* MODAL STYLES - ALL SAME AS CONNECT BUTTON */
 .info-modal {
   display: none;
   position: fixed;
@@ -564,37 +564,49 @@ body{
   border-radius: 20px;
   padding: 25px;
   margin-bottom: 20px;
-  text-align: center;
 }
 
 .info-content p {
-  margin: 15px 0;
-  font-size: 16px;
-  color: #1a2a3a;
-  line-height: 1.6;
-}
-
-.info-icon-large {
-  font-size: 60px;
-  color: #FF7A00;
-  margin-bottom: 15px;
-}
-
-.feature-list {
-  text-align: left;
-  margin-top: 15px;
-}
-
-.feature-list li {
-  margin: 10px 0;
+  margin: 12px 0;
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
+  font-size: 16px;
+  color: #1a2a3a;
 }
 
-.feature-list i {
+.info-content i {
+  width: 28px;
   color: #FF7A00;
-  width: 24px;
+  font-size: 18px;
+}
+
+.social-icons {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.social-icon {
+  width: 50px;
+  height: 50px;
+  background: #f0f0f0;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  color: #FF7A00;
+  font-size: 24px;
+  text-decoration: none;
+}
+
+.social-icon:hover {
+  background: #FF7A00;
+  color: white;
+  transform: translateY(-3px);
 }
 
 .close-info {
@@ -747,7 +759,7 @@ body{
   </div>
 </main>
 
-<!-- HOME MODAL -->
+<!-- HOME MODAL - SAME DESIGN AS CONNECT -->
 <div id="homeModal" class="info-modal">
   <div class="info-container">
     <div class="info-header">
@@ -755,22 +767,19 @@ body{
     </div>
     <div class="info-body">
       <div class="info-content">
-        <div class="info-icon-large"><i class="fa-solid fa-rocket"></i></div>
-        <p><strong>Your journey from Screen to Skill starts here!</strong></p>
-        <p>Skill-Builders helps students turn passive screen time into active, real-world abilities through fun, hands-on projects.</p>
-        <ul class="feature-list">
-          <li><i class="fa-solid fa-robot"></i> Build cool robots</li>
-          <li><i class="fa-solid fa-chart-line"></i> Learn research & data skills</li>
-          <li><i class="fa-solid fa-chart-pie"></i> Create amazing pie charts</li>
-          <li><i class="fa-solid fa-brain"></i> Develop future-ready skills</li>
-        </ul>
+        <p><i class="fa-solid fa-rocket"></i> <strong>Your journey from Screen to Skill starts here!</strong></p>
+        <p><i class="fa-solid fa-robot"></i> Build cool robots and learn coding</p>
+        <p><i class="fa-solid fa-chart-line"></i> Master research & data skills</p>
+        <p><i class="fa-solid fa-chart-pie"></i> Create amazing pie charts</p>
+        <p><i class="fa-solid fa-brain"></i> Develop future-ready superpowers</p>
+        <p><i class="fa-solid fa-gamepad"></i> Turn screen time into real-world abilities</p>
       </div>
       <button class="close-info" id="closeHomeBtn"><i class="fa-solid fa-check-circle"></i> Let's Go!</button>
     </div>
   </div>
 </div>
 
-<!-- KIDS MODAL -->
+<!-- KIDS MODAL - SAME DESIGN AS CONNECT -->
 <div id="kidsModal" class="info-modal">
   <div class="info-container">
     <div class="info-header">
@@ -778,48 +787,41 @@ body{
     </div>
     <div class="info-body">
       <div class="info-content">
-        <div class="info-icon-large"><i class="fa-solid fa-gamepad"></i></div>
-        <p><strong>Ready to level up? 🚀</strong></p>
-        <p>Turn your screen time into superpowers! Here's what you can do:</p>
-        <ul class="feature-list">
-          <li><i class="fa-solid fa-robot"></i> Build and code your own robots</li>
-          <li><i class="fa-solid fa-magnifying-glass-chart"></i> Become a data detective</li>
-          <li><i class="fa-solid fa-chart-pie"></i> Create awesome pie charts</li>
-          <li><i class="fa-solid fa-trophy"></i> Win quiz challenges</li>
-        </ul>
-        <p style="margin-top:15px;"><strong>Click any card above to start your adventure!</strong></p>
+        <p><i class="fa-solid fa-gamepad"></i> <strong>Ready to level up? 🚀</strong></p>
+        <p><i class="fa-solid fa-robot"></i> Build and code your own robots</p>
+        <p><i class="fa-solid fa-magnifying-glass-chart"></i> Become a data detective</p>
+        <p><i class="fa-solid fa-chart-pie"></i> Create awesome pie charts</p>
+        <p><i class="fa-solid fa-trophy"></i> Win weekly quiz challenges</p>
+        <p><i class="fa-solid fa-star"></i> Turn screen time into superpowers!</p>
+        <p><i class="fa-solid fa-hand-peace"></i> Click any card above to start your adventure!</p>
       </div>
       <button class="close-info" id="closeKidsBtn"><i class="fa-solid fa-check-circle"></i> Let's Play!</button>
     </div>
   </div>
 </div>
 
-<!-- PARENT/TEACHER MODAL -->
+<!-- PARENT/TEACHER MODAL - SAME DESIGN AS CONNECT -->
 <div id="parentModal" class="info-modal">
   <div class="info-container">
     <div class="info-header">
-      <h3><i class="fa-solid fa-chalkboard-user"></i> For Parents & Teachers</h3>
+      <h3><i class="fa-solid fa-chalkboard-user"></i> Parents & Teachers</h3>
     </div>
     <div class="info-body">
       <div class="info-content">
-        <div class="info-icon-large"><i class="fa-solid fa-graduation-cap"></i></div>
-        <p><strong>Screen2Skill helps turn screen time into real-world abilities!</strong></p>
-        <p><strong>Why it works:</strong></p>
-        <ul class="feature-list">
-          <li><i class="fa-solid fa-brain"></i> Builds critical thinking</li>
-          <li><i class="fa-solid fa-chart-line"></i> Develops data literacy</li>
-          <li><i class="fa-solid fa-lightbulb"></i> Encourages creativity</li>
-          <li><i class="fa-solid fa-briefcase"></i> Prepares for future careers</li>
-          <li><i class="fa-solid fa-clock"></i> Turns passive watching into active building</li>
-        </ul>
-        <p style="margin-top:15px;"><strong>Empower your students with Screen2Skill today!</strong></p>
+        <p><i class="fa-solid fa-graduation-cap"></i> <strong>Screen2Skill helps turn screen time into real-world abilities!</strong></p>
+        <p><i class="fa-solid fa-brain"></i> Builds critical thinking & problem-solving</p>
+        <p><i class="fa-solid fa-chart-line"></i> Develops data literacy & research skills</p>
+        <p><i class="fa-solid fa-lightbulb"></i> Encourages creativity & innovation</p>
+        <p><i class="fa-solid fa-briefcase"></i> Prepares for future STEM careers</p>
+        <p><i class="fa-solid fa-clock"></i> Turns passive watching into active building</p>
+        <p><i class="fa-solid fa-heart"></i> Empowers students with 21st century skills</p>
       </div>
       <button class="close-info" id="closeParentBtn"><i class="fa-solid fa-check-circle"></i> Get Started</button>
     </div>
   </div>
 </div>
 
-<!-- CONNECT MODAL -->
+<!-- CONNECT MODAL - ORIGINAL DESIGN -->
 <div id="contactModal" class="info-modal">
   <div class="info-container">
     <div class="info-header">
@@ -827,16 +829,15 @@ body{
     </div>
     <div class="info-body">
       <div class="info-content">
-        <div class="info-icon-large"><i class="fa-solid fa-address-card"></i></div>
         <p><i class="fa-solid fa-envelope"></i> <strong>Email:</strong> hello@skill-builders.com</p>
         <p><i class="fa-solid fa-phone"></i> <strong>Phone:</strong> (555) 123-SKILL</p>
         <p><i class="fa-solid fa-location-dot"></i> <strong>Location:</strong> 123 Learning Lane, Edutown</p>
         <p><i class="fa-solid fa-clock"></i> <strong>Hours:</strong> Mon-Fri 9am-6pm EST</p>
-        <div class="social-icons" style="display:flex; justify-content:center; gap:20px; margin-top:20px;">
-          <a class="social-icon" id="twitterLink" style="cursor:pointer;"><i class="fa-brands fa-twitter"></i></a>
-          <a class="social-icon" id="instagramLink" style="cursor:pointer;"><i class="fa-brands fa-instagram"></i></a>
-          <a class="social-icon" id="facebookLink" style="cursor:pointer;"><i class="fa-brands fa-facebook-f"></i></a>
-          <a class="social-icon" id="linkedinLink" style="cursor:pointer;"><i class="fa-brands fa-linkedin-in"></i></a>
+        <div class="social-icons">
+          <div class="social-icon" id="twitterLink"><i class="fa-brands fa-twitter"></i></div>
+          <div class="social-icon" id="instagramLink"><i class="fa-brands fa-instagram"></i></div>
+          <div class="social-icon" id="facebookLink"><i class="fa-brands fa-facebook-f"></i></div>
+          <div class="social-icon" id="linkedinLink"><i class="fa-brands fa-linkedin-in"></i></div>
         </div>
       </div>
       <button class="close-info" id="closeContactBtn"><i class="fa-solid fa-check-circle"></i> Got it!</button>
