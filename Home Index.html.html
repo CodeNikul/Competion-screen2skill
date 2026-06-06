@@ -17,8 +17,6 @@ rel="stylesheet">
 
 <style>
 
-/* ---------------- GLOBAL ---------------- */
-
 *{
   margin:0;
   padding:0;
@@ -39,7 +37,6 @@ body{
   font-family:'Quicksand',sans-serif;
   color:#333;
   overflow-x:hidden;
-  position: relative;
   background-image: url('Gemini_Generated_Image_1i9jmz1i9jmz1i9j.png');
   background-size: cover;
   background-position: center;
@@ -48,15 +45,6 @@ body{
   background-color:#0b1f33;
 }
 
-button,
-.card,
-.card-btn,
-.ai-chatbot-btn,
-.nav-link{
-  transition:all 0.3s ease;
-}
-
-/* NAVBAR */
 .utility-nav{
   background:rgba(255,255,255,0.98);
   backdrop-filter:blur(4px);
@@ -76,8 +64,7 @@ button,
   align-items:center;
 }
 
-.nav-left,
-.nav-right{
+.nav-left, .nav-right{
   display:flex;
   align-items:center;
   gap:14px;
@@ -109,66 +96,54 @@ button,
   text-decoration:none;
 }
 
-.cta-connect:hover{
-  transform:translateY(-2px);
-}
-
-/* HERO SECTION */
 .hero-section{
   padding:90px 20px;
   text-align:center;
 }
 
 .logo-area{
-  background: rgba(255, 255, 255, 0.92);
+  background:rgba(255,255,255,0.92);
   display:inline-block;
   padding:15px 30px;
   border-radius:60px;
   margin-bottom:20px;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-  border: 1px solid rgba(255,255,255,0.8);
+  box-shadow:0 8px 20px rgba(0,0,0,0.1);
 }
 
 .logo-area h1{
   font-size:52px;
-  color: #FF7A00;
-  text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
-  letter-spacing: -0.5px;
+  color:#FF7A00;
 }
 
 .logo-icon{
   font-size:42px;
-  filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.1));
 }
 
 .tagline{
   font-size:20px;
-  color: #0094FF;
-  text-shadow: none;
-  font-weight: 600;
+  color:#0094FF;
+  font-weight:600;
 }
 
 .hero-content{
-  background: rgba(255, 255, 255, 0.96);
-  border: 1px solid rgba(255,255,255,0.5);
+  background:rgba(255,255,255,0.96);
   padding:30px 40px;
   border-radius:50px;
   max-width:900px;
   margin:20px auto 0;
-  box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+  box-shadow:0 15px 35px rgba(0,0,0,0.15);
 }
 
 .hero-content h2{
   font-size:60px;
-  color: #FF7A00;
-  text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
+  color:#FF7A00;
   margin-bottom:15px;
 }
 
 .hero-content p{
   font-size:19px;
-  color: #1a3a5a;
-  font-weight: 500;
+  color:#1a3a5a;
+  font-weight:500;
 }
 
 .badge{
@@ -179,7 +154,6 @@ button,
   border-radius:30px;
   display:inline-block;
   margin-bottom:15px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
 
 .hero-buttons{
@@ -199,21 +173,13 @@ button,
 .btn-orange{
   background:linear-gradient(135deg,var(--orange),#ff9f43);
   color:white;
-  box-shadow:0 8px 20px rgba(255,122,0,0.3);
 }
 
 .btn-blue{
   background:linear-gradient(135deg,var(--blue),#4ab3ff);
   color:white;
-  box-shadow:0 8px 20px rgba(0,148,255,0.25);
 }
 
-.btn-orange:hover,
-.btn-blue:hover{
-  transform:translateY(-4px);
-}
-
-/* MAIN CONTENT */
 .main-content{
   max-width:1200px;
   margin:auto;
@@ -227,16 +193,14 @@ button,
 }
 
 .section-title{
-  background: rgba(255, 255, 255, 0.92);
+  background:rgba(255,255,255,0.92);
   display:inline-block;
   padding:10px 25px;
   border-radius:40px;
   font-size:34px;
-  color: #FF7A00;
+  color:#FF7A00;
   margin-bottom:25px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-  border: 1px solid rgba(255,255,255,0.9);
-  font-weight: 700;
+  font-weight:700;
 }
 
 .card-grid{
@@ -264,7 +228,6 @@ button,
 
 .card:hover{
   transform:translateY(-10px) scale(1.02);
-  box-shadow:0 25px 45px rgba(0,0,0,0.15);
 }
 
 .card-icon{
@@ -274,14 +237,12 @@ button,
 
 .card h4{
   font-size:26px;
-  line-height:1.4;
   font-family:'Fredoka',sans-serif;
   color:#1e2a3a;
 }
 
 .card p{
   margin-top:14px;
-  line-height:1.6;
   font-size:15px;
   color:#2c3e44;
 }
@@ -291,59 +252,23 @@ button,
   padding:12px 18px;
   border-radius:30px;
   font-weight:700;
-  text-align:center;
   width:fit-content;
   cursor:pointer;
-  border:none;
-  background:transparent;
-}
-
-.card-robotics .card-icon{
-  color:var(--green);
-}
-.card-robotics .card-btn{
-  border:2px solid #c8f0d4;
-  color:var(--green);
-  background:white;
-}
-.card-robotics .card-btn:hover{
-  background:#f0faf2;
-}
-
-.card-blue .card-icon{
-  color:var(--blue);
-}
-.card-blue .card-btn{
-  border:2px solid #d9e9ff;
-  color:var(--blue);
-  background:white;
-}
-.card-blue .card-btn:hover{
-  background:#f0f7ff;
-}
-
-.card-orange .card-icon{
-  color:var(--orange);
-}
-.card-orange .card-btn{
-  border:2px solid #ffe1c5;
-  color:var(--orange);
   background:white;
 }
 
-.card-purple .card-icon{
-  color:var(--purple);
-}
-.card-purple .card-btn{
-  border:2px solid #e0d6ff;
-  color:var(--purple);
-  background:white;
-}
-.card-purple .card-btn:hover{
-  background:#f3f0ff;
-}
+.card-robotics .card-icon{ color:var(--green); }
+.card-robotics .card-btn{ border:2px solid #c8f0d4; color:var(--green); }
 
-/* SIDE PANEL - AI CHATBOT */
+.card-blue .card-icon{ color:var(--blue); }
+.card-blue .card-btn{ border:2px solid #d9e9ff; color:var(--blue); }
+
+.card-orange .card-icon{ color:var(--orange); }
+.card-orange .card-btn{ border:2px solid #ffe1c5; color:var(--orange); }
+
+.card-purple .card-icon{ color:var(--purple); }
+.card-purple .card-btn{ border:2px solid #e0d6ff; color:var(--purple); }
+
 .side-panel{
   display:flex;
   flex-direction:column;
@@ -355,7 +280,6 @@ button,
   border-radius:28px;
   padding:24px;
   text-align:center;
-  box-shadow:var(--shadow);
 }
 
 .kid-image-wrapper img{
@@ -363,7 +287,7 @@ button,
   max-width:280px;
 }
 
-/* AI CHATBOT BUTTON & MODAL */
+/* AI CHATBOT BUTTON */
 .ai-chatbot-btn{
   background:linear-gradient(135deg,#0a1f2f,#1a3a5a);
   color:white;
@@ -384,169 +308,136 @@ button,
   background:linear-gradient(135deg,#1a3a5a,#2a4a6a);
 }
 
-.chat-icon{
-  font-size:30px;
-  color:#38ef7d;
+/* CHATBOT MODAL */
+.chatbot-modal{
+  display:none;
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background:rgba(0,0,0,0.7);
+  z-index:2000;
+  justify-content:center;
+  align-items:center;
 }
 
-.spark-icon{
-  color:#fff275;
+.chatbot-container{
+  background:white;
+  width:90%;
+  max-width:450px;
+  border-radius:32px;
+  overflow:hidden;
+  animation:slideUp 0.3s ease;
 }
 
-/* Chatbot Modal */
-.chatbot-modal {
-  display: none;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.7);
-  z-index: 2000;
-  justify-content: center;
-  align-items: center;
-  backdrop-filter: blur(4px);
+@keyframes slideUp{
+  from{ opacity:0; transform:translateY(30px); }
+  to{ opacity:1; transform:translateY(0); }
 }
 
-.chatbot-container {
-  background: white;
-  width: 90%;
-  max-width: 450px;
-  border-radius: 32px;
-  box-shadow: 0 25px 50px rgba(0,0,0,0.3);
-  overflow: hidden;
-  animation: slideUp 0.3s ease;
+.chatbot-header{
+  background:linear-gradient(135deg,#FF7A00,#ff9f43);
+  color:white;
+  padding:20px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
 }
 
-@keyframes slideUp {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+.chatbot-header h3{
+  font-size:20px;
+  display:flex;
+  align-items:center;
+  gap:10px;
 }
 
-.chatbot-header {
-  background: linear-gradient(135deg, #FF7A00, #ff9f43);
-  color: white;
-  padding: 20px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+.close-chat{
+  font-size:28px;
+  cursor:pointer;
+  font-weight:bold;
 }
 
-.chatbot-header h3 {
-  font-size: 20px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
+.close-chat:hover{ color:#1a2a3a; }
+
+.chat-messages{
+  height:400px;
+  overflow-y:auto;
+  padding:20px;
+  background:#f8f9fa;
+  display:flex;
+  flex-direction:column;
+  gap:12px;
 }
 
-.close-chat {
-  font-size: 28px;
-  cursor: pointer;
-  font-weight: bold;
-  transition: 0.2s;
+.message{
+  max-width:85%;
+  padding:12px 16px;
+  border-radius:20px;
+  font-size:14px;
+  line-height:1.5;
 }
 
-.close-chat:hover {
-  color: #1a2a3a;
+.bot-message{
+  background:white;
+  color:#1a2a3a;
+  align-self:flex-start;
+  border:1px solid #e0e0e0;
 }
 
-.chat-messages {
-  height: 350px;
-  overflow-y: auto;
-  padding: 20px;
-  background: #f8f9fa;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
+.user-message{
+  background:linear-gradient(135deg,#0094FF,#4ab3ff);
+  color:white;
+  align-self:flex-end;
 }
 
-.message {
-  max-width: 85%;
-  padding: 12px 16px;
-  border-radius: 20px;
-  font-size: 14px;
-  line-height: 1.5;
-  animation: fadeIn 0.2s ease;
+.recommend-question{
+  background:#f0edfe;
+  border-radius:20px;
+  padding:10px 15px;
+  margin-top:5px;
+  cursor:pointer;
+  font-size:13px;
+  color:#6c5ce7;
+  font-weight:600;
+  text-align:center;
 }
 
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(5px); }
-  to { opacity: 1; transform: translateY(0); }
+.recommend-question:hover{
+  background:#e0d6ff;
+  transform:scale(1.02);
 }
 
-.bot-message {
-  background: white;
-  color: #1a2a3a;
-  align-self: flex-start;
-  border: 1px solid #e0e0e0;
-  border-bottom-left-radius: 4px;
+.chat-input-area{
+  display:flex;
+  padding:16px;
+  background:white;
+  border-top:1px solid #eee;
+  gap:10px;
 }
 
-.user-message {
-  background: linear-gradient(135deg, #0094FF, #4ab3ff);
-  color: white;
-  align-self: flex-end;
-  border-bottom-right-radius: 4px;
+.chat-input-area input{
+  flex:1;
+  padding:12px 16px;
+  border:1px solid #ddd;
+  border-radius:30px;
+  font-family:'Quicksand',sans-serif;
+  font-size:14px;
+  outline:none;
 }
 
-.recommend-question {
-  background: #f0edfe;
-  border-radius: 20px;
-  padding: 10px 15px;
-  margin-top: 8px;
-  cursor: pointer;
-  transition: all 0.2s;
-  font-size: 13px;
-  color: #6c5ce7;
-  font-weight: 600;
-  text-align: center;
+.chat-input-area input:focus{
+  border-color:#FF7A00;
 }
 
-.recommend-question:hover {
-  background: #e0d6ff;
-  transform: scale(1.02);
-}
-
-.chat-input-area {
-  display: flex;
-  padding: 16px;
-  background: white;
-  border-top: 1px solid #eee;
-  gap: 10px;
-}
-
-.chat-input-area input {
-  flex: 1;
-  padding: 12px 16px;
-  border: 1px solid #ddd;
-  border-radius: 30px;
-  font-family: 'Quicksand', sans-serif;
-  font-size: 14px;
-  outline: none;
-}
-
-.chat-input-area input:focus {
-  border-color: #FF7A00;
-}
-
-.chat-input-area button {
-  background: #FF7A00;
-  border: none;
-  padding: 12px 20px;
-  border-radius: 30px;
-  color: white;
-  font-weight: bold;
-  cursor: pointer;
-}
-
-.chat-input-area button:hover {
-  background: #e06e00;
+.chat-input-area button{
+  background:#FF7A00;
+  border:none;
+  padding:12px 20px;
+  border-radius:30px;
+  color:white;
+  font-weight:bold;
+  cursor:pointer;
 }
 
 .challenge-box{
@@ -555,17 +446,16 @@ button,
   padding:28px;
   text-align:center;
   color:white;
-  box-shadow:var(--shadow);
 }
 
 .challenge-tag{
-  display:inline-block;
   background:#ffe14d;
   color:#000;
   padding:6px 12px;
   border-radius:12px;
   font-size:12px;
   font-weight:700;
+  display:inline-block;
   margin-bottom:16px;
 }
 
@@ -578,121 +468,58 @@ button,
   border-radius:24px;
   font-weight:700;
   cursor:pointer;
-  text-decoration:none;
   display:inline-block;
+  text-decoration:none;
 }
 
-.btn-green:hover{
-  transform:scale(1.05);
-  background:#2bc24b;
+.pie-charts-section{
+  background:rgba(255,255,255,0.96);
+  border-radius:48px;
+  padding:40px;
+  margin-top:20px;
 }
 
-/* PIE CHARTS SECTION */
-.pie-charts-section {
-  background: rgba(255, 255, 255, 0.96);
-  border-radius: 48px;
-  padding: 40px;
-  margin-top: 20px;
-  box-shadow: var(--shadow);
-  border: 1px solid rgba(108, 92, 231, 0.3);
+.pie-showcase{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+  gap:30px;
+  margin:30px 0;
 }
 
-.pie-header {
-  text-align: center;
-  margin-bottom: 35px;
+.pie-card{
+  background:white;
+  border-radius:28px;
+  padding:25px;
+  text-align:center;
+  box-shadow:var(--shadow);
 }
 
-.pie-header h2 {
-  font-size: 38px;
-  color: #6c5ce7;
-  font-family: 'Fredoka', sans-serif;
+.pie-chart-container{
+  max-width:250px;
+  margin:0 auto;
 }
 
-.tech-badge {
-  background: #6c5ce7;
-  color: white;
-  padding: 6px 14px;
-  border-radius: 30px;
-  display: inline-block;
-  font-size: 14px;
-  margin-bottom: 15px;
-}
-
-.pie-showcase {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 30px;
-  margin: 30px 0;
-}
-
-.pie-card {
-  background: white;
-  border-radius: 28px;
-  padding: 25px;
-  text-align: center;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
-}
-
-.pie-card h3 {
-  color: #FF7A00;
-  margin-bottom: 20px;
-  font-size: 24px;
-}
-
-.pie-chart-container {
-  max-width: 250px;
-  margin: 0 auto;
-}
-
-.pie-fun-fact {
-  margin-top: 20px;
-  background: #f0edfe;
-  padding: 12px;
-  border-radius: 20px;
-  font-size: 14px;
-  color: #4a3bb5;
-  font-weight: 600;
-}
-
-.back-btn {
-  background: linear-gradient(135deg, #6c5ce7, #8d7cf5);
-  color: white;
-  border: none;
-  padding: 12px 30px;
-  border-radius: 40px;
-  font-weight: 700;
-  cursor: pointer;
-  margin-top: 20px;
+.back-btn{
+  background:linear-gradient(135deg,#6c5ce7,#8d7cf5);
+  color:white;
+  border:none;
+  padding:12px 30px;
+  border-radius:40px;
+  font-weight:700;
+  cursor:pointer;
 }
 
 @media(max-width:950px){
-  .content-container{
-    grid-template-columns:1fr;
-  }
-  .hero-content h2{
-    font-size:42px;
-  }
-  .nav-container{
-    flex-direction:column;
-    gap:15px;
-  }
+  .content-container{ grid-template-columns:1fr; }
+  .hero-content h2{ font-size:42px; }
+  .nav-container{ flex-direction:column; gap:15px; }
 }
 
 @media(max-width:650px){
-  .hero-section{
-    padding:70px 20px;
-  }
-  .card-grid{
-    grid-template-columns:1fr;
-  }
-  .hero-content h2{
-    font-size:34px;
-  }
-  .logo-area h1{
-    font-size:38px;
-  }
+  .hero-content h2{ font-size:34px; }
+  .logo-area h1{ font-size:38px; }
+  .card-grid{ grid-template-columns:1fr; }
 }
-
 </style>
 </head>
 
@@ -722,8 +549,8 @@ button,
     <h2>Turn Screen Time Into Real-Life Superpowers</h2>
     <p>Learn robotics, research, and data storytelling with pie charts — built for students who want to shape the future.</p>
     <div class="hero-buttons">
-      <button class="btn-orange" onclick="window.location.href='about.html'">Learn More</button>
-      <button class="btn-blue" onclick="window.location.href='explore.html'">Explore Projects</button>
+      <button class="btn-orange" onclick="alert('Learn More about Screen2Skill!')">Learn More</button>
+      <button class="btn-blue" onclick="alert('Explore our projects!')">Explore Projects</button>
     </div>
   </div>
 </section>
@@ -733,22 +560,22 @@ button,
     <section>
       <h3 class="section-title">Level Up Your Habits</h3>
       <div class="card-grid">
-        <div class="card card-robotics" onclick="window.location.href='story.html'" style="cursor:pointer;">
+        <div class="card card-robotics" onclick="alert('Robotics Project Coming Soon!')" style="cursor:pointer;">
           <div>
             <div class="card-icon"><i class="fa-solid fa-robot"></i></div>
             <h4>1. Level Up <br>Screen</h4>
             <p>Stop watching. Start winning.</p>
           </div>
-          <button class="card-btn" onclick="event.stopPropagation(); window.location.href='story.html'">Open Project</button>
+          <button class="card-btn" onclick="event.stopPropagation(); alert('Open Robotics Project')">Open Project</button>
         </div>
 
-        <div class="card card-blue" onclick="window.location.href='research.html'" style="cursor:pointer;">
+        <div class="card card-blue" onclick="alert('Research Section Coming Soon!')" style="cursor:pointer;">
           <div>
             <div class="card-icon"><i class="fa-solid fa-chart-column"></i></div>
             <h4>Research → Data Skills</h4>
             <p>Learn surveys, charts, analysis, and smart thinking.</p>
           </div>
-          <button class="card-btn" onclick="event.stopPropagation(); window.location.href='research.html'">View Research</button>
+          <button class="card-btn" onclick="event.stopPropagation(); alert('View Research Projects')">View Research</button>
         </div>
 
         <div class="card card-purple" id="pieChartCard" style="cursor:pointer;">
@@ -760,7 +587,7 @@ button,
           <button class="card-btn" id="openPieSectionBtn">Explore Pie Charts 📊</button>
         </div>
 
-        <a href="benefits.html" target="_blank" class="card-link">
+        <a href="#" class="card-link" onclick="alert('Benefits of Digital Learning'); return false;">
           <div class="card card-orange">
             <div>
               <div class="card-icon"><i class="fa-solid fa-comment-dots"></i></div>
@@ -778,7 +605,7 @@ button,
         <img src="https://cdn-icons-png.flaticon.com/512/4140/4140048.png" alt="Creative Kid">
       </div>
       
-      <!-- AI CHATBOT BUTTON - Replaced AI Project Builder -->
+      <!-- AI CHATBOT BUTTON - REPLACES AI PROJECT BUILDER -->
       <button class="ai-chatbot-btn" id="openChatbotBtn">
         <i class="fa-solid fa-comments chat-icon"></i>
         <span>🤖 AI CHATBOT</span>
@@ -789,36 +616,31 @@ button,
         <div class="challenge-tag">THIS WEEK</div>
         <h4>Quiz Challenge!</h4>
         <p>Think fast, answer smart, and prove your skills!</p>
-        <a href="quiz.html" class="btn-green">Join Challenge</a>
+        <a href="#" class="btn-green" onclick="alert('Quiz Challenge Coming Soon!'); return false;">Join Challenge</a>
       </div>
     </aside>
   </div>
 
   <div id="pieChartsArea" style="display: none;">
     <div class="pie-charts-section">
-      <div class="pie-header">
-        <span class="tech-badge"><i class="fa-solid fa-microchip"></i> Screen2Skill™ Technology</span>
-        <h2><i class="fa-solid fa-chart-pie"></i> Data Literacy with Pie Charts</h2>
-        <p>From screen time to real-world skills: visualize how students transform digital habits.</p>
+      <div class="pie-header" style="text-align:center; margin-bottom:20px;">
+        <h2><i class="fa-solid fa-chart-pie"></i> Screen2Skill Pie Charts</h2>
       </div>
       <div class="pie-showcase">
         <div class="pie-card">
-          <h3>📊 Screen Time Breakdown</h3>
+          <h3>📊 Screen Time</h3>
           <div class="pie-chart-container"><canvas id="screenTimePie" width="250" height="250"></canvas></div>
-          <div class="pie-fun-fact">Screen2Skill Insight: 45% of screen time is for active learning!</div>
         </div>
         <div class="pie-card">
           <h3>🚀 Skills Gained</h3>
           <div class="pie-chart-container"><canvas id="skillsGainPie" width="250" height="250"></canvas></div>
-          <div class="pie-fun-fact">Top skill: Data & Research (38%) — turning exploration into analysis.</div>
         </div>
         <div class="pie-card">
           <h3>💡 Dream Careers</h3>
           <div class="pie-chart-container"><canvas id="careerPieTech" width="250" height="250"></canvas></div>
-          <div class="pie-fun-fact">42% of students want to become AI/Robotics innovators!</div>
         </div>
       </div>
-      <div style="text-align: center;"><button class="back-btn" id="backToMainBtn"><i class="fa-solid fa-arrow-left"></i> Back to Main</button></div>
+      <div style="text-align:center;"><button class="back-btn" id="backToMainBtn"><i class="fa-solid fa-arrow-left"></i> Back</button></div>
     </div>
   </div>
 </main>
@@ -827,38 +649,42 @@ button,
 <div id="chatbotModal" class="chatbot-modal">
   <div class="chatbot-container">
     <div class="chatbot-header">
-      <h3><i class="fa-solid fa-robot"></i> Skill-Builder AI</h3>
+      <h3><i class="fa-solid fa-robot"></i> Skill-Builder AI Assistant</h3>
       <span class="close-chat" id="closeChatBtn">&times;</span>
     </div>
     <div class="chat-messages" id="chatMessages">
       <div class="message bot-message">
-        👋 Hi! I'm your Skill-Builder AI. Ask me about Screen2Skill, robotics, research, pie charts, digital learning, or student skills!
+        👋 Hi! I'm your Skill-Builder AI. Ask me about:<br>
+        • Screen2Skill Technology<br>
+        • Robotics & Coding<br>
+        • Research & Data Skills<br>
+        • Pie Charts & Visualization<br>
+        • Digital Learning Benefits
       </div>
-      <div class="recommend-question" data-question="What is Screen2Skill technology?">💡 What is Screen2Skill technology?</div>
-      <div class="recommend-question" data-question="How can pie charts help students learn?">📊 How can pie charts help students learn?</div>
-      <div class="recommend-question" data-question="What are the best ways to turn screen time into learning?">🎮 What are the best ways to turn screen time into learning?</div>
-      <div class="recommend-question" data-question="How do I start with robotics as a beginner?">🤖 How do I start with robotics as a beginner?</div>
     </div>
     <div class="chat-input-area">
-      <input type="text" id="chatInput" placeholder="Ask me anything about skills, learning, Screen2Skill..." autocomplete="off">
+      <input type="text" id="chatInput" placeholder="Type your question here..." autocomplete="off">
       <button id="sendChatBtn"><i class="fa-solid fa-paper-plane"></i> Send</button>
     </div>
   </div>
 </div>
 
 <script>
-// ----- PIE CHARTS INIT -----
+// PIE CHARTS
 let screenChart, skillsChart, careerChart;
 let chartsInitialized = false;
 
 function initPieCharts() {
-  if (chartsInitialized) return;
-  const ctxScreen = document.getElementById('screenTimePie').getContext('2d');
-  const ctxSkills = document.getElementById('skillsGainPie').getContext('2d');
-  const ctxCareer = document.getElementById('careerPieTech').getContext('2d');
-  screenChart = new Chart(ctxScreen, { type: 'pie', data: { labels: ['Active Learning 🧠', 'Creative Coding 🎨', 'Entertainment 🎮', 'Social/Downtime 💬'], datasets: [{ data: [35, 25, 25, 15], backgroundColor: ['#6c5ce7', '#00b894', '#fdcb6e', '#e17055'], borderWidth: 2, borderColor: 'white' }] }, options: { responsive: true, maintainAspectRatio: true, plugins: { legend: { position: 'bottom', labels: { font: { size: 11 } } } } } });
-  skillsChart = new Chart(ctxSkills, { type: 'pie', data: { labels: ['Data & Research 📈', 'Critical Thinking 💭', 'Robotics Basics 🤖', 'Creativity 🎭'], datasets: [{ data: [38, 28, 20, 14], backgroundColor: ['#FF7A00', '#0094FF', '#39d353', '#a363d9'], borderWidth: 2, borderColor: 'white' }] }, options: { responsive: true, maintainAspectRatio: true, plugins: { legend: { position: 'bottom' } } } });
-  careerChart = new Chart(ctxCareer, { type: 'pie', data: { labels: ['AI/Robotics 🤖', 'Data Scientist 📊', 'Creative Tech 🎨', 'Researcher 🔬', 'Educator 📖'], datasets: [{ data: [42, 23, 18, 12, 5], backgroundColor: ['#6c5ce7', '#FF7A00', '#00cec9', '#0984e3', '#e84393'], borderWidth: 2, borderColor: 'white' }] }, options: { responsive: true, maintainAspectRatio: true, plugins: { legend: { position: 'bottom', labels: { font: { size: 10 } } } } } });
+  if(chartsInitialized) return;
+  screenChart = new Chart(document.getElementById('screenTimePie'), {
+    type:'pie', data:{ labels:['Active Learning','Creative Coding','Entertainment','Social'], datasets:[{ data:[35,25,25,15], backgroundColor:['#6c5ce7','#00b894','#fdcb6e','#e17055'] }] }
+  });
+  skillsChart = new Chart(document.getElementById('skillsGainPie'), {
+    type:'pie', data:{ labels:['Data & Research','Critical Thinking','Robotics','Creativity'], datasets:[{ data:[38,28,20,14], backgroundColor:['#FF7A00','#0094FF','#39d353','#a363d9'] }] }
+  });
+  careerChart = new Chart(document.getElementById('careerPieTech'), {
+    type:'pie', data:{ labels:['AI/Robotics','Data Scientist','Creative Tech','Researcher'], datasets:[{ data:[42,23,18,12], backgroundColor:['#6c5ce7','#FF7A00','#00cec9','#0984e3'] }] }
+  });
   chartsInitialized = true;
 }
 
@@ -872,126 +698,120 @@ function hidePieCharts() {
   document.getElementById('pieChartsArea').style.display = 'none';
 }
 document.getElementById('openPieSectionBtn')?.addEventListener('click', (e) => { e.stopPropagation(); showPieCharts(); });
-document.getElementById('pieChartCard')?.addEventListener('click', (e) => { if (!e.target.closest('#openPieSectionBtn')) showPieCharts(); });
+document.getElementById('pieChartCard')?.addEventListener('click', (e) => { if(!e.target.closest('#openPieSectionBtn')) showPieCharts(); });
 document.getElementById('backToMainBtn')?.addEventListener('click', hidePieCharts);
-document.getElementById('mainCardsContainer').style.display = 'grid';
-document.getElementById('pieChartsArea').style.display = 'none';
 
-// ----- AI CHATBOT LOGIC (Topic-restricted) -----
-const topicKeywords = [
-  'screen2skill', 'screen to skill', 'digital learning', 'online learning', 'student', 'kids', 'education',
-  'robotics', 'robot', 'coding', 'programming', 'research', 'data', 'survey', 'chart', 'pie chart', 'graphs',
-  'benefits', 'skill', 'future', 'career', 'ai', 'artificial intelligence', 'project', 'hands-on', 'activity',
-  'screen time', 'learning', 'study', 'quiz', 'challenge', 'technology', 'skill-builder', 'skillbuilders'
+// ========== AI CHATBOT ==========
+// Topic keywords - ONLY these topics are allowed
+const allowedTopics = [
+  'screen2skill', 'screen to skill', 'digital learning', 'online learning', 'education',
+  'robotics', 'robot', 'coding', 'programming', 'research', 'data', 'survey', 
+  'pie chart', 'pie charts', 'graph', 'chart', 'benefits', 'skill', 'skills',
+  'future', 'career', 'careers', 'ai', 'artificial intelligence', 'project',
+  'screen time', 'learning', 'study', 'technology', 'skill-builder', 'skillbuilders',
+  'student', 'students', 'kids', 'children', 'hands-on', 'activity', 'activities'
 ];
 
-function isTopicRelated(question) {
+function isOffTopic(question) {
   const lowerQ = question.toLowerCase();
-  return topicKeywords.some(keyword => lowerQ.includes(keyword));
+  return !allowedTopics.some(topic => lowerQ.includes(topic));
 }
 
-function getBotReply(question) {
+function getBotResponse(question) {
   const lowerQ = question.toLowerCase();
   
-  if (!isTopicRelated(question)) {
-    return "🤔 Hmm, that's off-topic! I'm here to help with Screen2Skill, digital learning, robotics, research, pie charts, and student skill-building. Ask me something about turning screen time into real-world abilities!";
+  // OFF TOPIC CHECK
+  if(isOffTopic(question)) {
+    return "❌ Sorry, that's off-topic! I can only answer questions about Screen2Skill, robotics, research, pie charts, digital learning, and student skill-building. Please ask me something related to those topics!";
   }
   
-  // Topic-specific intelligent responses
-  if (lowerQ.includes('screen2skill') || lowerQ.includes('screen to skill')) {
-    return "🎯 Screen2Skill is our signature framework that helps students transform passive screen time into active skill-building! It focuses on 4 pillars: Robotics, Research & Data, Pie Charts (visualization), and Digital Benefits. Want to try a project?";
+  // Topic-specific responses
+  if(lowerQ.includes('screen2skill') || lowerQ.includes('screen to skill')) {
+    return "🎯 Screen2Skill is our framework that transforms passive screen time into active skill-building! It has 4 pillars: Robotics, Research & Data, Pie Chart Visualization, and Digital Benefits. Want to try a project?";
   }
-  else if (lowerQ.includes('pie chart') || lowerQ.includes('pie charts')) {
-    return "📊 Pie charts are circular graphs that show parts of a whole — like slicing a pizza! They help students understand percentages and data visually. In Screen2Skill, we use pie charts to analyze screen time habits and skill distribution. Click the Pie Charts card above to see interactive examples!";
+  else if(lowerQ.includes('pie chart')) {
+    return "📊 Pie charts are circular graphs showing parts of a whole. They help students understand percentages visually! In Screen2Skill, we use pie charts to analyze screen time habits and skill distribution. Click the Pie Charts card above to see examples!";
   }
-  else if (lowerQ.includes('robotics') || lowerQ.includes('robot')) {
-    return "🤖 Robotics teaches problem-solving, logic, and creativity! Start with simple kits like LEGO SPIKE or online simulators. Our 'Level Up Screen' project guides you from watching robot videos to building your own. Want beginner tips?";
+  else if(lowerQ.includes('robotics') || lowerQ.includes('robot')) {
+    return "🤖 Robotics teaches problem-solving and creativity! Start with simple kits or online simulators. Our 'Level Up Screen' project guides you from watching videos to building your own robots!";
   }
-  else if (lowerQ.includes('research') || lowerQ.includes('data') || lowerQ.includes('survey')) {
-    return "📈 Research skills help you ask questions, collect data, and find answers! Try making a survey about screen habits, then turn results into a pie chart. That's data storytelling — a core Screen2Skill superpower!";
+  else if(lowerQ.includes('research') || lowerQ.includes('data')) {
+    return "📈 Research skills help you ask questions and find answers! Try making a survey about screen habits, then turn results into a pie chart. That's data storytelling - a core Screen2Skill superpower!";
   }
-  else if (lowerQ.includes('screen time') || (lowerQ.includes('screen') && lowerQ.includes('time'))) {
-    return "⏰ Great question! Balanced screen time means: 40% active learning, 30% creative making, 20% entertainment, 10% social. Use a pie chart to track YOUR balance! The Screen2Skill method helps you shift from passive watching to active building.";
+  else if(lowerQ.includes('screen time')) {
+    return "⏰ Balanced screen time means: 40% active learning, 30% creative making, 20% entertainment, 10% social. Track YOUR balance with a pie chart! Screen2Skill helps shift from passive watching to active building.";
   }
-  else if (lowerQ.includes('benefit') || lowerQ.includes('digital learning')) {
-    return "✨ Digital learning builds future-ready skills like critical thinking, data literacy, and creativity — but only when balanced with hands-on activities. Screen2Skill turns knowledge into real-world projects!";
+  else if(lowerQ.includes('benefit') || lowerQ.includes('digital learning')) {
+    return "✨ Digital learning builds critical thinking, data literacy, and creativity - but only when balanced with hands-on activities. Screen2Skill turns knowledge into real-world projects!";
   }
-  else if (lowerQ.includes('career') || lowerQ.includes('future job')) {
-    return "🚀 Top future careers include AI/Robotics Engineer (42% of students interested), Data Scientist (23%), Creative Technologist (18%). Screen2Skill builds foundations for all of them! What career excites you most?";
+  else if(lowerQ.includes('career')) {
+    return "🚀 Top future careers: AI/Robotics Engineer (42%), Data Scientist (23%), Creative Technologist (18%). Screen2Skill builds foundations for all of them! What career excites you most?";
   }
   else {
-    return "💡 That's a great topic! I'd suggest exploring our 'Research → Data Skills' card or trying the Pie Charts section. Screen2Skill helps you turn curiosity into real abilities. Ask me something specific about robotics, data, or pie charts!";
+    return "💡 Great question! I'd suggest exploring our 'Research → Data Skills' card or the Pie Charts section. Screen2Skill helps turn curiosity into real abilities. Ask me something specific about robotics, data, or pie charts!";
   }
 }
 
-// Chatbot DOM elements
-const modal = document.getElementById('chatbotModal');
-const openBtn = document.getElementById('openChatbotBtn');
-const closeBtn = document.getElementById('closeChatBtn');
-const chatMessagesDiv = document.getElementById('chatMessages');
-const chatInput = document.getElementById('chatInput');
-const sendBtn = document.getElementById('sendChatBtn');
+// Add a recommendation question to chat
+function addRecommendation(questionText) {
+  const messagesDiv = document.getElementById('chatMessages');
+  const recDiv = document.createElement('div');
+  recDiv.className = 'recommend-question';
+  recDiv.textContent = '💡 ' + questionText;
+  recDiv.onclick = () => {
+    document.getElementById('chatInput').value = questionText;
+    sendMessage();
+  };
+  messagesDiv.appendChild(recDiv);
+  messagesDiv.scrollTop = messagesDiv.scrollHeight;
+}
 
+// Add message to chat
 function addMessage(text, isUser = false) {
+  const messagesDiv = document.getElementById('chatMessages');
   const msgDiv = document.createElement('div');
   msgDiv.className = `message ${isUser ? 'user-message' : 'bot-message'}`;
   msgDiv.textContent = text;
-  chatMessagesDiv.appendChild(msgDiv);
-  chatMessagesDiv.scrollTop = chatMessagesDiv.scrollHeight;
+  messagesDiv.appendChild(msgDiv);
+  messagesDiv.scrollTop = messagesDiv.scrollHeight;
 }
 
-function sendUserMessage() {
-  const question = chatInput.value.trim();
-  if (!question) return;
+// Send message
+function sendMessage() {
+  const input = document.getElementById('chatInput');
+  const question = input.value.trim();
+  if(!question) return;
   
   addMessage(question, true);
-  chatInput.value = '';
+  input.value = '';
   
-  // Simulate typing delay for natural feel
   setTimeout(() => {
-    const reply = getBotReply(question);
+    const reply = getBotResponse(question);
     addMessage(reply, false);
     
-    // Add new recommendation questions after bot response (keep existing ones but add fresh)
-    const existingRecs = chatMessagesDiv.querySelectorAll('.recommend-question');
-    if (existingRecs.length < 5) {
-      const moreQuestions = [
-        "🤖 How do I start with robotics?",
-        "📊 Show me how to make a pie chart",
-        "🎯 What is Screen2Skill?",
-        "📈 How can research help me?"
-      ];
-      const randomQ = moreQuestions[Math.floor(Math.random() * moreQuestions.length)];
-      const recDiv = document.createElement('div');
-      recDiv.className = 'recommend-question';
-      recDiv.setAttribute('data-question', randomQ.replace(/[🤖📊🎯📈]/g, '').trim());
-      recDiv.textContent = randomQ;
-      recDiv.addEventListener('click', () => {
-        chatInput.value = recDiv.getAttribute('data-question');
-        sendUserMessage();
-      });
-      chatMessagesDiv.appendChild(recDiv);
-      chatMessagesDiv.scrollTop = chatMessagesDiv.scrollHeight;
-    }
-  }, 400);
+    // Add new recommendation after response
+    const recs = ['What is Screen2Skill?', 'How do pie charts work?', 'Tell me about robotics', 'Benefits of digital learning?'];
+    const randomRec = recs[Math.floor(Math.random() * recs.length)];
+    addRecommendation(randomRec);
+  }, 500);
 }
 
-// Event listeners
-openBtn.addEventListener('click', () => { modal.style.display = 'flex'; });
-closeBtn.addEventListener('click', () => { modal.style.display = 'none'; });
-window.addEventListener('click', (e) => { if (e.target === modal) modal.style.display = 'none'; });
-sendBtn.addEventListener('click', sendUserMessage);
-chatInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') sendUserMessage(); });
+// Chatbot UI
+const modal = document.getElementById('chatbotModal');
+const openBtn = document.getElementById('openChatbotBtn');
+const closeBtn = document.getElementById('closeChatBtn');
+const sendBtn = document.getElementById('sendChatBtn');
+const chatInput = document.getElementById('chatInput');
 
-// Attach click handlers to recommend questions
-document.querySelectorAll('.recommend-question').forEach(el => {
-  el.addEventListener('click', () => {
-    const q = el.getAttribute('data-question');
-    if (q) {
-      chatInput.value = q;
-      sendUserMessage();
-    }
-  });
+openBtn.onclick = () => { modal.style.display = 'flex'; };
+closeBtn.onclick = () => { modal.style.display = 'none'; };
+window.onclick = (e) => { if(e.target === modal) modal.style.display = 'none'; };
+sendBtn.onclick = sendMessage;
+chatInput.onkeypress = (e) => { if(e.key === 'Enter') sendMessage(); };
+
+// Add initial recommendations when modal opens
+modal.addEventListener('click', (e) => {
+  if(e.target === modal) return;
 });
 </script>
 
