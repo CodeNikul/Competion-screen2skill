@@ -235,6 +235,7 @@ body{
   display:flex;
   flex-direction:column;
   justify-content:space-between;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .card:hover{
@@ -311,6 +312,7 @@ body{
   align-items:center;
   justify-content:space-between;
   cursor:pointer;
+  transition: transform 0.2s ease;
 }
 
 .ai-chatbot-btn:hover{
@@ -397,23 +399,6 @@ body{
   background:linear-gradient(135deg,#0094FF,#4ab3ff);
   color:white;
   align-self:flex-end;
-}
-
-.recommend-question{
-  background:#f0edfe;
-  border-radius:20px;
-  padding:10px 15px;
-  margin-top:5px;
-  cursor:pointer;
-  font-size:13px;
-  color:#6c5ce7;
-  font-weight:600;
-  text-align:center;
-}
-
-.recommend-question:hover{
-  background:#e0d6ff;
-  transform:scale(1.02);
 }
 
 .chat-input-area{
@@ -505,6 +490,7 @@ body{
 .pie-chart-container{
   max-width:250px;
   margin:0 auto;
+  position: relative;
 }
 
 .back-btn{
@@ -517,7 +503,7 @@ body{
   cursor:pointer;
 }
 
-/* MODAL STYLES - ALL SAME AS CONNECT BUTTON */
+/* MODAL STYLES */
 .info-modal {
   display: none;
   position: fixed;
@@ -626,6 +612,30 @@ body{
   background: #e06e00;
 }
 
+/* FIXED STYLE FOR MISSING .robot-btn INTERFACE */
+.robot-btn {
+  position: fixed;
+  bottom: 25px;
+  right: 25px;
+  background: linear-gradient(135deg, #0094FF, #6c5ce7);
+  color: white;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 30px;
+  cursor: pointer;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+  z-index: 2999;
+  transition: transform 0.3s ease;
+}
+
+.robot-btn:hover {
+  transform: scale(1.1) rotate(5deg);
+}
+
 @media(max-width:950px){
   .content-container{ grid-template-columns:1fr; }
   .hero-content h2{ font-size:42px; }
@@ -722,7 +732,7 @@ body{
       
       <button class="ai-chatbot-btn" id="openChatbotBtn">
         <i class="fa-solid fa-comments chat-icon"></i>
-        <span>🤖 AI CHATBOT</span>
+        <span>🤖 LOCAL CHATBOT</span>
         <i class="fa-solid fa-wand-magic-sparkles spark-icon"></i>
       </button>
 
@@ -743,15 +753,15 @@ body{
       <div class="pie-showcase">
         <div class="pie-card">
           <h3>📊 Screen Time</h3>
-          <div class="pie-chart-container"><canvas id="screenTimePie" width="250" height="250"></canvas></div>
+          <div class="pie-chart-container"><canvas id="screenTimePie"></canvas></div>
         </div>
         <div class="pie-card">
           <h3>🚀 Skills Gained</h3>
-          <div class="pie-chart-container"><canvas id="skillsGainPie" width="250" height="250"></canvas></div>
+          <div class="pie-chart-container"><canvas id="skillsGainPie"></canvas></div>
         </div>
         <div class="pie-card">
           <h3>💡 Dream Careers</h3>
-          <div class="pie-chart-container"><canvas id="careerPieTech" width="250" height="250"></canvas></div>
+          <div class="pie-chart-container"><canvas id="careerPieTech"></canvas></div>
         </div>
       </div>
       <div style="text-align:center;"><button class="back-btn" id="backToMainBtn"><i class="fa-solid fa-arrow-left"></i> Back</button></div>
@@ -759,7 +769,6 @@ body{
   </div>
 </main>
 
-<!-- HOME MODAL - SAME DESIGN AS CONNECT -->
 <div id="homeModal" class="info-modal">
   <div class="info-container">
     <div class="info-header">
@@ -779,7 +788,6 @@ body{
   </div>
 </div>
 
-<!-- KIDS MODAL - SAME DESIGN AS CONNECT -->
 <div id="kidsModal" class="info-modal">
   <div class="info-container">
     <div class="info-header">
@@ -800,7 +808,6 @@ body{
   </div>
 </div>
 
-<!-- PARENT/TEACHER MODAL - SAME DESIGN AS CONNECT -->
 <div id="parentModal" class="info-modal">
   <div class="info-container">
     <div class="info-header">
@@ -821,7 +828,6 @@ body{
   </div>
 </div>
 
-<!-- CONNECT MODAL - ORIGINAL DESIGN -->
 <div id="contactModal" class="info-modal">
   <div class="info-container">
     <div class="info-header">
@@ -853,7 +859,7 @@ body{
     </div>
     <div class="chat-messages" id="chatMessages">
       <div class="message bot-message">
-        👋 Hi! I'm your Skill-Builder AI. Ask me about Screen2Skill, robotics, research, pie charts, or digital learning!
+        👋 Hi! I'm your local Skill-Builder AI. Ask me about Screen2Skill, robotics, research, pie charts, or digital learning!
       </div>
     </div>
     <div class="chat-input-area">
@@ -863,20 +869,35 @@ body{
   </div>
 </div>
 
+<div class="robot-btn" onclick="openAI()" title="Open Robotics Assistant">🤖</div>
+
 <script>
 let screenChart, skillsChart, careerChart;
 let chartsInitialized = false;
 
 function initPieCharts() {
   if(chartsInitialized) return;
+  
+  // Responsive configuration optimization added
+  const chartOptions = {
+    responsive: true,
+    maintainAspectRatio: true
+  };
+
   screenChart = new Chart(document.getElementById('screenTimePie'), {
-    type:'pie', data:{ labels:['Active Learning','Creative Coding','Entertainment','Social'], datasets:[{ data:[35,25,25,15], backgroundColor:['#6c5ce7','#00b894','#fdcb6e','#e17055'] }] }
+    type:'pie', 
+    data:{ labels:['Active Learning','Creative Coding','Entertainment','Social'], datasets:[{ data:[35,25,25,15], backgroundColor:['#6c5ce7','#00b894','#fdcb6e','#e17055'] }] },
+    options: chartOptions
   });
   skillsChart = new Chart(document.getElementById('skillsGainPie'), {
-    type:'pie', data:{ labels:['Data & Research','Critical Thinking','Robotics','Creativity'], datasets:[{ data:[38,28,20,14], backgroundColor:['#FF7A00','#0094FF','#39d353','#a363d9'] }] }
+    type:'pie', 
+    data:{ labels:['Data & Research','Critical Thinking','Robotics','Creativity'], datasets:[{ data:[38,28,20,14], backgroundColor:['#FF7A00','#0094FF','#39d353','#a363d9'] }] },
+    options: chartOptions
   });
   careerChart = new Chart(document.getElementById('careerPieTech'), {
-    type:'pie', data:{ labels:['AI/Robotics','Data Scientist','Creative Tech','Researcher'], datasets:[{ data:[42,23,18,12], backgroundColor:['#6c5ce7','#FF7A00','#00cec9','#0984e3'] }] }
+    type:'pie', 
+    data:{ labels:['AI/Robotics','Data Scientist','Creative Tech','Researcher'], datasets:[{ data:[42,23,18,12], backgroundColor:['#6c5ce7','#FF7A00','#00cec9','#0984e3'] }] },
+    options: chartOptions
   });
   chartsInitialized = true;
 }
@@ -884,7 +905,8 @@ function initPieCharts() {
 function showPieCharts() {
   document.getElementById('mainCardsContainer').style.display = 'none';
   document.getElementById('pieChartsArea').style.display = 'block';
-  initPieCharts();
+  // Tiny delay ensures elements are visible before layout sizing occurs in ChartJS
+  setTimeout(initPieCharts, 50);
 }
 function hidePieCharts() {
   document.getElementById('mainCardsContainer').style.display = 'grid';
@@ -896,6 +918,7 @@ const homeModal = document.getElementById('homeModal');
 const kidsModal = document.getElementById('kidsModal');
 const parentModal = document.getElementById('parentModal');
 const contactModal = document.getElementById('contactModal');
+const chatbotModal = document.getElementById('chatbotModal');
 
 // HOME BUTTON
 document.getElementById('homeBtn').onclick = () => {
@@ -930,14 +953,14 @@ document.getElementById('instagramLink').onclick = () => { alert("📸 Follow @S
 document.getElementById('facebookLink').onclick = () => { alert("📘 Like our page SkillBuilders!"); };
 document.getElementById('linkedinLink').onclick = () => { alert("🔗 Connect with SkillBuilders on LinkedIn!"); };
 
-// Close modals when clicking outside
-window.onclick = (e) => {
+// FIXED: Clean window click handler mapping that supports multiple modals without crashing
+window.addEventListener('click', (e) => {
   if(e.target === homeModal) homeModal.style.display = 'none';
   if(e.target === kidsModal) kidsModal.style.display = 'none';
   if(e.target === parentModal) parentModal.style.display = 'none';
   if(e.target === contactModal) contactModal.style.display = 'none';
-  if(e.target === document.getElementById('chatbotModal')) document.getElementById('chatbotModal').style.display = 'none';
-};
+  if(e.target === chatbotModal) chatbotModal.style.display = 'none';
+});
 
 // Hero buttons
 document.getElementById('learnMoreBtn').onclick = () => { homeModal.style.display = 'flex'; };
@@ -957,7 +980,7 @@ document.getElementById('openPieSectionBtn').onclick = (e) => { e.stopPropagatio
 document.getElementById('pieChartCard').onclick = (e) => { if(!e.target.closest('#openPieSectionBtn')) showPieCharts(); };
 document.getElementById('backToMainBtn').onclick = hidePieCharts;
 
-// AI CHATBOT
+// LOCAL CHATBOT ENGINE
 const allowedTopics = ['screen2skill', 'robotics', 'robot', 'research', 'data', 'pie chart', 'benefits', 'skill', 'career', 'screen time', 'learning', 'quiz'];
 
 function isOffTopic(question) {
@@ -972,7 +995,7 @@ function getBotResponse(question) {
   }
   if(lowerQ.includes('screen2skill')) return "🎯 Screen2Skill transforms screen time into skill-building!";
   if(lowerQ.includes('pie chart')) return "📊 Pie charts show parts of a whole - like slicing a pizza!";
-  if(lowerQ.includes('robotics')) return "🤖 Robotics teaches problem-solving and creativity!";
+  if(lowerQ.includes('robotics') || lowerQ.includes('robot')) return "🤖 Robotics teaches problem-solving and creativity!";
   if(lowerQ.includes('research')) return "📈 Research skills help you ask questions and find answers!";
   if(lowerQ.includes('screen time')) return "⏰ Balanced screen time: 40% learning, 30% creative, 20% entertainment!";
   return "💡 Great question! Check out our Pie Charts section or Research card!";
@@ -999,7 +1022,6 @@ function sendMessage() {
   }, 400);
 }
 
-const chatbotModal = document.getElementById('chatbotModal');
 const openChatBtn = document.getElementById('openChatbotBtn');
 const closeChatBtn = document.getElementById('closeChatBtn');
 const sendBtn = document.getElementById('sendChatBtn');
@@ -1010,37 +1032,36 @@ closeChatBtn.onclick = () => { chatbotModal.style.display = 'none'; };
 sendBtn.onclick = sendMessage;
 chatInput.onkeypress = (e) => { if(e.key === 'Enter') sendMessage(); };
 </script>
-<!-- FLOATING BUTTON -->
-<div class="robot-btn" onclick="openAI()">🤖</div>
 
 <script>
 window.UNCLOSEAI_SYSTEM_PROMPT = `
-You are a website guide assistant tutor.guide about the website and explain questions related to technology and building skills incl of robotics ,arts ,maths and game development.
+You are a website guide assistant tutor.guide about the website and explain questions related to technology and building skills incl of robotics, arts, maths and game development.
 
 If user asks outside topic, politely say:
-"Sorry I am your website assistant but this prompt seems irrelevent."
+"Sorry I am your website assistant but this prompt seems irrelevant."
 `;
 
 window.UNCLOSEAI_FLOATING_BUTTON = false;
 window.UNCLOSEAI_SKIP_INIT = false;
 
+// FIXED: Fallback controller function targeting external script setup safely
 function openAI() {
-    if (window.uncloseai && window.uncloseai.toggleUncloseaiEmbeddedModal) {
+    if (window.uncloseai && typeof window.uncloseai.toggleUncloseaiEmbeddedModal === 'function') {
         window.uncloseai.toggleUncloseaiEmbeddedModal();
+    } else {
+        // Fallback to local chatbot layout if script resource hasn't completely loaded
+        chatbotModal.style.display = 'flex';
     }
 }
 
 window.addEventListener("load", () => {
     setTimeout(() => {
-        const chatBox =
-            document.querySelector("[data-chat-box]") ||
-            document.querySelector(".uncloseai-chat-box");
-
+        const chatBox = document.querySelector("[data-chat-box]") || document.querySelector(".uncloseai-chat-box");
         if (chatBox) {
             chatBox.innerHTML = `
                 <div style="padding:8px; background:#0ea5e9; color:black; border-radius:8px;">
                     🤖 Welcome to Robotics AI Assistant!<br>
-                    You are an website guide guide about the website and explain questions related to technology and building skills incl of robotics ,arts ,maths and game development.
+                    You are a website guide who explains questions related to technology and building skills including robotics, arts, maths and game development.
                 </div>
             `;
         }
@@ -1048,7 +1069,6 @@ window.addEventListener("load", () => {
 });
 </script>
 
-<!-- UNCLOSE AI -->
 <script src="https://uncloseai.com/uncloseai.js" type="module"></script>
 </body>
 </html>
