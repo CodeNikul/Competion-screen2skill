@@ -317,6 +317,137 @@ body{
   transform:translateY(-5px);
 }
 
+.chatbot-modal{
+  display:none;
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background:rgba(0,0,0,0.7);
+  z-index:2000;
+  justify-content:center;
+  align-items:center;
+}
+
+.chatbot-container{
+  background:white;
+  width:90%;
+  max-width:450px;
+  border-radius:32px;
+  overflow:hidden;
+  animation:slideUp 0.3s ease;
+}
+
+@keyframes slideUp{
+  from{ opacity:0; transform:translateY(30px); }
+  to{ opacity:1; transform:translateY(0); }
+}
+
+.chatbot-header{
+  background:linear-gradient(135deg,#FF7A00,#ff9f43);
+  color:white;
+  padding:20px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.chatbot-header h3{
+  font-size:20px;
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.close-chat{
+  font-size:28px;
+  cursor:pointer;
+  font-weight:bold;
+}
+
+.close-chat:hover{ color:#1a2a3a; }
+
+.chat-messages{
+  height:400px;
+  overflow-y:auto;
+  padding:20px;
+  background:#f8f9fa;
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+}
+
+.message{
+  max-width:85%;
+  padding:12px 16px;
+  border-radius:20px;
+  font-size:14px;
+  line-height:1.5;
+}
+
+.bot-message{
+  background:white;
+  color:#1a2a3a;
+  align-self:flex-start;
+  border:1px solid #e0e0e0;
+}
+
+.user-message{
+  background:linear-gradient(135deg,#0094FF,#4ab3ff);
+  color:white;
+  align-self:flex-end;
+}
+
+.recommend-question{
+  background:#f0edfe;
+  border-radius:20px;
+  padding:10px 15px;
+  margin-top:5px;
+  cursor:pointer;
+  font-size:13px;
+  color:#6c5ce7;
+  font-weight:600;
+  text-align:center;
+}
+
+.recommend-question:hover{
+  background:#e0d6ff;
+  transform:scale(1.02);
+}
+
+.chat-input-area{
+  display:flex;
+  padding:16px;
+  background:white;
+  border-top:1px solid #eee;
+  gap:10px;
+}
+
+.chat-input-area input{
+  flex:1;
+  padding:12px 16px;
+  border:1px solid #ddd;
+  border-radius:30px;
+  font-family:'Quicksand',sans-serif;
+  font-size:14px;
+  outline:none;
+}
+
+.chat-input-area input:focus{
+  border-color:#FF7A00;
+}
+
+.chat-input-area button{
+  background:#FF7A00;
+  border:none;
+  padding:12px 20px;
+  border-radius:30px;
+  color:white;
+  font-weight:bold;
+  cursor:pointer;
+}
+
 .challenge-box{
   background:linear-gradient(135deg,#0a1f2f,#1a3a5a);
   border-radius:28px;
@@ -386,7 +517,7 @@ body{
   cursor:pointer;
 }
 
-/* MODAL STYLES */
+/* MODAL STYLES - ALL SAME AS CONNECT BUTTON */
 .info-modal {
   display: none;
   position: fixed;
@@ -407,11 +538,6 @@ body{
   border-radius: 40px;
   overflow: hidden;
   animation: slideUp 0.3s ease;
-}
-
-@keyframes slideUp{
-  from{ opacity:0; transform:translateY(30px); }
-  to{ opacity:1; transform:translateY(0); }
 }
 
 .info-header {
@@ -500,30 +626,6 @@ body{
   background: #e06e00;
 }
 
-/* FLOATING ROBOT BUTTON */
-.robot-btn {
-  position: fixed;
-  bottom: 30px;
-  right: 30px;
-  width: 65px;
-  height: 65px;
-  background: linear-gradient(135deg, #FF7A00, #ff9f43);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  font-size: 32px;
-  box-shadow: 0 8px 25px rgba(255,122,0,0.4);
-  transition: all 0.3s ease;
-  z-index: 999;
-}
-
-.robot-btn:hover {
-  transform: scale(1.1) rotate(5deg);
-  box-shadow: 0 12px 30px rgba(255,122,0,0.6);
-}
-
 @media(max-width:950px){
   .content-container{ grid-template-columns:1fr; }
   .hero-content h2{ font-size:42px; }
@@ -534,7 +636,6 @@ body{
   .hero-content h2{ font-size:34px; }
   .logo-area h1{ font-size:38px; }
   .card-grid{ grid-template-columns:1fr; }
-  .robot-btn { width: 55px; height: 55px; font-size: 28px; bottom: 20px; right: 20px; }
 }
 </style>
 </head>
@@ -565,8 +666,8 @@ body{
     <h2>Turn Screen Time Into Real-Life Superpowers</h2>
     <p>Learn robotics, research, and data storytelling with pie charts — built for students who want to shape the future.</p>
     <div class="hero-buttons">
-      <button class="btn-orange" onclick="window.location.href='about.html'">Learn More</button>
-      <button class="btn-blue" onclick="window.location.href='explore.html'">Explore Projects</button>
+      <button class="btn-orange" id="learnMoreBtn">Learn More</button>
+      <button class="btn-blue" id="exploreBtn">Explore Projects</button>
     </div>
   </div>
 </section>
@@ -576,22 +677,22 @@ body{
     <section>
       <h3 class="section-title">Level Up Your Habits</h3>
       <div class="card-grid">
-        <div class="card card-robotics" onclick="window.location.href='story.html'" style="cursor:pointer;">
+        <div class="card card-robotics" id="roboticsCard" style="cursor:pointer;">
           <div>
             <div class="card-icon"><i class="fa-solid fa-robot"></i></div>
             <h4>1. Level Up <br>Screen</h4>
             <p>Stop watching. Start winning.</p>
           </div>
-          <button class="card-btn" onclick="event.stopPropagation(); window.location.href='story.html'">Open Project</button>
+          <button class="card-btn" id="roboticsBtn">Open Project</button>
         </div>
 
-        <div class="card card-blue" onclick="window.location.href='research.html'" style="cursor:pointer;">
+        <div class="card card-blue" id="researchCard" style="cursor:pointer;">
           <div>
             <div class="card-icon"><i class="fa-solid fa-chart-column"></i></div>
             <h4>Research → Data Skills</h4>
             <p>Learn surveys, charts, analysis, and smart thinking.</p>
           </div>
-          <button class="card-btn" onclick="event.stopPropagation(); window.location.href='research.html'">View Research</button>
+          <button class="card-btn" id="researchBtn">View Research</button>
         </div>
 
         <div class="card card-purple" id="pieChartCard" style="cursor:pointer;">
@@ -603,16 +704,14 @@ body{
           <button class="card-btn" id="openPieSectionBtn">Explore Pie Charts 📊</button>
         </div>
 
-        <a href="benefits.html" target="_blank" class="card-link">
-          <div class="card card-orange">
-            <div>
-              <div class="card-icon"><i class="fa-solid fa-comment-dots"></i></div>
-              <h4>Benefits of Digital Learning</h4>
-              <p>Why only Digital learning?</p>
-            </div>
-            <div class="card-btn">Learn More</div>
+        <div class="card card-orange" id="benefitsCard" style="cursor:pointer;">
+          <div>
+            <div class="card-icon"><i class="fa-solid fa-comment-dots"></i></div>
+            <h4>Benefits of Digital Learning</h4>
+            <p>Why only Digital learning?</p>
           </div>
-        </a>
+          <button class="card-btn" id="benefitsBtn">Learn More</button>
+        </div>
       </div>
     </section>
 
@@ -631,7 +730,7 @@ body{
         <div class="challenge-tag">THIS WEEK</div>
         <h4>Quiz Challenge!</h4>
         <p>Think fast, answer smart, and prove your skills!</p>
-        <a href="quiz.html" class="btn-green">Join Challenge</a>
+        <button class="btn-green" id="quizBtn">Join Challenge</button>
       </div>
     </aside>
   </div>
@@ -660,13 +759,12 @@ body{
   </div>
 </main>
 
-<!-- FLOATING ROBOT BUTTON -->
-<div class="robot-btn" onclick="openAI()">🤖</div>
-
-<!-- MODALS -->
+<!-- HOME MODAL - SAME DESIGN AS CONNECT -->
 <div id="homeModal" class="info-modal">
   <div class="info-container">
-    <div class="info-header"><h3><i class="fa-solid fa-house"></i> Welcome to Skill-Builders</h3></div>
+    <div class="info-header">
+      <h3><i class="fa-solid fa-house"></i> Welcome to Skill-Builders</h3>
+    </div>
     <div class="info-body">
       <div class="info-content">
         <p><i class="fa-solid fa-rocket"></i> <strong>Your journey from Screen to Skill starts here!</strong></p>
@@ -674,15 +772,19 @@ body{
         <p><i class="fa-solid fa-chart-line"></i> Master research & data skills</p>
         <p><i class="fa-solid fa-chart-pie"></i> Create amazing pie charts</p>
         <p><i class="fa-solid fa-brain"></i> Develop future-ready superpowers</p>
+        <p><i class="fa-solid fa-gamepad"></i> Turn screen time into real-world abilities</p>
       </div>
       <button class="close-info" id="closeHomeBtn"><i class="fa-solid fa-check-circle"></i> Let's Go!</button>
     </div>
   </div>
 </div>
 
+<!-- KIDS MODAL - SAME DESIGN AS CONNECT -->
 <div id="kidsModal" class="info-modal">
   <div class="info-container">
-    <div class="info-header"><h3><i class="fa-solid fa-child"></i> Hey Kids! (Ages 8-12)</h3></div>
+    <div class="info-header">
+      <h3><i class="fa-solid fa-child"></i> Hey Kids! (Ages 8-12)</h3>
+    </div>
     <div class="info-body">
       <div class="info-content">
         <p><i class="fa-solid fa-gamepad"></i> <strong>Ready to level up? 🚀</strong></p>
@@ -690,15 +792,20 @@ body{
         <p><i class="fa-solid fa-magnifying-glass-chart"></i> Become a data detective</p>
         <p><i class="fa-solid fa-chart-pie"></i> Create awesome pie charts</p>
         <p><i class="fa-solid fa-trophy"></i> Win weekly quiz challenges</p>
+        <p><i class="fa-solid fa-star"></i> Turn screen time into superpowers!</p>
+        <p><i class="fa-solid fa-hand-peace"></i> Click any card above to start your adventure!</p>
       </div>
       <button class="close-info" id="closeKidsBtn"><i class="fa-solid fa-check-circle"></i> Let's Play!</button>
     </div>
   </div>
 </div>
 
+<!-- PARENT/TEACHER MODAL - SAME DESIGN AS CONNECT -->
 <div id="parentModal" class="info-modal">
   <div class="info-container">
-    <div class="info-header"><h3><i class="fa-solid fa-chalkboard-user"></i> Parents & Teachers</h3></div>
+    <div class="info-header">
+      <h3><i class="fa-solid fa-chalkboard-user"></i> Parents & Teachers</h3>
+    </div>
     <div class="info-body">
       <div class="info-content">
         <p><i class="fa-solid fa-graduation-cap"></i> <strong>Screen2Skill helps turn screen time into real-world abilities!</strong></p>
@@ -706,15 +813,20 @@ body{
         <p><i class="fa-solid fa-chart-line"></i> Develops data literacy & research skills</p>
         <p><i class="fa-solid fa-lightbulb"></i> Encourages creativity & innovation</p>
         <p><i class="fa-solid fa-briefcase"></i> Prepares for future STEM careers</p>
+        <p><i class="fa-solid fa-clock"></i> Turns passive watching into active building</p>
+        <p><i class="fa-solid fa-heart"></i> Empowers students with 21st century skills</p>
       </div>
       <button class="close-info" id="closeParentBtn"><i class="fa-solid fa-check-circle"></i> Get Started</button>
     </div>
   </div>
 </div>
 
+<!-- CONNECT MODAL - ORIGINAL DESIGN -->
 <div id="contactModal" class="info-modal">
   <div class="info-container">
-    <div class="info-header"><h3><i class="fa-solid fa-envelope"></i> Connect With Us</h3></div>
+    <div class="info-header">
+      <h3><i class="fa-solid fa-envelope"></i> Connect With Us</h3>
+    </div>
     <div class="info-body">
       <div class="info-content">
         <p><i class="fa-solid fa-envelope"></i> <strong>Email:</strong> hello@skill-builders.com</p>
@@ -733,27 +845,25 @@ body{
   </div>
 </div>
 
+<div id="chatbotModal" class="chatbot-modal">
+  <div class="chatbot-container">
+    <div class="chatbot-header">
+      <h3><i class="fa-solid fa-robot"></i> Skill-Builder AI</h3>
+      <span class="close-chat" id="closeChatBtn">&times;</span>
+    </div>
+    <div class="chat-messages" id="chatMessages">
+      <div class="message bot-message">
+        👋 Hi! I'm your Skill-Builder AI. Ask me about Screen2Skill, robotics, research, pie charts, or digital learning!
+      </div>
+    </div>
+    <div class="chat-input-area">
+      <input type="text" id="chatInput" placeholder="Type your question here..." autocomplete="off">
+      <button id="sendChatBtn"><i class="fa-solid fa-paper-plane"></i> Send</button>
+    </div>
+  </div>
+</div>
+
 <script>
-// UNCLOSE AI CONFIGURATION
-window.UNCLOSEAI_SYSTEM_PROMPT = `
-You are a Robotics AI tutor.
-Only answer robotics, AI in robotics, Arduino, sensors, ROS, automation, drones, and robotics careers.
-If user asks outside topic, politely say:
-"I only help with robotics topics. Ask me about robots, AI, sensors, or projects."
-`;
-
-window.UNCLOSEAI_FLOATING_BUTTON = false;
-window.UNCLOSEAI_SKIP_INIT = false;
-
-function openAI() {
-    if (window.uncloseai && window.uncloseai.toggleUncloseaiEmbeddedModal) {
-        window.uncloseai.toggleUncloseaiEmbeddedModal();
-    } else {
-        alert("🤖 Robotics AI Assistant is loading... Please wait a moment and try again!");
-    }
-}
-
-// PIE CHARTS
 let screenChart, skillsChart, careerChart;
 let chartsInitialized = false;
 
@@ -826,27 +936,119 @@ window.onclick = (e) => {
   if(e.target === kidsModal) kidsModal.style.display = 'none';
   if(e.target === parentModal) parentModal.style.display = 'none';
   if(e.target === contactModal) contactModal.style.display = 'none';
+  if(e.target === document.getElementById('chatbotModal')) document.getElementById('chatbotModal').style.display = 'none';
 };
 
-// Hero buttons - KEEP ORIGINAL FILE LINKS
-// Already have onclick="window.location.href='about.html'" and 'explore.html' in HTML
+// Hero buttons
+document.getElementById('learnMoreBtn').onclick = () => { homeModal.style.display = 'flex'; };
+document.getElementById('exploreBtn').onclick = () => { showPieCharts(); };
+
+// Card buttons
+document.getElementById('roboticsCard').onclick = () => { alert("🤖 ROBOTICS PROJECT\n\nLearn basic robotics and coding fundamentals!\n\nComing soon: Full video tutorials!"); };
+document.getElementById('roboticsBtn').onclick = (e) => { e.stopPropagation(); alert("🤖 Start your robotics journey today!\n\n1. Learn circuits\n2. Program sensors\n3. Build your robot!"); };
+document.getElementById('researchCard').onclick = () => { alert("📊 RESEARCH & DATA SKILLS\n\nLearn surveys, data collection, and analysis!\n\nTurn questions into answers!"); };
+document.getElementById('researchBtn').onclick = (e) => { e.stopPropagation(); alert("📈 Create surveys, collect data, and make charts!"); };
+document.getElementById('benefitsCard').onclick = () => { alert("✨ BENEFITS OF DIGITAL LEARNING\n\n• Builds critical thinking\n• Develops creativity\n• Prepares for future careers"); };
+document.getElementById('benefitsBtn').onclick = (e) => { e.stopPropagation(); alert("💡 Digital learning lets you learn anywhere, anytime!"); };
+document.getElementById('quizBtn').onclick = () => { alert("🎯 WEEKLY QUIZ CHALLENGE\n\nTest your Screen2Skill knowledge!\n\nFull quiz coming soon!"); };
 
 // Pie Charts
 document.getElementById('openPieSectionBtn').onclick = (e) => { e.stopPropagation(); showPieCharts(); };
 document.getElementById('pieChartCard').onclick = (e) => { if(!e.target.closest('#openPieSectionBtn')) showPieCharts(); };
 document.getElementById('backToMainBtn').onclick = hidePieCharts;
 
-// AI CHATBOT BUTTON - opens UncloseAI
-document.getElementById('openChatbotBtn').onclick = () => {
-  openAI();
-};
+// AI CHATBOT
+const allowedTopics = ['screen2skill', 'robotics', 'robot', 'research', 'data', 'pie chart', 'benefits', 'skill', 'career', 'screen time', 'learning', 'quiz'];
 
-// Load UncloseAI script
-const uncloseScript = document.createElement('script');
-uncloseScript.src = "https://uncloseai.com/uncloseai.js";
-uncloseScript.type = "module";
-document.head.appendChild(uncloseScript);
+function isOffTopic(question) {
+  const lowerQ = question.toLowerCase();
+  return !allowedTopics.some(topic => lowerQ.includes(topic));
+}
+
+function getBotResponse(question) {
+  const lowerQ = question.toLowerCase();
+  if(isOffTopic(question)) {
+    return "❌ Sorry, that's off-topic! I can only answer questions about Screen2Skill, robotics, research, pie charts, and digital learning.";
+  }
+  if(lowerQ.includes('screen2skill')) return "🎯 Screen2Skill transforms screen time into skill-building!";
+  if(lowerQ.includes('pie chart')) return "📊 Pie charts show parts of a whole - like slicing a pizza!";
+  if(lowerQ.includes('robotics')) return "🤖 Robotics teaches problem-solving and creativity!";
+  if(lowerQ.includes('research')) return "📈 Research skills help you ask questions and find answers!";
+  if(lowerQ.includes('screen time')) return "⏰ Balanced screen time: 40% learning, 30% creative, 20% entertainment!";
+  return "💡 Great question! Check out our Pie Charts section or Research card!";
+}
+
+function addMessage(text, isUser = false) {
+  const messagesDiv = document.getElementById('chatMessages');
+  const msgDiv = document.createElement('div');
+  msgDiv.className = `message ${isUser ? 'user-message' : 'bot-message'}`;
+  msgDiv.textContent = text;
+  messagesDiv.appendChild(msgDiv);
+  messagesDiv.scrollTop = messagesDiv.scrollHeight;
+}
+
+function sendMessage() {
+  const input = document.getElementById('chatInput');
+  const question = input.value.trim();
+  if(!question) return;
+  addMessage(question, true);
+  input.value = '';
+  setTimeout(() => {
+    const reply = getBotResponse(question);
+    addMessage(reply, false);
+  }, 400);
+}
+
+const chatbotModal = document.getElementById('chatbotModal');
+const openChatBtn = document.getElementById('openChatbotBtn');
+const closeChatBtn = document.getElementById('closeChatBtn');
+const sendBtn = document.getElementById('sendChatBtn');
+const chatInput = document.getElementById('chatInput');
+
+openChatBtn.onclick = () => { chatbotModal.style.display = 'flex'; };
+closeChatBtn.onclick = () => { chatbotModal.style.display = 'none'; };
+sendBtn.onclick = sendMessage;
+chatInput.onkeypress = (e) => { if(e.key === 'Enter') sendMessage(); };
+</script>
+<!-- FLOATING BUTTON -->
+<div class="robot-btn" onclick="openAI()">🤖</div>
+
+<script>
+window.UNCLOSEAI_SYSTEM_PROMPT = `
+You are a website guide assistant tutor.guide about the website and explain questions related to technology and building skills incl of robotics ,arts ,maths and game development.
+
+If user asks outside topic, politely say:
+"Sorry I am your website assistant but this prompt seems irrelevent."
+`;
+
+window.UNCLOSEAI_FLOATING_BUTTON = false;
+window.UNCLOSEAI_SKIP_INIT = false;
+
+function openAI() {
+    if (window.uncloseai && window.uncloseai.toggleUncloseaiEmbeddedModal) {
+        window.uncloseai.toggleUncloseaiEmbeddedModal();
+    }
+}
+
+window.addEventListener("load", () => {
+    setTimeout(() => {
+        const chatBox =
+            document.querySelector("[data-chat-box]") ||
+            document.querySelector(".uncloseai-chat-box");
+
+        if (chatBox) {
+            chatBox.innerHTML = `
+                <div style="padding:8px; background:#0ea5e9; color:black; border-radius:8px;">
+                    🤖 Welcome to Robotics AI Assistant!<br>
+                    You are an website guide guide about the website and explain questions related to technology and building skills incl of robotics ,arts ,maths and game development.
+                </div>
+            `;
+        }
+    }, 1500);
+});
 </script>
 
+<!-- UNCLOSE AI -->
+<script src="https://uncloseai.com/uncloseai.js" type="module"></script>
 </body>
 </html>
