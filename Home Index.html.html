@@ -524,7 +524,7 @@ body{
   box-shadow: 0 12px 30px rgba(255,122,0,0.6);
 }
 
-/* CUSTOM AI CHATBOT MODAL */
+/* CUSTOM AI CHATBOT MODAL - FIXED */
 .ai-modal {
   display: none;
   position: fixed;
@@ -532,8 +532,8 @@ body{
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.8);
-  z-index: 2002;
+  background: rgba(0, 0, 0, 0.85);
+  z-index: 10000;
   justify-content: center;
   align-items: center;
 }
@@ -567,6 +567,7 @@ body{
   font-size: 28px;
   cursor: pointer;
   font-weight: bold;
+  color: white;
 }
 
 .close-ai:hover { color: #1a2a3a; }
@@ -959,7 +960,7 @@ window.onclick = (e) => {
   if(e.target === kidsModal) kidsModal.style.display = 'none';
   if(e.target === parentModal) parentModal.style.display = 'none';
   if(e.target === contactModal) contactModal.style.display = 'none';
-  if(e.target === document.getElementById('customAIModal')) document.getElementById('customAIModal').style.display = 'none';
+  if(e.target === aiModal) aiModal.style.display = 'none';
 };
 
 // Pie Charts
@@ -967,51 +968,7 @@ document.getElementById('openPieSectionBtn').onclick = (e) => { e.stopPropagatio
 document.getElementById('pieChartCard').onclick = (e) => { if(!e.target.closest('#openPieSectionBtn')) showPieCharts(); };
 document.getElementById('backToMainBtn').onclick = hidePieCharts;
 
-// ========== CUSTOM AI CHATBOT (Robotics Tutor) ==========
-const allowedTopics = ['robotics', 'robot', 'arduino', 'sensor', 'sensors', 'ros', 'automation', 'drone', 'drones', 'ai', 'artificial intelligence', 'coding', 'programming', 'servo', 'motor', 'raspberry', 'pi', 'microcontroller', 'career', 'job', 'stem'];
-
-function isOffTopic(question) {
-  const lowerQ = question.toLowerCase();
-  return !allowedTopics.some(topic => lowerQ.includes(topic));
-}
-
-function getBotResponse(question) {
-  const lowerQ = question.toLowerCase();
-  
-  if(isOffTopic(question)) {
-    return "🤖 I only help with robotics topics. Ask me about robots, AI, Arduino, sensors, ROS, automation, drones, or robotics careers!";
-  }
-  
-  if(lowerQ.includes('arduino')) {
-    return "📟 Arduino is an open-source electronics platform. You can program it to control LEDs, motors, and sensors! Start with an Arduino Uno and try blinking an LED first.";
-  }
-  else if(lowerQ.includes('sensor')) {
-    return "📡 Sensors detect things like distance, temperature, or light! Common ones: Ultrasonic (distance), DHT11 (temp/humidity), and IR sensors. They help robots understand their environment.";
-  }
-  else if(lowerQ.includes('ros')) {
-    return "⚙️ ROS (Robot Operating System) is a framework for writing robot software. It helps different parts of a robot communicate. Great for advanced robotics projects!";
-  }
-  else if(lowerQ.includes('drone')) {
-    return "🚁 Drones use sensors like gyroscopes and accelerometers to stay stable. You can program them with Python or C++. Popular DIY drones use Arduino or Raspberry Pi!";
-  }
-  else if(lowerQ.includes('career') || lowerQ.includes('job')) {
-    return "💼 Top robotics careers: Robotics Engineer, AI Specialist, Automation Engineer, Drone Pilot, and Research Scientist. Average salary: $80k-$150k!";
-  }
-  else if(lowerQ.includes('motor') || lowerQ.includes('servo')) {
-    return "🔧 Servo motors are great for precise movements (robot arms). DC motors are for wheels. Use a motor driver like L298N to control them with Arduino!";
-  }
-  else if(lowerQ.includes('raspberry') || lowerQ.includes('pi')) {
-    return "🍓 Raspberry Pi is a tiny computer that runs Linux. Perfect for vision-based robotics! Use Python and OpenCV for camera projects.";
-  }
-  else if(lowerQ.includes('robot')) {
-    return "🤖 Great question about robots! Start with a simple line-following robot using IR sensors. Then try obstacle avoidance with ultrasonic sensors. What specific robot project interests you?";
-  }
-  else {
-    return "🤖 Good question! Robotics combines electronics, coding, and mechanics. Want to learn about Arduino, sensors, ROS, drones, or robotics careers? Ask me anything specific!";
-  }
-}
-
-// AI Chatbot DOM elements
+// ========== CUSTOM AI CHATBOT (WORKING!) ==========
 const aiModal = document.getElementById('customAIModal');
 const openAIBtn = document.getElementById('openCustomAIBtn');
 const floatingRobotBtn = document.getElementById('floatingRobotBtn');
@@ -1019,6 +976,50 @@ const closeAIBtn = document.getElementById('closeAIBtn');
 const sendAIBtn = document.getElementById('sendAIBtn');
 const aiInput = document.getElementById('aiInput');
 const aiMessagesDiv = document.getElementById('aiMessages');
+
+// Robotics-related topics only
+const roboticsTopics = ['robotics', 'robot', 'arduino', 'sensor', 'sensors', 'ros', 'automation', 'drone', 'drones', 'ai', 'artificial intelligence', 'coding', 'programming', 'servo', 'motor', 'raspberry', 'pi', 'microcontroller', 'career', 'job', 'stem', 'electronics', 'circuit', 'actuator', 'gyro', 'accelerometer'];
+
+function isRoboticsRelated(question) {
+  const lowerQ = question.toLowerCase();
+  return roboticsTopics.some(topic => lowerQ.includes(topic));
+}
+
+function getAIResponse(question) {
+  const lowerQ = question.toLowerCase();
+  
+  if(!isRoboticsRelated(question)) {
+    return "🤖 I'm a Robotics AI Tutor. I can only answer questions about robotics, Arduino, sensors, ROS, automation, drones, and robotics careers. Please ask me something about robots or electronics!";
+  }
+  
+  if(lowerQ.includes('arduino')) {
+    return "📟 Arduino is an open-source electronics platform. You can program it to control LEDs, motors, and sensors! Start with an Arduino Uno and try the 'Blink' example first. Want to know about specific sensors?";
+  }
+  else if(lowerQ.includes('sensor')) {
+    return "📡 Sensors help robots detect their environment! Popular ones:\n• Ultrasonic (distance measurement)\n• IR (line following)\n• DHT11 (temperature/humidity)\n• PIR (motion detection)\n\nWhich sensor interests you?";
+  }
+  else if(lowerQ.includes('ros')) {
+    return "⚙️ ROS (Robot Operating System) is middleware for robots. It helps different parts of a robot communicate. Great for advanced projects! Start with ROS2 and Python.";
+  }
+  else if(lowerQ.includes('drone')) {
+    return "🚁 Drones use sensors like gyroscopes and accelerometers for stability. You can build your own with Arduino or Raspberry Pi! Popular frames: DJI, Eachine.";
+  }
+  else if(lowerQ.includes('career') || lowerQ.includes('job')) {
+    return "💼 Top robotics careers:\n• Robotics Engineer ($80k-120k)\n• AI Specialist ($100k-150k)\n• Automation Engineer ($70k-100k)\n• Drone Pilot ($50k-80k)\n• Research Scientist ($90k-140k)";
+  }
+  else if(lowerQ.includes('motor') || lowerQ.includes('servo')) {
+    return "🔧 Servo motors = precise positioning (robot arms). DC motors = continuous rotation (wheels). Use a motor driver like L298N with Arduino!";
+  }
+  else if(lowerQ.includes('raspberry') || lowerQ.includes('pi')) {
+    return "🍓 Raspberry Pi is a tiny computer running Linux. Perfect for vision-based robotics! Use Python, OpenCV, and camera modules. Pi 4 or Pi 5 recommended.";
+  }
+  else if(lowerQ.includes('start') || lowerQ.includes('beginner')) {
+    return "🤖 Great place to start!\n1. Get an Arduino Starter Kit\n2. Build a simple line-following robot\n3. Learn basic C++ programming\n4. Try sensors like ultrasonic\n\nWant specific project ideas?";
+  }
+  else {
+    return "🤖 Robotics combines electronics, coding, and mechanics! What specific area interests you? Arduino, sensors, ROS, drones, or career paths? Ask me anything!";
+  }
+}
 
 function addAIMessage(text, isUser = false) {
   const msgDiv = document.createElement('div');
@@ -1048,11 +1049,11 @@ function sendAIMessage() {
   aiInput.value = '';
   
   setTimeout(() => {
-    const reply = getBotResponse(question);
+    const reply = getAIResponse(question);
     addAIMessage(reply, false);
     
-    // Add a recommendation after response
-    const recs = ['What is Arduino?', 'How do sensors work?', 'Tell me about ROS', 'Robotics careers?', 'How to start with robots?'];
+    // Add new recommendation
+    const recs = ['How do I start with Arduino?', 'What sensors should I buy?', 'Tell me about ROS', 'Robotics careers?', 'How to build a robot?'];
     const randomRec = recs[Math.floor(Math.random() * recs.length)];
     addAIRecommendation(randomRec);
   }, 500);
